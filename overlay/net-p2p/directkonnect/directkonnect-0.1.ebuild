@@ -9,8 +9,8 @@ inherit kde
 S="${WORKDIR}/${PN}"
 
 DESCRIPTION="DirectConnect Client for KDE."
-HOMEPAGE="http://ktorrent.org/"
-SRC_URI="http://ktorrent.org/downloads/${P}.tar.gz"
+HOMEPAGE="http://directkonnect.sourceforge.net/"
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 #${S}=${S}/${PN}
 
