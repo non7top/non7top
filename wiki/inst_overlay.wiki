@@ -1,15 +1,8 @@
 #summary Install non7top overlay.
 #labels gentoo,overlay
 
-= Installation =
+To install this overlay you should first read this gentoo-wiki article [http://gentoo-wiki.com/HOWTO_Installing_3rd_Party_Ebuilds HOWTO Installing 3rd Party Ebuilds]
 
-You can install this overlay in three different ways - manual, via layman and via paludis.
-
-== Portage ==
-
-Create a directory for this overlay (I use /usr/local/overlays/non7top) then execute this commands. Then you should edit /etc/make.conf and modify PORTDIR_OVERLAY variable accordingly
-Then execute this commands
-{{{
-# cd /usr/local/overlays
-# svn checkout http://non7top.googlecode.com/svn/trunk/overlay non7top
+To get a copy of non7top overlay tree just execute
+{{{# svn checkout http://non7top.googlecode.com/svn/trunk/overlay non7top
 }}}
