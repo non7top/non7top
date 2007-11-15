@@ -1,6 +1,6 @@
 #!/bin/bash
-
 # addwget.sh - Copyright (C) 2007 prizident <prizident@gmail.com>
+# The script is licensed under GPLv3 and above
 
 SERVER_ROOT="~/public_html/"
 TMPDIR="/tmp/"
@@ -13,7 +13,7 @@ TMPFILE="/tmp/addwget_tmp.html"
 
 
 #check if config exists
-if [ ! -f ${CONFFILE} ];
+if [ ! -f "${CONFFILE}" ];
 then
 	echo "Config file ${CONFFILE} doesn't exist"
 	exit 1
@@ -41,12 +41,15 @@ then
     mkdir -p ${SERVER_ROOT}/${TMPDIR}
 fi
 
+# Если файл в текущей папке, то путь к нему получаем из переменной PWD
 if [ ${FILEDIR} == "." ];
 then
     FILEDIR=${PWD}
 fi
+
 FILEFULL=${FILEDIR}/${FILENAME}
 
+# проверяем существует ли файл
 if [ ! -f "${FILEFULL}" ];
 then
     echo "File not exist"
@@ -79,7 +82,7 @@ POSTDATA=${POSTDATA}"srch=1&"
 POSTDATA=${POSTDATA}"searchc=53&"
 POSTDATA=${POSTDATA}"description="${ENC_DESC}
 
-echo ${POSTDATA}
+#echo ${POSTDATA}
 
 wget -q --load-cookies ~/.mozilla/firefox/*.default/cookies.txt \
 --post-data "${POSTDATA}" \
