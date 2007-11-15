@@ -6,7 +6,7 @@ inherit qt4
 
 #MY_P="${P/_/}"
 #MY_PV="${PV/_/}"
-S="${WORKDIR}/${PN}"
+S="${WORKDIR}/v${PV}"
 
 DESCRIPTION="QPhoton is an open source photo editor and image viewer"
 HOMEPAGE="http://www.qphoton.org/qphoton/index.htm"
@@ -19,3 +19,11 @@ KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
+
+src_compile(){
+       cd ${S}
+
+        qmake
+
+	emake
+}
