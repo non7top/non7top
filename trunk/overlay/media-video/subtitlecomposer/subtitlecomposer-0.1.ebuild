@@ -13,6 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE=""
 
+S=${WORKDIR}/${PN}
 DEPEND="kde-base/kdelibs"
 
 need-kde 3.3
