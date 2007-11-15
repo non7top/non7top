@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# $Id: app.sh 314274 2004-05-24 21:04:46Z geiseri $
-# addwget.sh - Copyright (C) 2007 prizident <prizident@aaanet.ru>
+# addwget.sh - Copyright (C) 2007 prizident <prizident@gmail.com>
 
 SERVER_ROOT="~/public_html/"
 TMPDIR="/tmp/"
