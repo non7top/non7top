@@ -4,13 +4,32 @@
 
 SERVER_ROOT="~/public_html/"
 TMPDIR="/tmp/"
-#SERVERADDR=""
+CONFFILE=~/.addwget
 FILE=$1
 FILEDIR=`dirname "${FILE}"`
 FILENAME=`basename "${FILE}"`
-TMPFILE="/tmp/addwget_tmp"
+TMPFILE="/tmp/addwget_tmp.html"
 
-source ~/.addwget
+
+
+#check if config exists
+if [ ! -f ${CONFFILE} ];
+then
+	echo "Config file ${CONFFILE} doesn't exist"
+	exit 1
+else
+	source ${CONFFILE}	
+fi
+
+#check config variable
+
+if [ -z ${SERVERADDR} ];
+then
+	echo "You should set SERVERADDR variable in your config ${CONFFILE}"
+	echo "eg SERVERADDR=http://213.27.*.*:80/"
+	exit 1
+fi
+	
 
 #replace ~ with home dir
 SERVER_ROOT=${SERVER_ROOT//"~"/${HOME}}
@@ -62,18 +81,11 @@ POSTDATA=${POSTDATA}"description="${ENC_DESC}
 
 echo ${POSTDATA}
 
-wget -q --load-cookies ~/.mozilla/firefox/y6gu93xi.default/cookies.txt \
+wget -q --load-cookies ~/.mozilla/firefox/*.default/cookies.txt \
 --post-data "${POSTDATA}" \
 http://file.aaanet.ru/?webget=1 \
 -O "${TMPFILE}"
 
-cat "${TMPFILE}"|enconv|grep "Нед"
+cat "${TMPFILE}"|enconv|grep "<!--"
 
 exit 0
-
-downfileweb=http%3A%2F%2Fmysite.domain.org%2Fmyfile.zip&
-taskid=1&
-Add=%C4%EE%E1%E0%E2%E8%F2%FC%21&
-searchc=53&
-srch=1&
-description=jjsahbdfsfnb+savs
