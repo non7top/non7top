@@ -1,0 +1,12 @@
+--- src/man.conf	2007-06-08 00:37:57.693870549 +0400
++++ src/man.conf.utf8	2007-06-08 00:53:00.505318841 +0400
+@@ -93,7 +93,8 @@
+ # causes problems, add the -c option to TROFF, NROFF, JNROFF.
+ #
+ TROFF		/usr/bin/groff -Tps -mandoc
+-NROFF		/usr/bin/nroff -Tascii -c -mandoc
++#NROFF		/usr/bin/nroff -Tascii -c -mandoc
++NROFF        /usr/bin/enconv -L ru -x KOI8-R | /usr/bin/nroff -mandoc -Tlatin1 -c | /usr/bin/enconv -L ru -x UTF8
+ JNROFF		/usr/bin/groff -Tnippon -mandocj
+ EQN		/usr/bin/geqn -Tps
+ NEQN		/usr/bin/geqn -Tlatin1
