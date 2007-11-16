@@ -1,4 +1,4 @@
-#labels gentoo,overlay,Featured
+#labels gentoo,overlay,Phase-Deploy
 F#summary HOWTO Install non7top overlay.
 
 == Installation ==
