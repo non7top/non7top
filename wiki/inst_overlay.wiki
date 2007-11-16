@@ -7,7 +7,7 @@ To install this overlay you should first read this gentoo-wiki article [http://g
 
 To get a copy of non7top overlay tree just execute
 {{{
-# svn checkout http://non7top.googlecode.com/svn/trunk/overlay non7top
+svn checkout http://non7top.googlecode.com/svn/trunk/overlay non7top
 }}}
 
 == Updating ==
