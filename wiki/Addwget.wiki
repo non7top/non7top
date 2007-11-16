@@ -23,6 +23,7 @@
 svn co http://non7top.googlecode.com/svn/trunk/scripts/addwget/ addwget
 }}}
 Так же доступен ebuild в составе оверлея [inst_overlay non7top]
+[Инструкция] по настройке
 
 == Требования ==
 
