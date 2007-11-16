@@ -1,5 +1,5 @@
-#summary HOWTO Install non7top overlay.
-#labels gentoo,overlay
+#labels gentoo,overlay,Featured
+F#summary HOWTO Install non7top overlay.
 
 == Installation ==
 
