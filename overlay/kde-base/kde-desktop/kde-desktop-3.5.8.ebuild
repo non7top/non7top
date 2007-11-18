@@ -42,7 +42,7 @@ $(deprange $PV $MAXKDEVER kde-base/libkonq)
 $(deprange $PV $MAXKDEVER kde-base/kicker-applets)
 
 kdm? ( $(deprange $PV $MAXKDEVER kde-base/kdm) )
-nls? ( $(deprange $PV $MAXKDEVER kde-base/kde-i18n) 
+nls? ( $(deprange $PV $MAXKDEVER kde-base/kde-i18n)
 	kde-misc/kkbswitch
 )
 browserplugin? ( $(deprange $PV $MAXKDEVER kde-base/nsplugins) )
@@ -55,7 +55,7 @@ admin? (
 	$(deprange $PV $MAXKDEVER kde-base/kuser)
 	$(deprange $PV $MAXKDEVER kde-base/secpolicy)
 	kde-misc/kdiff3
-	
+
 )
 artwork? (
 	$(deprange $PV $MAXKDEVER kde-base/kdeartwork-emoticons)
@@ -68,6 +68,7 @@ graphics? (
 	$(deprange $PV $MAXKDEVER kde-base/kdegraphics-kfile-plugins)
 	$(deprange $PV $MAXKDEVER kde-base/ksnapshot)
 	$(deprange $PV $MAXKDEVER kde-base/kcoloredit)
+	$(deprange $PV $MAXKDEVER kde-base/kolourpaint)
 	media-gfx/gwenview
 	media-gfx/digikam
 )
@@ -81,7 +82,7 @@ multimedia? (
 	$(deprange $PV $MAXKDEVER kde-base/kmix)
 	media-sound/amarok
 	media-video/kaffeine
-	
+
 )
 utils? (
 	$(deprange $PV $MAXKDEVER kde-base/ark)
@@ -101,7 +102,7 @@ network? (
 	$(deprange $PV $MAXKDEVER kde-base/akregator)
 	net-irc/konversation
 	net-p2p/ktorrent
-	net-misc/knemo	
+	net-misc/knemo
 	$(deprange $PV $MAXKDEVER kde-base/kget)
 )
 bluetooth? (net-wireless/kdebluetooth)
