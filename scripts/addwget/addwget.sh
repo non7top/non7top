@@ -1,6 +1,7 @@
 #!/bin/bash
 # addwget.sh - Copyright (C) 2007 prizident <prizident@gmail.com>
 # The script is licensed under GPLv3 and above
+# version 1
 
 SERVER_ROOT="~/public_html/"
 TMPDIR="/tmp/"
