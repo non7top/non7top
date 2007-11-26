@@ -1,0 +1,26 @@
+diff -Naur kdenetwork-3.5.8.orig/kopete/protocols/jabber/jabberchatsession.cpp kdenetwork-3.5.8/kopete/protocols/jabber/jabberchatsession.cpp
+--- kdenetwork-3.5.8.orig/kopete/protocols/jabber/jabberchatsession.cpp	2006-10-01 19:26:47.000000000 +0200
++++ kdenetwork-3.5.8/kopete/protocols/jabber/jabberchatsession.cpp	2007-11-21 08:43:03.000000000 +0100
+@@ -23,6 +23,7 @@
+ #include <qtooltip.h>
+ #include <qfile.h>
+ #include <qiconset.h>
++#include <qregexp.h>
+ 
+ #include <kconfig.h>
+ #include <kdebug.h>
+@@ -295,8 +296,12 @@
+ 					
+ 					//&nbsp; is not a valid XML entity
+ 					xhtmlBody.replace("&nbsp;" , "&#160;");
+-							
+-					xhtmlBody="<p "+ message.getHtmlStyleAttribute() +">"+ xhtmlBody +"</p>";
++					
++					// Remove trailing line break
++					xhtmlBody.remove( QRegExp( "<br/>$" ) );
++					
++					xhtmlBody = "<span " + message.getHtmlStyleAttribute() + ">" + xhtmlBody + "</span>";
++					
+ 					jabberMessage.setXHTMLBody ( xhtmlBody );
+ 				}
+         	}

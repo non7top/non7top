@@ -1,0 +1,689 @@
+diff -Nur kdeaddons-3.5.4/konq-plugins/adblock/adblock.cpp kdeaddons-3.5.4.new/konq-plugins/adblock/adblock.cpp
+--- kdeaddons-3.5.4/konq-plugins/adblock/adblock.cpp	1970-01-01 01:00:00.000000000 +0100
++++ kdeaddons-3.5.4.new/konq-plugins/adblock/adblock.cpp	2006-05-24 01:21:51.000000000 +0200
+@@ -0,0 +1,268 @@
++// -*- mode: c++; c-basic-offset: 4 -*-
++/*
++  Copyright (C) 2006 Daniele Galdi <daniele.galdi@gmail.com>
++  
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++  
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++  GNU General Public License for more details.
++  
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  
++  02110-1301, USA.
++*/
++
++/* Project related */
++#include "adblock.h"
++#include "adblockdialogue.h"
++
++/* Kde related */
++#include <kgenericfactory.h>
++#include <kdebug.h>
++#include <kiconloader.h>
++#include <klibloader.h>
++#include <kparts/statusbarextension.h>
++#include <khtml_part.h>
++#include <khtml_settings.h>
++#include <kstatusbar.h>
++#include <kurllabel.h>
++#include <kdialogbase.h>
++#include <kurl.h>
++#include <kconfig.h>
++#include <kmessagebox.h>
++#include <kstandarddirs.h>
++#include <kpopupmenu.h>
++#include <kcmultidialog.h>
++#include <klocale.h>
++#include <dom/html_document.h>
++#include <dom/html_image.h>
++#include <dom/html_inline.h>
++#include <dom/html_misc.h>
++#include <dom/html_element.h>
++#include <dom/dom_doc.h>
++#include <dom/dom_node.h>
++using namespace DOM;
++
++#include <qpixmap.h>
++#include <qcursor.h>
++#include <qregexp.h>
++
++typedef KGenericFactory<AdBlock> AdBlockFactory;
++K_EXPORT_COMPONENT_FACTORY( libadblock, AdBlockFactory( "adblock" ) )
++
++AdBlock::AdBlock(QObject *parent, const char *name, const QStringList &) :
++    KParts::Plugin(parent, name),
++    m_label(0), m_menu(0)
++{
++    m_part = dynamic_cast<KHTMLPart *>(parent);
++    if(!m_part) { kdDebug() << "couldn't get KHTMLPart" << endl; return; }           
++
++    m_menu = new KPopupMenu(m_part->widget());
++    m_menu->insertTitle(i18n("Adblock"));
++    m_menu->insertItem(i18n("Configure"), this, SLOT(showKCModule()));
++    m_menu->insertItem(i18n("Show Elements"), this, SLOT(showDialogue()));
++
++    connect(m_part, SIGNAL(completed()), this, SLOT(initLabel()));
++}
++
++AdBlock::~AdBlock() 
++{
++    KParts::StatusBarExtension *statusBarEx = KParts::StatusBarExtension::childObject(m_part);
++    
++    if (!statusBarEx) { kdDebug() << "couldn't get KParts::StatusBarExtension" << endl; return; }
++    
++    statusBarEx->removeStatusBarItem(m_label);    
++
++    delete m_menu;
++}
++
++void AdBlock::initLabel()
++{ 
++    if (m_label) return;
++
++    KParts::StatusBarExtension *statusBarEx = KParts::StatusBarExtension::childObject(m_part);
++
++    if (!statusBarEx) { kdDebug() << "couldn't get KParts::StatusBarExtension" << endl; return; }
++
++    m_label = new KURLLabel(statusBarEx->statusBar());
++
++    KIconLoader *loader = instance()->iconLoader();
++
++    m_label->setFixedHeight(loader->currentSize(KIcon::Small));
++    m_label->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
++    m_label->setUseCursor(false);
++    m_label->setPixmap(loader->loadIcon("filter", KIcon::Small));
++
++    statusBarEx->addStatusBarItem(m_label, 0, false);    
++
++    connect(m_label, SIGNAL(leftClickedURL()), this, SLOT(showDialogue()));
++    connect(m_label, SIGNAL(rightClickedURL()), this, SLOT(contextMenu()));
++}
++
++void AdBlock::showDialogue()
++{
++    if (!m_part->settings()->isAdFilterEnabled())
++    {
++	KMessageBox::error(0,
++                           i18n("Please enable Konqueror's Adblock"),
++                           i18n("Adblock disabled"));
++
++	return;
++    } 
++
++    AdElementList elements;
++    fillBlockableElements(elements);
++
++    AdBlockDlg *dialogue = new AdBlockDlg(m_part->widget(), elements);
++    connect(dialogue, SIGNAL( notEmptyFilter(const QString&) ), this, SLOT( addAdFilter(const QString&) ));
++    connect(dialogue, SIGNAL( cancelClicked() ), dialogue, SLOT( delayedDestruct() ));
++    connect(dialogue, SIGNAL( closeClicked() ), dialogue, SLOT( delayedDestruct() ));
++    dialogue->show();
++}
++
++void AdBlock::showKCModule()
++{
++    KCMultiDialog* dialogue = new KCMultiDialog(m_part->widget());
++    dialogue->addModule("khtml_filter");
++    connect(dialogue, SIGNAL( cancelClicked() ), dialogue, SLOT( delayedDestruct() ));
++    connect(dialogue, SIGNAL( closeClicked() ), dialogue, SLOT( delayedDestruct() ));
++    dialogue->show();
++}
++
++void AdBlock::contextMenu()
++{
++    m_menu->popup(QCursor::pos());
++}
++
++void AdBlock::fillBlockableElements(AdElementList &elements)
++{
++    fillWithHtmlTag(elements, "script", "src", "SCRIPT");
++    fillWithHtmlTag(elements, "embed" , "src", "OBJECT");
++    fillWithHtmlTag(elements, "object", "src", "OBJECT");    
++    fillWithImages(elements);
++
++    const KHTMLSettings *settings = m_part->settings();
++
++    AdElementList::iterator it;
++    for ( it = elements.begin(); it != elements.end(); ++it )
++    {
++	AdElement &element = (*it);
++        if (settings->isAdFiltered( element.url() )) 
++	{
++	    element.setBlocked(true);
++	}
++    }
++}
++
++void AdBlock::fillWithImages(AdElementList &elements)
++{
++    HTMLDocument htmlDoc = m_part->htmlDocument();
++
++    HTMLCollection images = htmlDoc.images();
++    
++    for (unsigned int i = 0; i < images.length(); i++)
++    {
++	HTMLImageElement image = static_cast<HTMLImageElement>( images.item(i) );
++	
++	DOMString src = image.src();
++
++	QString url = htmlDoc.completeURL(src).string();
++	if (!url.isEmpty() && url != m_part->baseURL().url())
++	{
++	    AdElement element(url, "image", "IMG", false);
++	    if (!elements.contains( element )) 
++		elements.append( element);
++	}
++    }
++}
++
++void AdBlock::fillWithHtmlTag(AdElementList &elements, 
++			      const DOMString &tagName, 
++			      const DOMString &attrName,
++			      const QString &category)
++{
++    Document doc = m_part->document();
++
++    NodeList nodes = doc.getElementsByTagName(tagName);        
++
++    for (unsigned int i = 0; i < nodes.length(); i++)
++    {
++	Node node = nodes.item(i);
++	Node attr = node.attributes().getNamedItem(attrName);
++
++	DOMString src = attr.nodeValue();
++	if (src.isNull()) continue;
++		
++	QString url = doc.completeURL(src).string();
++	if (!url.isEmpty() && url != m_part->baseURL().url())
++	{
++	    AdElement element(url, tagName.string(), category, false);
++	    if (!elements.contains( element )) 
++		elements.append( element);
++	}
++    }
++}
++
++void AdBlock::addAdFilter(const QString &url)
++{
++    //FIXME hackish
++    KHTMLSettings *settings = const_cast<KHTMLSettings *>(m_part->settings());
++    settings->addAdFilter(url);
++}
++
++// ----------------------------------------------------------------------------
++
++AdElement::AdElement() :
++  m_url(0), m_category(0), m_type(0), m_blocked(false) {}
++
++AdElement::AdElement(const QString &url, const QString &category,
++		     const QString &type, bool blocked) :
++  m_url(url), m_category(category), m_type(type), m_blocked(blocked) {}
++
++AdElement &AdElement::operator=(const AdElement &obj)
++{
++  m_blocked = obj.m_blocked;
++  m_url = obj.m_url;
++  m_category = obj.m_category;
++  m_type = obj.m_type;
++
++  return *this;
++}
++
++bool AdElement::operator==(const AdElement &obj)
++{
++    return m_url == obj.m_url; 
++}
++
++bool AdElement::isBlocked() const
++{
++  return m_blocked;
++}
++
++void AdElement::setBlocked(bool blocked)
++{
++    m_blocked = blocked;
++}
++
++const QString &AdElement::url() const
++{
++  return m_url;
++}
++
++const QString &AdElement::category() const
++{
++  return m_category;
++}
++
++const QString &AdElement::type() const
++{
++  return m_type;
++}
++
++#include "adblock.moc"
+diff -Nur kdeaddons-3.5.4/konq-plugins/adblock/adblockdialogue.cpp kdeaddons-3.5.4.new/konq-plugins/adblock/adblockdialogue.cpp
+--- kdeaddons-3.5.4/konq-plugins/adblock/adblockdialogue.cpp	1970-01-01 01:00:00.000000000 +0100
++++ kdeaddons-3.5.4.new/konq-plugins/adblock/adblockdialogue.cpp	2006-05-24 01:09:09.000000000 +0200
+@@ -0,0 +1,163 @@
++// -*- mode: c++; c-basic-offset: 4 -*-
++/*
++  Copyright (C) 2006 Daniele Galdi <daniele.galdi@gmail.com>
++  
++  This program is free software; you can redistribute it and/or modify it
++  under the terms of the GNU General Public License as published by the Free
++  Software Foundation; either version 2 of the License, or (at your option)
++  any later version.
++  
++  This program is distributed in the hope that it will be useful, but WITHOUT
++  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
++  more details.
++  
++  You should have received a copy of the GNU General Public License along with
++  this program; if not, write to the Free Software Foundation, Inc., 51
++  Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
++*/
++
++#include "adblock.h"
++#include "adblockdialogue.h"
++
++#include <kdebug.h>
++#include <kpopupmenu.h>
++#include <klocale.h>
++
++#include <qcursor.h>
++#include <qlabel.h>
++#include <qvbox.h>
++#include <qlineedit.h>
++#include <qcolor.h>
++#include <qfont.h>
++#include <qpainter.h>
++
++AdBlockDlg::AdBlockDlg(QWidget *parent, AdElementList &elements) :
++    KDialogBase( parent, "Adblock dialogue", true, "Adblock - able Items", Ok|Cancel, Ok, true )
++{
++    QVBox *page = makeVBoxMainWidget();
++    m_label1 = new QLabel( i18n("All blockable items in this page:"), page, "label1" );
++    
++    m_list = new QListView(page);
++    m_list->setAllColumnsShowFocus( true );
++
++    m_list->addColumn( i18n("Source") );
++    m_list->addColumn( i18n("Category") );
++    m_list->addColumn( i18n("Node Name") );
++
++    m_list->setColumnWidthMode(0, QListView::Manual);    
++    m_list->setColumnWidthMode(1, QListView::Manual);    
++    m_list->setColumnWidthMode(2, QListView::Manual);    
++
++    m_list->setColumnWidth(0, 600);
++    m_list->setColumnWidth(1, 90);
++    m_list->setColumnWidth(2, 90);
++
++    AdElementList::iterator it;
++    for ( it = elements.begin(); it != elements.end(); ++it )
++    {
++	AdElement &element = (*it);	
++
++	QString url = element.url();
++	
++	ListViewItem *item = new ListViewItem( m_list, url, element.category(), element.type() );
++	item->setBlocked(element.isBlocked());	
++    }
++    
++    m_label2 = new QLabel( i18n("New filter (use * as a wildcard):"), page, "label2" );
++    
++    m_filter = new QLineEdit( "", page, "lineedit" );    
++    
++    connect(this, SIGNAL( okClicked() ), this, SLOT( validateFilter() ));
++    connect(m_list, SIGNAL( doubleClicked(QListViewItem *, const QPoint &, int) ), this, SLOT(updateFilter(QListViewItem *)) );
++
++    m_menu = new KPopupMenu(this);
++    m_menu->insertItem(i18n("Filter this item"), this, SLOT(filterItem()));
++    m_menu->insertItem(i18n("Filter all items at same path"), this, SLOT(filterPath()));
++
++    connect(m_list, 
++	    SIGNAL( contextMenuRequested( QListViewItem *, const QPoint& , int ) ), 
++	    this, 
++	    SLOT( showContextMenu(QListViewItem *, const QPoint &) ) );
++}
++
++void AdBlockDlg::updateFilter(QListViewItem *selected)
++{    
++    ListViewItem *item = dynamic_cast<ListViewItem *>(selected);
++
++    if (item->isBlocked()) 
++    {
++	m_filter->setText("");
++	return;
++    }
++
++    m_filter->setText( item->text(0) );
++}
++
++void AdBlockDlg::validateFilter()
++{
++    const QString text = m_filter->text().stripWhiteSpace();
++
++    if (!text.isEmpty())
++        emit notEmptyFilter(text);
++
++    delayedDestruct();
++}
++
++void AdBlockDlg::showContextMenu(QListViewItem *item, const QPoint &point)
++{
++    if (!item) return;
++    m_menu->popup(point);
++}
++
++void AdBlockDlg::filterItem()
++{
++    QListViewItem* item = m_list->selectedItem();
++    m_filter->setText( item->text(0) );
++}
++
++void AdBlockDlg::filterPath()
++{
++    QListViewItem* item = m_list->selectedItem();
++    QString value = item->text(0);
++    m_filter->setText( value.section( '/', 0, -2 ).append("/*") );
++}
++
++AdBlockDlg::~AdBlockDlg()
++{
++    delete m_label1;
++    delete m_label2;
++    delete m_filter;
++    delete m_list;
++}
++
++// ----------------------------------------------------------------------------
++
++void ListViewItem::paintCell(QPainter *p, const QColorGroup & cg, int column, int width, int align)
++{
++    p->save();
++    QColorGroup g( cg );
++    
++    if ( isBlocked() )
++    {
++	g.setColor(QColorGroup::Text, red);
++        QFont font;
++        font.setItalic(true);
++        p->setFont(font);
++    }
++    
++    QListViewItem::paintCell(p, g, column, width, align);
++    p->restore();
++}
++
++inline bool ListViewItem::isBlocked()
++{
++    return m_blocked;
++}
++
++inline void ListViewItem::setBlocked(bool blocked)
++{
++    m_blocked = blocked;
++}
++
++#include "adblockdialogue.moc"
+diff -Nur kdeaddons-3.5.4/konq-plugins/adblock/adblockdialogue.h kdeaddons-3.5.4.new/konq-plugins/adblock/adblockdialogue.h
+--- kdeaddons-3.5.4/konq-plugins/adblock/adblockdialogue.h	1970-01-01 01:00:00.000000000 +0100
++++ kdeaddons-3.5.4.new/konq-plugins/adblock/adblockdialogue.h	2006-05-24 01:09:09.000000000 +0200
+@@ -0,0 +1,76 @@
++// -*- mode: c++; c-basic-offset: 4 -*-
++/*
++  Copyright (C) 2006 Daniele Galdi <daniele.galdi@gmail.com>
++
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++  
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++  GNU General Public License for more details.
++  
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
++*/
++
++#ifndef KONQ_ADBLOCKDLG_H
++#define KONQ_ADBLOCKDLG_H
++
++#include <kdialogbase.h>
++#include <qlistview.h>
++
++class QLabel;
++class QLineEdit;
++class KPopupMenu;
++
++class AdBlockDlg : public KDialogBase
++{
++    Q_OBJECT
++    
++private:
++    QLineEdit *m_filter;
++    QListView *m_list;
++    QLabel *m_label1;
++    QLabel *m_label2;
++    KPopupMenu *m_menu;
++
++public:
++    AdBlockDlg(QWidget *parent, AdElementList &elements);
++    ~AdBlockDlg();
++
++private slots:
++    void validateFilter ();
++    void updateFilter(QListViewItem *item);
++    void showContextMenu(QListViewItem *item, const QPoint &point);
++    void filterPath();
++    void filterItem();
++
++signals:
++    void notEmptyFilter (const QString &url);
++};
++
++// ----------------------------------------------------------------------------
++
++class ListViewItem : public QListViewItem
++{
++private:
++    bool m_blocked;
++
++public:
++    ListViewItem(QListView *listView, 
++		 const QString &label1, 
++		 const QString &label2, 
++		 const QString &label3) : QListViewItem(listView, label1, label2, label3), 
++					  m_blocked(false){};
++
++    void paintCell(QPainter *p, const QColorGroup & cg, int column, int width, int align);
++
++    bool isBlocked();
++    void setBlocked(bool blocked);
++};
++
++#endif
+diff -Nur kdeaddons-3.5.4/konq-plugins/adblock/adblock.h kdeaddons-3.5.4.new/konq-plugins/adblock/adblock.h
+--- kdeaddons-3.5.4/konq-plugins/adblock/adblock.h	1970-01-01 01:00:00.000000000 +0100
++++ kdeaddons-3.5.4.new/konq-plugins/adblock/adblock.h	2006-05-24 01:09:09.000000000 +0200
+@@ -0,0 +1,99 @@
++// -*- mode: c++; c-basic-offset: 4 -*-
++/*
++  Copyright (C) 2006 Daniele Galdi <daniele.galdi@gmail.com>
++  
++  This program is free software; you can redistribute it and/or modify
++  it under the terms of the GNU General Public License as published by
++  the Free Software Foundation; either version 2 of the License, or
++  (at your option) any later version.
++  
++  This program is distributed in the hope that it will be useful,
++  but WITHOUT ANY WARRANTY; without even the implied warranty of
++  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++  GNU General Public License for more details.
++  
++  You should have received a copy of the GNU General Public License
++  along with this program; if not, write to the Free Software
++  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  
++  02110-1301, USA.
++*/
++
++#ifndef KONQ_ADBLOCK_H
++#define KONQ_ADBLOCK_H
++
++#include <qguardedptr.h>
++#include <qvaluelist.h>
++#include <kparts/plugin.h>
++
++class KHTMLPart;
++class KURLLabel;
++class KHTMLSettings;
++class AdElement;
++class KPopupMenu;
++
++namespace KParts
++{
++    class StatusBarExtension;
++}
++
++namespace DOM
++{
++    class DOMString;
++}
++
++typedef QValueList<AdElement> AdElementList;
++
++class AdBlock : public KParts::Plugin
++{
++    Q_OBJECT
++    
++public:
++    AdBlock(QObject *parent, const char *name, const QStringList &);
++    ~AdBlock();
++    
++private:
++    QGuardedPtr<KHTMLPart> m_part;    
++    KURLLabel *m_label;
++    KPopupMenu *m_menu;
++    
++    void fillBlockableElements(AdElementList &elements);
++    void fillWithImages(AdElementList &elements);
++    void fillWithHtmlTag(AdElementList &elements, 
++			 const DOM::DOMString &tagName, 
++			 const DOM::DOMString &attrName,
++			 const QString &category);
++    
++private slots:
++    void initLabel();
++    void showDialogue();
++    void addAdFilter(const QString &url);
++    void contextMenu();
++    void showKCModule();
++};
++
++// ----------------------------------------------------------------------------
++
++class AdElement
++{
++private:
++    QString m_url;
++    QString m_category;
++    QString m_type;
++    bool m_blocked;
++    
++public:
++    AdElement();
++    AdElement(const QString &url, const QString &category,
++	      const QString &type, bool blocked);
++
++    AdElement &operator=(const AdElement &);
++    bool operator==(const AdElement &e1);
++    
++    bool isBlocked() const;
++    void setBlocked(bool blocked);
++    const QString &url() const;
++    const QString &category() const;
++    const QString &type() const;
++};
++
++#endif
+diff -Nur kdeaddons-3.5.4/konq-plugins/adblock/.emacs-dirvars kdeaddons-3.5.4.new/konq-plugins/adblock/.emacs-dirvars
+--- kdeaddons-3.5.4/konq-plugins/adblock/.emacs-dirvars	1970-01-01 01:00:00.000000000 +0100
++++ kdeaddons-3.5.4.new/konq-plugins/adblock/.emacs-dirvars	2006-05-24 01:09:09.000000000 +0200
+@@ -0,0 +1,7 @@
++;; -*- emacs-lisp -*-
++;;
++;; This file is processed by the dirvars emacs package.  Each variable
++;; setting below is performed when this dirvars file is loaded.
++;;
++kde-emacs-after-parent-string: ""
++evaluate: (c-set-offset 'inline-open '0)
+diff -Nur kdeaddons-3.5.4/konq-plugins/adblock/Makefile.am kdeaddons-3.5.4.new/konq-plugins/adblock/Makefile.am
+--- kdeaddons-3.5.4/konq-plugins/adblock/Makefile.am	1970-01-01 01:00:00.000000000 +0100
++++ kdeaddons-3.5.4.new/konq-plugins/adblock/Makefile.am	2006-09-27 01:09:48.000000000 +0200
+@@ -0,0 +1,15 @@
++INCLUDES    = $(all_includes)
++METASOURCES = AUTO
++
++# Install this plugin in the KDE modules directory
++kde_module_LTLIBRARIES = libadblock.la
++
++libadblock_la_SOURCES = adblock.cpp adblockdialogue.cpp
++libadblock_la_LIBADD = $(LIB_KHTML) -lkonq
++libadblock_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
++
++pluginsdir = $(kde_datadir)/khtml/kpartplugins
++plugins_DATA = plugin_adblock.rc plugin_adblock.desktop
++
++messages: rc.cpp
++	$(XGETTEXT) *.cpp *.h -o $(podir)/adblockplugin.pot
+diff -Nur kdeaddons-3.5.4/konq-plugins/adblock/plugin_adblock.desktop kdeaddons-3.5.4.new/konq-plugins/adblock/plugin_adblock.desktop
+--- kdeaddons-3.5.4/konq-plugins/adblock/plugin_adblock.desktop	1970-01-01 01:00:00.000000000 +0100
++++ kdeaddons-3.5.4.new/konq-plugins/adblock/plugin_adblock.desktop	2006-05-24 01:11:31.000000000 +0200
+@@ -0,0 +1,16 @@
++[Desktop Entry]
++Name=Adblock Plugin
++Icon=filter
++Comment=Show all blockable html elements
++Encoding=UTF-8
++Type=Service
++X-KDE-Library=libadblock
++X-KDE-PluginInfo-Author=Danie Galdi
++X-KDE-PluginInfo-Email=daniele.galdi@gmail.com
++X-KDE-PluginInfo-Name=adblock
++X-KDE-PluginInfo-Version=0.0.5
++X-KDE-PluginInfo-Website=http://www.pigamo.com
++X-KDE-PluginInfo-Category=Statusbar
++X-KDE-PluginInfo-License=GPL
++X-KDE-PluginInfo-EnabledByDefault=true
++X-KDE-ParentApp=konqueror
+diff -Nur kdeaddons-3.5.4/konq-plugins/adblock/plugin_adblock.rc kdeaddons-3.5.4.new/konq-plugins/adblock/plugin_adblock.rc
+--- kdeaddons-3.5.4/konq-plugins/adblock/plugin_adblock.rc	1970-01-01 01:00:00.000000000 +0100
++++ kdeaddons-3.5.4.new/konq-plugins/adblock/plugin_adblock.rc	2006-05-24 01:09:09.000000000 +0200
+@@ -0,0 +1,3 @@
++<!DOCTYPE kpartgui>
++<kpartplugin name="adblock" library="libadblock" version="1">
++</kpartplugin>
+\ Pas de fin de ligne à la fin du fichier.
+diff -Nur kdeaddons-3.5.4/konq-plugins/Makefile.am kdeaddons-3.5.4.new/konq-plugins/Makefile.am
+--- kdeaddons-3.5.4/konq-plugins/Makefile.am	2005-09-10 10:14:16.000000000 +0200
++++ kdeaddons-3.5.4.new/konq-plugins/Makefile.am	2006-09-27 00:55:01.000000000 +0200
+@@ -1,4 +1,4 @@
+-SUBDIRS = crashes khtmlsettingsplugin kimgalleryplugin dirfilter uachanger \
++SUBDIRS = adblock crashes khtmlsettingsplugin kimgalleryplugin dirfilter uachanger \
+           babelfish validators domtreeviewer webarchiver sidebar kuick \
+ 	  imagerotation minitools microformat autorefresh fsview searchbar \
+ 	  arkplugin akregator rellinks mediarealfolder

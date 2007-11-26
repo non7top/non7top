@@ -1,0 +1,655 @@
+diff -Naur kdenetwork-3.5.8.orig/kopete/kopete/chatwindow/chatmessagepart.cpp kdenetwork-3.5.8/kopete/kopete/chatwindow/chatmessagepart.cpp
+--- kdenetwork-3.5.8.orig/kopete/kopete/chatwindow/chatmessagepart.cpp	2007-05-14 09:40:09.000000000 +0200
++++ kdenetwork-3.5.8/kopete/kopete/chatwindow/chatmessagepart.cpp	2007-11-21 08:41:00.000000000 +0100
+@@ -43,6 +43,7 @@
+ #include <dom/html_base.h>
+ #include <dom/html_document.h>
+ #include <dom/html_inline.h>
++#include <qurloperator.h>
+ 
+ 
+ // KDE includes
+@@ -60,8 +61,10 @@
+ #include <ktempfile.h>
+ #include <kurldrag.h>
+ #include <kio/netaccess.h>
++#include <kio/job.h>
+ #include <kstandarddirs.h>
+ #include <kiconloader.h>
++#include <kinputdialog.h>
+ 
+ // Kopete includes
+ #include "chatmemberslistwidget.h"
+@@ -144,6 +147,7 @@
+ 	KAction *printAction;
+ 	KAction *closeAction;
+ 	KAction *copyURLAction;
++        KAction *importEmoticon;
+ 
+ 	ChatWindowStyle *currentChatStyle;
+ 	Kopete::Contact *latestContact;
+@@ -259,6 +263,7 @@
+ 	d->saveAction = KStdAction::saveAs( this, SLOT(save()), actionCollection() );
+ 	d->printAction = KStdAction::print( this, SLOT(print()),actionCollection() );
+ 	d->closeAction = KStdAction::close( this, SLOT(slotCloseView()),actionCollection() );
++        d->importEmoticon = new KAction( i18n( "Import Emoticon"), QString::fromLatin1( "importemot" ), 0, this, SLOT( slotImportEmoticon() ), actionCollection() );
+ 	d->copyURLAction = new KAction( i18n( "Copy Link Address" ), QString::fromLatin1( "editcopy" ), 0, this, SLOT( slotCopyURL() ), actionCollection() );
+ 
+ 	// read formatting override flags
+@@ -281,6 +286,53 @@
+ 		d->scrollPressed = true;
+ }
+ 
++void ChatMessagePart::slotImportEmoticon()
++{
++    QString emoticonString = KInputDialog::getText( i18n("Import Emoticon"),
++    i18n("<qt><img src=\"%1\"><br>Insert the string for the emoticon<br>separated by space if you want multiple strings</qt>").arg( d->activeElement.getAttribute("src").string() ) );
++    if (emoticonString.isNull() )
++                return;
++
++    QString emo = d->activeElement.getAttribute("src").string();
++    QString themeName = KopetePrefs::prefs()->iconTheme();
++
++    KIO::copy(emo, KGlobal::dirs()->saveLocation( "emoticons",  themeName, false ));
++
++    QFile *fp = new QFile(KGlobal::dirs()->saveLocation( "emoticons",  themeName, false ) +  "/emoticons.xml");
++
++    QDomDocument themeXml;
++
++    if(!fp->exists() || !fp->open( IO_ReadOnly ) || !themeXml.setContent(fp))
++        return;
++
++    fp->close();
++
++    QDomNode lc = themeXml.lastChild();
++    if(lc.isNull())
++        return;
++
++    QDomElement emoticon = themeXml.createElement("emoticon");
++    emoticon.setAttribute("file", QFileInfo(emo).baseName());
++    lc.appendChild(emoticon);
++    QStringList splitted = QStringList::split(" ", emoticonString);
++    QStringList::const_iterator constIterator;
++    for(constIterator = splitted.begin(); constIterator != splitted.end(); constIterator++)
++    {
++        QDomElement emotext = themeXml.createElement("string");
++        QDomText txt = themeXml.createTextNode((*constIterator).stripWhiteSpace());
++        emotext.appendChild(txt);
++        emoticon.appendChild(emotext);
++    }
++
++    if(!fp->open( IO_WriteOnly ))
++        return;
++
++    QTextStream emoStream(fp);
++    emoStream << themeXml.toString(4);
++    fp->close();
++    QTimer::singleShot( 1500, Kopete::Emoticons::self(), SLOT( reload() ) );
++}
++
+ void ChatMessagePart::save()
+ {
+ 	KFileDialog dlg( QString::null, QString::fromLatin1( "text/html text/plain" ), view(), "fileSaveDialog", false );
+@@ -680,11 +732,12 @@
+ 			d->copyURLAction->plug( chatWindowPopup );
+ 			chatWindowPopup->insertSeparator();
+ 		}
+-
++                kdDebug() <<  "ChatMessagePart::slotRightClick(): " << d->activeElement.tagName().lower() << endl;
+ 		d->copyAction->setEnabled( hasSelection() );
+ 		d->copyAction->plug( chatWindowPopup );
+ 		d->saveAction->plug( chatWindowPopup );
+ 		d->printAction->plug( chatWindowPopup );
++                if( d->activeElement.tagName().lower() == "img" ) d->importEmoticon->plug( chatWindowPopup );
+ 		chatWindowPopup->insertSeparator();
+ 		d->closeAction->plug( chatWindowPopup );
+ 
+diff -Naur kdenetwork-3.5.8.orig/kopete/kopete/chatwindow/chatmessagepart.h kdenetwork-3.5.8/kopete/kopete/chatwindow/chatmessagepart.h
+--- kdenetwork-3.5.8.orig/kopete/kopete/chatwindow/chatmessagepart.h	2006-10-01 19:27:06.000000000 +0200
++++ kdenetwork-3.5.8/kopete/kopete/chatwindow/chatmessagepart.h	2007-11-21 08:41:00.000000000 +0100
+@@ -148,6 +148,7 @@
+ 	void slotCopyURL();
+ 
+ 	void slotCloseView( bool force = false );
++        void slotImportEmoticon();
+ 
+ 	/**
+ 	 * Do the actual style change.
+diff -Naur kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/Makefile.am kdenetwork-3.5.8/kopete/kopete/config/appearance/Makefile.am
+--- kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/Makefile.am	2006-10-01 19:27:03.000000000 +0200
++++ kdenetwork-3.5.8/kopete/kopete/config/appearance/Makefile.am	2007-11-21 08:41:00.000000000 +0100
+@@ -4,9 +4,10 @@
+ 
+ kde_module_LTLIBRARIES = kcm_kopete_appearanceconfig.la
+ 
+-kcm_kopete_appearanceconfig_la_SOURCES = appearanceconfig_emoticons.ui \
+-	appearanceconfig_colors.ui appearanceconfig_chatwindow.ui appearanceconfig_contactlist.ui \
+-	appearanceconfig.cpp tooltipeditwidget.ui tooltipeditdialog.cpp
++kcm_kopete_appearanceconfig_la_SOURCES = appearanceconfig.cpp \
++	appearanceconfig_chatwindow.ui appearanceconfig_colors.ui appearanceconfig_contactlist.ui \
++	appearanceconfig_emoticons.ui emoticonseditdialog.cpp emoticonseditwidget.ui tooltipeditdialog.cpp \
++	tooltipeditwidget.ui
+ 
+ kcm_kopete_appearanceconfig_la_LDFLAGS = -module -no-undefined $(KDE_PLUGIN) \
+ 	$(all_libraries)
+@@ -18,3 +19,4 @@
+ servicedir = $(kde_servicesdir)
+ 
+ # vim: set noet:
++noinst_HEADERS = emoticonseditdialog.h
+diff -Naur kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/appearanceconfig.cpp kdenetwork-3.5.8/kopete/kopete/config/appearance/appearanceconfig.cpp
+--- kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/appearanceconfig.cpp	2007-11-21 08:41:34.000000000 +0100
++++ kdenetwork-3.5.8/kopete/kopete/config/appearance/appearanceconfig.cpp	2007-11-21 08:41:00.000000000 +0100
+@@ -27,6 +27,7 @@
+ #include "appearanceconfig_contactlist.h"
+ 
+ #include "tooltipeditdialog.h"
++#include "emoticonseditdialog.h"
+ 
+ #include <qcheckbox.h>
+ #include <qdir.h>
+@@ -205,6 +206,8 @@
+ 		this, SLOT(slotGetEmoticonThemes()));
+ 	connect(d->mPrfsEmoticons->btnRemoveTheme, SIGNAL(clicked()),
+ 		this, SLOT(removeSelectedEmoticonTheme()));
++        connect(d->mPrfsEmoticons->btnEditThemes, SIGNAL(clicked()),
++                this, SLOT(editSelectedEmoticonTheme()));
+ 
+ 	d->mAppearanceTabCtl->addTab(d->mPrfsEmoticons, i18n("&Emoticons"));
+ 
+@@ -875,5 +878,20 @@
+ 	delete dlg;
+ }
+ 
++void AppearanceConfig::editSelectedEmoticonTheme()
++{
++        QListBoxItem *selected = d->mPrfsEmoticons->icon_theme_list->selectedItem();
++        if(selected==0)
++                return;
++
++        QString themeName = selected->text();
++    
++        EmoticonsEditDialog *dlg = new EmoticonsEditDialog(this, themeName);
++        dlg->exec();
++        delete dlg;
++
++        updateEmoticonlist();
++}
++
+ #include "appearanceconfig.moc"
+ // vim: set noet ts=4 sts=4 sw=4:
+diff -Naur kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/appearanceconfig.h kdenetwork-3.5.8/kopete/kopete/config/appearance/appearanceconfig.h
+--- kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/appearanceconfig.h	2006-10-01 19:27:03.000000000 +0200
++++ kdenetwork-3.5.8/kopete/kopete/config/appearance/appearanceconfig.h	2007-11-21 08:41:00.000000000 +0100
+@@ -57,6 +57,7 @@
+ 	void slotGetChatStyles();
+ 	void slotLoadChatStyles();
+ 	void updateEmoticonsButton(bool);
++        void editSelectedEmoticonTheme();
+ private:
+ 	void updateEmoticonlist();
+ 	void createPreviewChatSession();
+diff -Naur kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/appearanceconfig_emoticons.ui kdenetwork-3.5.8/kopete/kopete/config/appearance/appearanceconfig_emoticons.ui
+--- kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/appearanceconfig_emoticons.ui	2006-01-19 17:43:04.000000000 +0100
++++ kdenetwork-3.5.8/kopete/kopete/config/appearance/appearanceconfig_emoticons.ui	2007-11-21 08:41:00.000000000 +0100
+@@ -111,6 +111,17 @@
+                 </widget>
+                 <widget class="QPushButton">
+                     <property name="name">
++                        <cstring>btnEditThemes</cstring>
++                    </property>
++                    <property name="text">
++                        <string>&amp;Edit Theme...</string>
++                    </property>
++                    <property name="whatsThis" stdset="0">
++                        <string>Edit the selected emoticons theme</string>
++                    </property>
++                </widget>
++                <widget class="QPushButton">
++                    <property name="name">
+                         <cstring>btnInstallTheme</cstring>
+                     </property>
+                     <property name="text">
+diff -Naur kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/emoticonseditdialog.cpp kdenetwork-3.5.8/kopete/kopete/config/appearance/emoticonseditdialog.cpp
+--- kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/emoticonseditdialog.cpp	1970-01-01 01:00:00.000000000 +0100
++++ kdenetwork-3.5.8/kopete/kopete/config/appearance/emoticonseditdialog.cpp	2007-11-21 08:41:00.000000000 +0100
+@@ -0,0 +1,256 @@
++#include "emoticonseditdialog.h"
++#include "emoticonseditwidget.h"
++
++#include "kopeteglobal.h"
++#include "kopeteprefs.h"
++#include "kopeteemoticons.h"
++
++#include <klocale.h>
++#include <klistview.h>
++#include <kstandarddirs.h>
++#include <kfiledialog.h>
++#include <kio/job.h>
++#include <qpixmap.h>
++#include <qheader.h>
++#include <qlayout.h>
++#include <qlabel.h>
++
++
++EditDialog::EditDialog(QWidget *parent, const char* name)
++    : KDialogBase(parent, name, true, i18n(name), Ok|Cancel, Ok, true)
++{
++    setupDlg();
++}
++
++EditDialog::EditDialog(QWidget *parent, const char* name, QPixmap emot, QString text, QString file)
++    : KDialogBase(parent, name, true, i18n(name), Ok|Cancel, Ok, true)
++{
++    setupDlg();
++    leText->setText(text);
++    btnIcon->setPixmap(emot);
++    emoticon = file;
++}
++
++void EditDialog::setupDlg()
++{
++    wdg = new QWidget(this);
++    QVBoxLayout *vl = new QVBoxLayout(wdg, 11, 6);
++    QHBoxLayout *hb = new QHBoxLayout(wdg, 0, 6);
++    leText = new KLineEdit(wdg);
++    btnIcon = new KPushButton(wdg);
++    btnIcon->setFixedSize(QSize(64, 64));
++
++    vl->addWidget(new QLabel(i18n("Insert the string for the emoticon\nseparated by space if you want multiple strings"), wdg));
++    hb->addWidget(btnIcon);
++    hb->addWidget(leText);
++    vl->addLayout(hb);
++    setMainWidget(wdg);
++    connect(btnIcon, SIGNAL(clicked()), this, SLOT(btnIconClicked()));
++}
++
++void EditDialog::btnIconClicked()
++{
++    KURL url =  KFileDialog::getImageOpenURL();
++
++    if(!url.isLocalFile())
++        return;
++
++    emoticon = url.path();
++
++    if(emoticon.isEmpty())
++        return;
++
++    btnIcon->setPixmap(QPixmap(emoticon));
++}
++
++EmoticonsEditDialog::EmoticonsEditDialog(QWidget *parent, QString theme, const char* name)
++    : KDialogBase(parent, name, true, i18n("Emoticons Editor"), Ok|Cancel, Ok, true)
++{
++    themeName = theme;
++
++    mMainWidget = new EmoticonsEditWidget(this, "EmoticonsEditDialog::mMainWidget");
++    setMainWidget(mMainWidget);
++    resize(QSize(450, 350));
++    mMainWidget->btnAdd->setGuiItem(KStdGuiItem::add());
++    mMainWidget->btnEdit->setText(i18n("Edit..."));
++    mMainWidget->btnRemove->setGuiItem(KStdGuiItem::remove());
++
++
++    mMainWidget->klvEmoticons->addColumn("Emoticon");
++    mMainWidget->klvEmoticons->addColumn("Text");
++    mMainWidget->klvEmoticons->addColumn("File", 0);
++    mMainWidget->klvEmoticons->header()->hide();
++    Kopete::Emoticons emoticons( theme );
++    QMap<QString, QStringList> smileys = emoticons.emoticonAndPicList();
++
++
++    for(QMap<QString, QStringList>::Iterator it = smileys.begin(); it != smileys.end(); ++it )
++    {
++        KListViewItem *itm = new KListViewItem(mMainWidget->klvEmoticons);
++        itm->setPixmap(0, QPixmap(it.key()));
++        itm->setText(2, QFileInfo(it.key()).baseName());
++        QString text = *it.data().at(0);
++        for(uint i = 1; i < it.data().size(); i++) {
++            text += " " + *it.data().at(i);
++        }
++        itm->setText(1, text);
++    }
++
++    QFile *fp = new QFile(KGlobal::dirs()->saveLocation( "emoticons",  themeName, false ) +  "/emoticons.xml");
++
++    if( !fp->exists() ) {
++        kdWarning() << "EmoticonsEditDialog::EmoticonsEditDialog() " << fp->name() << " doesn't exist!" << endl;
++        return;
++    }
++
++    if(!fp->open( IO_ReadOnly )) {
++        kdWarning() << "EmoticonsEditDialog::EmoticonsEditDialog() " << fp->name() << " can't open ReadOnly!" << endl;
++        return;
++    }
++
++    if(!themeXml.setContent(fp)) {
++        kdWarning() << "EmoticonsEditDialog::EmoticonsEditDialog() " << fp->name() << " can't copy to xml!" << endl;
++        fp->close();
++        return;
++    }
++
++    fp->close();
++
++    mMainWidget->klvEmoticons->setColumnWidth(0, QListView::Maximum);
++    mMainWidget->klvEmoticons->setColumnWidth(1, QListView::Maximum);
++
++    connect(this, SIGNAL(okClicked()), this, SLOT(slotOkClicked()));
++    connect(mMainWidget->btnAdd, SIGNAL(clicked()), this, SLOT(slotAddClicked()));
++    connect(mMainWidget->btnEdit, SIGNAL(clicked()), this, SLOT(slotEditClicked()));
++    connect(mMainWidget->btnRemove, SIGNAL(clicked()), this, SLOT(slotRemoveClicked()));
++}
++
++void EmoticonsEditDialog::slotOkClicked()
++{
++    QFile *fp = new QFile(KGlobal::dirs()->saveLocation( "emoticons",  themeName, false ) +  "/emoticons.xml");
++
++    if( !fp->exists() ) {
++        kdWarning() << "EmoticonsEditDialog::slotOkClicked() " << fp->name() << " doesn't exist!" << endl;
++        return;
++    }
++
++    if(!fp->open( IO_WriteOnly )) {
++        kdWarning() << "EmoticonsEditDialog::slotOkClicked() " << fp->name() << " can't open WriteOnly!" << endl;
++        return;
++    }
++
++    QTextStream emoStream(fp);
++    emoStream << themeXml.toString(4);
++    fp->close();
++}
++
++void EmoticonsEditDialog::slotAddClicked()
++{
++    EditDialog *dlg = new EditDialog(this, "Add emoticon");
++
++    if(dlg->exec() == QDialog::Rejected)
++        return;
++
++    if(dlg->getText().isEmpty() || !dlg->getEmoticon())
++        return;
++
++    addEmoticon(dlg->getEmoticon(), dlg->getText(), true);
++
++
++    delete dlg;
++}
++
++void EmoticonsEditDialog::slotEditClicked()
++{
++    if(!mMainWidget->klvEmoticons->selectedItem())
++        return;
++
++    dlg = new EditDialog(this, "Edit emoticon", *mMainWidget->klvEmoticons->selectedItem()->pixmap(0), mMainWidget->klvEmoticons->selectedItem()->text(1),  mMainWidget->klvEmoticons->selectedItem()->text(2));
++
++    if(dlg->exec() == QDialog::Rejected)
++        return;
++
++    if(dlg->getText().isEmpty() || !dlg->getEmoticon())
++        return;
++
++    bool copy;
++    QString emo = dlg->getEmoticon();
++    if(mMainWidget->klvEmoticons->selectedItem()->text(2) != dlg->getEmoticon()) {
++        copy = true;
++    } else {
++        copy = false;
++        QString f = mMainWidget->klvEmoticons->selectedItem()->text(2);
++
++        KStandardDirs *dir = KGlobal::dirs();
++        emo = dir->findResource( "emoticons", themeName + QString::fromLatin1( "/" ) + f );
++
++        if( emo.isNull() )
++            emo = dir->findResource( "emoticons", themeName + QString::fromLatin1( "/" ) + f + QString::fromLatin1( ".mng" ) );
++        if ( emo.isNull() )
++            emo = dir->findResource( "emoticons", themeName + QString::fromLatin1( "/" ) + f + QString::fromLatin1( ".png" ) );
++        if ( emo.isNull() )
++            emo = dir->findResource( "emoticons", themeName + QString::fromLatin1( "/" ) + f + QString::fromLatin1( ".gif" ) );
++        if ( emo.isNull() )
++            return;
++    }
++
++    removeEmoticon(mMainWidget->klvEmoticons->selectedItem()->text(2));
++    addEmoticon(emo, dlg->getText(), copy);
++
++    delete dlg;
++}
++
++void EmoticonsEditDialog::slotRemoveClicked()
++{
++    if(!mMainWidget->klvEmoticons->selectedItem())
++        return;
++
++    removeEmoticon(mMainWidget->klvEmoticons->selectedItem()->text(2));
++}
++
++void EmoticonsEditDialog::addEmoticon(QString emo, QString text, bool copy)
++{
++    if(copy)
++        KIO::copy(emo, KGlobal::dirs()->saveLocation( "emoticons",  themeName, false ));
++
++    KListViewItem *itm = new KListViewItem(mMainWidget->klvEmoticons);
++    itm->setPixmap(0, QPixmap(emo));
++    itm->setText(1, text);
++    itm->setText(2, QFileInfo(emo).baseName());
++
++    QDomNode lc = themeXml.lastChild();
++    if(lc.isNull())
++        return;
++
++    QDomElement emoticon = themeXml.createElement("emoticon");
++    emoticon.setAttribute("file", QFileInfo(emo).baseName());
++    lc.appendChild(emoticon);
++    QStringList splitted = QStringList::split(" ", text);
++    QStringList::const_iterator constIterator;
++    for(constIterator = splitted.begin(); constIterator != splitted.end(); constIterator++)
++    {
++        QDomElement emotext = themeXml.createElement("string");
++        QDomText txt = themeXml.createTextNode((*constIterator).stripWhiteSpace());
++        emotext.appendChild(txt);
++        emoticon.appendChild(emotext);
++    }
++}
++
++void EmoticonsEditDialog::removeEmoticon(QString emo)
++{
++    QDomNode lc = themeXml.lastChild();
++    if(lc.isNull())
++        return;
++
++    QDomNodeList nl = lc.childNodes();
++
++    for(uint i = 0; i < nl.length(); i++) {
++        QDomElement de = nl.item(i).toElement();
++        if(!de.isNull() && de.tagName() == "emoticon" && de.attribute("file") == emo) {
++            lc.removeChild(de);
++            delete mMainWidget->klvEmoticons->selectedItem();
++            return;
++        }
++    }
++}
++
+diff -Naur kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/emoticonseditdialog.h kdenetwork-3.5.8/kopete/kopete/config/appearance/emoticonseditdialog.h
+--- kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/emoticonseditdialog.h	1970-01-01 01:00:00.000000000 +0100
++++ kdenetwork-3.5.8/kopete/kopete/config/appearance/emoticonseditdialog.h	2007-11-21 08:41:00.000000000 +0100
+@@ -0,0 +1,55 @@
++#ifndef EMOTICONSEDITDIALOG_H
++#define EMOTICONSEDITDIALOG_H
++
++#include <kdebug.h>
++#include <qhbox.h>
++#include <kdialogbase.h>
++#include <klineedit.h>
++#include <kpushbutton.h>
++#include <qfile.h>
++#include <qdom.h>
++
++class EmoticonsEditWidget;
++
++class EditDialog : public KDialogBase
++{
++    Q_OBJECT
++
++    public:
++        EditDialog(QWidget *parent, const char* name);
++        EditDialog(QWidget *parent, const char* name, QPixmap emot, QString text, QString file);
++        const QString getText() { return leText->text(); };
++        const QString getEmoticon() { return emoticon; };
++    private slots:
++        void btnIconClicked();
++    private:
++        void setupDlg();
++        QWidget *wdg;
++        KLineEdit *leText;
++        KPushButton *btnIcon;
++        QString emoticon;
++};
++
++class EmoticonsEditDialog : public KDialogBase
++{
++    Q_OBJECT
++
++    public:
++        EmoticonsEditDialog(QWidget *parent=0, QString theme = QString::null, const char* name="EmoticonsEditDialog");
++        void addEmoticon(QString emo, QString text, bool copy);
++
++    private slots:
++        void slotOkClicked();
++        void slotAddClicked();
++        void slotEditClicked();
++        void slotRemoveClicked();
++
++    private:
++        void removeEmoticon(QString emo);
++        EmoticonsEditWidget *mMainWidget;
++        QString themeName;
++        EditDialog *dlg;
++        QDomDocument themeXml;
++};
++
++#endif
+diff -Naur kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/emoticonseditwidget.ui kdenetwork-3.5.8/kopete/kopete/config/appearance/emoticonseditwidget.ui
+--- kdenetwork-3.5.8.orig/kopete/kopete/config/appearance/emoticonseditwidget.ui	1970-01-01 01:00:00.000000000 +0100
++++ kdenetwork-3.5.8/kopete/kopete/config/appearance/emoticonseditwidget.ui	2007-11-21 08:41:00.000000000 +0100
+@@ -0,0 +1,87 @@
++<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
++<class>EmoticonsEditWidget</class>
++<widget class="QWidget">
++    <property name="name">
++        <cstring>EmoticonsEditWidget</cstring>
++    </property>
++    <property name="geometry">
++        <rect>
++            <x>0</x>
++            <y>0</y>
++            <width>535</width>
++            <height>378</height>
++        </rect>
++    </property>
++    <property name="caption">
++        <string>EmoticonsEditWidget</string>
++    </property>
++    <grid>
++        <property name="name">
++            <cstring>unnamed</cstring>
++        </property>
++        <widget class="QLayoutWidget" row="0" column="1">
++            <property name="name">
++                <cstring>layout5</cstring>
++            </property>
++            <vbox>
++                <property name="name">
++                    <cstring>unnamed</cstring>
++                </property>
++                <widget class="KPushButton">
++                    <property name="name">
++                        <cstring>btnAdd</cstring>
++                    </property>
++                    <property name="text">
++                        <string>Add...</string>
++                    </property>
++                </widget>
++                <widget class="KPushButton">
++                    <property name="name">
++                        <cstring>btnEdit</cstring>
++                    </property>
++                    <property name="text">
++                        <string>Edit...</string>
++                    </property>
++                </widget>
++                <widget class="KPushButton">
++                    <property name="name">
++                        <cstring>btnRemove</cstring>
++                    </property>
++                    <property name="text">
++                        <string>Remove</string>
++                    </property>
++                </widget>
++                <spacer>
++                    <property name="name">
++                        <cstring>spacer4</cstring>
++                    </property>
++                    <property name="orientation">
++                        <enum>Vertical</enum>
++                    </property>
++                    <property name="sizeType">
++                        <enum>Expanding</enum>
++                    </property>
++                    <property name="sizeHint">
++                        <size>
++                            <width>20</width>
++                            <height>40</height>
++                        </size>
++                    </property>
++                </spacer>
++            </vbox>
++        </widget>
++        <widget class="KListView" row="0" column="0">
++            <property name="name">
++                <cstring>klvEmoticons</cstring>
++            </property>
++        </widget>
++    </grid>
++</widget>
++<layoutdefaults spacing="6" margin="11"/>
++<includehints>
++    <includehint>kpushbutton.h</includehint>
++    <includehint>kpushbutton.h</includehint>
++    <includehint>kpushbutton.h</includehint>
++    <includehint>klistview.h</includehint>
++</includehints>
++</UI>
+diff -Naur kdenetwork-3.5.8.orig/kopete/libkopete/private/kopeteemoticons.cpp kdenetwork-3.5.8/kopete/libkopete/private/kopeteemoticons.cpp
+--- kdenetwork-3.5.8.orig/kopete/libkopete/private/kopeteemoticons.cpp	2007-05-14 09:40:09.000000000 +0200
++++ kdenetwork-3.5.8/kopete/libkopete/private/kopeteemoticons.cpp	2007-11-21 08:41:00.000000000 +0100
+@@ -549,6 +549,13 @@
+ 	return result;
+ }
+ 
++void Emoticons::reload()
++{
++    d->emoticonAndPicList.clear();
++    d->emoticonMap.clear();
++    initEmoticons( KopetePrefs::prefs()->iconTheme() );
++}
++
+ } //END namesapce Kopete
+ 
+ #include "kopeteemoticons.moc"
+diff -Naur kdenetwork-3.5.8.orig/kopete/libkopete/private/kopeteemoticons.h kdenetwork-3.5.8/kopete/libkopete/private/kopeteemoticons.h
+--- kdenetwork-3.5.8.orig/kopete/libkopete/private/kopeteemoticons.h	2007-05-14 09:40:09.000000000 +0200
++++ kdenetwork-3.5.8/kopete/libkopete/private/kopeteemoticons.h	2007-11-21 08:41:00.000000000 +0100
+@@ -131,6 +131,12 @@
+ 	 * (only one emoticon per image)
+ 	 */
+ 	QMap<QString, QStringList> emoticonAndPicList();
++        
++public slots:
++        /**
++         * reload the current emoticons theme
++         */
++        void reload();
+ 
+ 
+ private:

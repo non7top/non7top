@@ -1,0 +1,12 @@
+diff -Naur kdenetwork-3.5.8.orig/kopete/kopete/kopetewindow.cpp kdenetwork-3.5.8/kopete/kopete/kopetewindow.cpp
+--- kdenetwork-3.5.8.orig/kopete/kopete/kopetewindow.cpp	2006-10-01 19:27:06.000000000 +0200
++++ kdenetwork-3.5.8/kopete/kopete/kopetewindow.cpp	2007-11-21 08:46:19.000000000 +0100
+@@ -982,6 +982,8 @@
+ /*	QLabel * newMessageLabel = new QLabel( i18n( "Add " ), newMessageBox );*/
+ 	m_newMessageEdit = new QLineEdit( newMessageBox, "newmessage" );
+ 	
++	m_newMessageEdit->setText(Kopete::Away::message());
++	
+ 	newMessageBox->setFocusProxy( m_newMessageEdit );
+ 	newMessageBox->setFocusPolicy( QWidget::ClickFocus );
+ /*	newMessageLabel->setFocusProxy( newMessageEdit );
