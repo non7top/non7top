@@ -1,0 +1,13 @@
+diff -Naur kdenetwork-3.5.8.orig/kopete/protocols/oscar/aim/aimcontact.cpp kdenetwork-3.5.8/kopete/protocols/oscar/aim/aimcontact.cpp
+--- kdenetwork-3.5.8.orig/kopete/protocols/oscar/aim/aimcontact.cpp	2007-10-08 11:49:10.000000000 +0200
++++ kdenetwork-3.5.8/kopete/protocols/oscar/aim/aimcontact.cpp	2007-11-21 08:44:36.000000000 +0100
+@@ -438,6 +438,9 @@
+ 	//30- (and any I missed) are size 7
+ 	s.replace ( QRegExp ( QString::fromLatin1("<font ptsize=\"[^\"]*\">")),QString::fromLatin1("<font size=\"7\">"));
+ 
++	// strip left over line break
++	s.remove(QRegExp(QString::fromLatin1("<br\b[^>]*>$")));
++
+ 	s.replace ( QRegExp ( QString::fromLatin1("<br[ /]*>")), QString::fromLatin1("<br>") );
+ 
+ 	// strip left over line break
