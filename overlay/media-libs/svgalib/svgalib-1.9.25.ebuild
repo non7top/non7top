@@ -41,7 +41,7 @@ src_unpack() {
 	epatch "${FILESDIR}"/${PN}-1.9.25-build.patch
 
 	# unregister_chrdev API change in 2.6.23
-	epatch "${FILESDIR}"/${PN}-1.9.25-unregister_chrdev.patch
+	epatch "${FILESDIR}"/${PN}-1.9.25-unregister_chardev.patch
 }
 
 src_compile() {
