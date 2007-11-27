@@ -18,7 +18,7 @@ SRC_URI="${SRC_URI}
 	mirror://sourceforge/mesa3d/${MESA_SRC_P}.tar.bz2
 	http://xorg.freedesktop.org/releases/individual/xserver/${P}.tar.bz2"
 DESCRIPTION="X.Org X servers"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="**"
 IUSE_INPUT_DEVICES="
 	input_devices_acecad
 	input_devices_aiptek
