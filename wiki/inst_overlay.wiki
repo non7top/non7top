@@ -9,7 +9,7 @@ To get a copy of non7top overlay tree just execute
 {{{
 svn checkout http://non7top.googlecode.com/svn/trunk/overlay non7top
 }}}
-[http://non7top.googlecode.com/svn/trunk/overlay Online version]
+[http://non7top.googlecode.com/svn/trunk/overlay Browse overlay online]
 
 == Updating ==
 
