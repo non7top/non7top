@@ -15,7 +15,7 @@ KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 IUSE="debug doc examples"
 
 RDEPEND="=x11-libs/qt-4*
-	>=dev-python/sip-4.7.1"
+	>=dev-python/sip-4.7.2"
 DEPEND="${RDEPEND}
 	sys-devel/libtool"
 
