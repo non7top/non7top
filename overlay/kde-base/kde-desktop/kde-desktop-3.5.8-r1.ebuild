@@ -107,6 +107,6 @@ network? (
 	$(deprange $PV $MAXKDEVER kde-base/kget)
 	$(deprange $PV $MAXKDEVER kde-base/kpf)
 )
-bluetooth? (net-wireless/kdebluetooth)
-cdr? (app-cdr/k3b)
+bluetooth? ( net-wireless/kdebluetooth )
+cdr? ( app-cdr/k3b )
 "
