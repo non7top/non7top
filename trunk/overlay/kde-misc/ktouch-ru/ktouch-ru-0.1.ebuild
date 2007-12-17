@@ -11,7 +11,7 @@ SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 mips ppc ppc64 s390 sh sparc ~sparc-fbsd x86 ~x86-fbsd"
 IUSE=""
 
-DEPEND="|| (kde-base/kdeedu kde-base/ktouch)"
+DEPEND="|| ( kde-base/kdeedu kde-base/ktouch )"
 RDEPEND=""
 
 src_install() {
