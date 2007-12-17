@@ -105,6 +105,6 @@ network? (
 	net-misc/knemo
 	$(deprange $PV $MAXKDEVER kde-base/kget)
 )
-bluetooth? (net-wireless/kdebluetooth)
-cdr? (app-cdr/k3b)
+bluetooth? ( net-wireless/kdebluetooth )
+cdr? ( app-cdr/k3b )
 "
