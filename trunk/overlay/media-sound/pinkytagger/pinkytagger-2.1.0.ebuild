@@ -16,7 +16,7 @@ IUSE=""
 
 S=${WORKDIR}/${PN}-2.1-0
 
-DEPEND=">=x11-libs/qt-4.2
+DEPEND=">=x11-libs/qt-4.2:4
 	media-libs/musicbrainz:1
 	media-libs/musicbrainz:3"
 RDEPEND="${DEPEND}"
