@@ -14,6 +14,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
+EAPI="1"
+
 S=${WORKDIR}/${PN}-2.1-0
 
 DEPEND=">=x11-libs/qt-4.2:4
