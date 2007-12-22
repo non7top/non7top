@@ -80,7 +80,7 @@ multimedia? (
 	$(deprange $PV $MAXKDEVER kde-base/kdemultimedia-kfile-plugins)
 	$(deprange $PV $MAXKDEVER kde-base/kdemultimedia-kioslaves)
 	$(deprange $PV $MAXKDEVER kde-base/kmix)
-	media-sound/amarok
+	<=media-sound/amarok-2
 	media-video/kaffeine
 
 )
