@@ -11,7 +11,7 @@ IUSE="doc jingle plugins sasl spell ssl xscreensaver"
 
 DESCRIPTION="QT 4.x Jabber Client, with Licq-like interface"
 HOMEPAGE="http://psi-im.org/"
-ESVN_REPO_URI="http://non7top.googlecode.com/svn/trunk/xlam/addwget/"
+ESVN_REPO_URI="http://svn.psi-im.org/psi/trunk"
 #SRC_URI="http://psi-im.org/files/snapshot/${MY_P}.tar.bz2"
 
 SLOT="0"
