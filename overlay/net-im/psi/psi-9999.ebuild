@@ -52,7 +52,7 @@ src_unpack() {
 	use jingle && epatch ${FILESDIR}/psi-jingle-gcc4.patch
 
 	if use plugins; then
-		epatch ${FILESDIR}/psi-ptr_64bit_fix.patch
+		#epatch ${FILESDIR}/psi-ptr_64bit_fix.patch
 		epatch ${FILESDIR}/psi-echoplugin.patch
 	fi;
 }
