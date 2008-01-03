@@ -13,6 +13,8 @@ DESCRIPTION="The appinfo:/ KIO slave combines an application's configuration, da
 HOMEPAGE="http://www.kde-apps.org/content/show.php?content=${APPID}"
 SRC_URI="http://www.kde-apps.org/CONTENT/content-files/${APPID}-${MY_PN}.tar.bz2"
 
+S=${WORKDIR}/${MY_PN}
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
