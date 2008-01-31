@@ -34,7 +34,7 @@ class webget:
         m = md5.new()
         m.update(password)
         self.md5pass=m.hexdigest()
-        print login, password
+        #print login, password
         
         req = urllib2.Request('http://file.aaanet.ru/')
         f = urllib2.urlopen(req)
@@ -43,7 +43,7 @@ class webget:
         self.sesid = matches[0]
         
         params = urllib.urlencode({'key' : self.md5pass, 'login' : login})
-        print params
+        #print params
         req = urllib2.Request('http://file.aaanet.ru/', params)
         req.add_header("Referer", "http://file.aaanet.ru/")
         req.add_header("Cookie", "PHPSESSID=" + self.sesid)
