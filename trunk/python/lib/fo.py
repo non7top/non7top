@@ -36,23 +36,25 @@ class webget:
         self.md5pass=m.hexdigest()
         #print login, password
         
-        req = urllib2.Request('http://file.aaanet.ru/')
-        f = urllib2.urlopen(req)
-        cookie = unicode(f.headers['Set-Cookie'], 'cp1251')
-        matches = re.findall('(?si)PHPSESSID=(.*?);', cookie)
-        self.sesid = matches[0]
+        #req = urllib2.Request('http://file.aaanet.ru/')
+        #f = urllib2.urlopen(req)
+	#print f.headers
+        #cookie = unicode(f.headers['Set-Cookie'], 'cp1251')
+        #matches = re.findall('(?si)PHPSESSID=(.*?);', cookie)
+        #self.sesid = matches[0]
         
         params = urllib.urlencode({'key' : self.md5pass, 'login' : login})
         #print params
         req = urllib2.Request('http://file.aaanet.ru/', params)
         req.add_header("Referer", "http://file.aaanet.ru/")
-        req.add_header("Cookie", "PHPSESSID=" + self.sesid)
+        #req.add_header("Cookie", "PHPSESSID=" + self.sesid)
         f2 = urllib2.urlopen(req)
         cookie2 = unicode(f2.headers['Set-Cookie'], 'cp1251')
         matches = re.findall('(?si)user_sid=(.*?);', cookie2)
         self.user_sid = matches[0]
         
-        self.cookie_value = "PHPSESSID=" + self.sesid + ";" + "user_sid=" + self.user_sid +";" + "file_agree=1"
+        #self.cookie_value = "PHPSESSID=" + self.sesid + ";" + "user_sid=" + self.user_sid +";" + "file_agree=1"
+	self.cookie_value = "user_sid=" + self.user_sid +";" + "file_agree=1"
 
         def fo_add_item(self, cookie_value, link, description, searchc):
             params=urllib.urlencode({'downfileweb':link, 'taskid':1, 'searchc':searchc, 'srch':1,'description':description })
