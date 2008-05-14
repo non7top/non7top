@@ -1,0 +1,13 @@
+# ChangeLog for kde-base/parley
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  07 Apr 2008; <bernd@bernd-steinhauser.de> parley-scm.kdebuild-1:
+  Add plasma support.
+
+*parley-scm (07 Apr 2008)
+
+  07 Apr 2008; <bernd@bernd-steinhauser.de> +metadata.xml,
+  +parley-scm.kdebuild-1:
+  Initial import.
+
