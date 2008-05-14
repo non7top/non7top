@@ -1,0 +1,16 @@
+# ChangeLog for kde-base/step
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  03 May 2008; <bernd@bernd-steinhauser.de> step-scm.kdebuild-1:
+  Fix dependencies, fails to build with cln-1.2*.
+
+  07 Apr 2008; <bernd@bernd-steinhauser.de> step-scm.kdebuild-1:
+  Make gsl and qalculate optional.
+
+*step-scm (07 Apr 2008)
+
+  07 Apr 2008; <bernd@bernd-steinhauser.de> +metadata.xml,
+  +step-scm.kdebuild-1:
+  Initial import.
+
