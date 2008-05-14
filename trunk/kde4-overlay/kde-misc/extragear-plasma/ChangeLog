@@ -1,0 +1,60 @@
+# ChangeLog for kde-misc/extragear-plasma
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  17 Apr 2008; <bernd@bernd-steinhauser.de> extragear-plasma-scm.kdebuild-1:
+  Make the libplasma use dep conditional.
+
+  11 Apr 2008; <bernd@bernd-steinhauser.de> extragear-plasma-scm.kdebuild-1:
+  Remove EAPI.
+
+  11 Apr 2008; <bernd@bernd-steinhauser.de>
+  -extragear-plasma-9999.4.ebuild, +extragear-plasma-scm.kdebuild-1:
+  Bump to kdebuild-1.
+
+  06 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org> +metadata.xml,
+  +extragear-plasma-9999.4.ebuild:
+  Revive extragear-plasma-9999.4. I only intended to nuke 4.0.1.
+
+  11 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  extragear-plasma-4.0.1.ebuild, extragear-plasma-9999.4.ebuild:
+  Fix opengl qt dependencies.
+
+*extragear-plasma-4.0.1 (10 Feb 2008)
+
+  10 Feb 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  -extragear-plasma-3.97.0.ebuild, +extragear-plasma-4.0.1.ebuild:
+  Add extragear-plasma-4.0.1.
+
+  12 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  extragear-plasma-3.97.0.ebuild:
+  Upstream changed the tarball. Fix.
+
+  11 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  extragear-plasma-3.97.0.ebuild:
+  Set ${S} to the right value.
+
+*extragear-plasma-3.97.0 (10 Dec 2007)
+
+  10 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  -extragear-plasma-3.96.2.ebuild, +extragear-plasma-3.97.0.ebuild,
+  extragear-plasma-9999.4.ebuild:
+  Fix inherit, make built_with_use checks more robust and use
+  kde4svn_pkg_setup in 9999.4. Bump to 3.97.0.
+
+  04 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  extragear-plasma-9999.4.ebuild:
+  Fix ESVN_REPO_URI.
+
+*extragear-plasma-9999.4 (04 Dec 2007)
+
+  04 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  extragear-plasma-3.96.2.ebuild, +extragear-plasma-9999.4.ebuild:
+  Added extragear-plasma-9999.4.ebuild.
+
+*extragear-plasma-3.96.2 (02 Dec 2007)
+
+  02 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com> +metadata.xml,
+  +extragear-plasma-3.96.2.ebuild:
+  Added extragear-plasma-3.96.2.ebuild.
+
