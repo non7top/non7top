@@ -1,0 +1,29 @@
+# ChangeLog for kde-base/kmail
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  02 May 2008; <bernd@bernd-steinhauser.de> kmail-scm.kdebuild-1:
+  Restrict to -j1.
+
+  30 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  -files/kmail-scm-linkage.patch, -files/kmail-scm-linkage-p2.patch,
+  kmail-scm.kdebuild-1:
+  Load libkdepim library dependencies and drop linkage patches. When
+  USE=kontact load kontact library dependencies too.
+
+  19 Apr 2008; <bernd@bernd-steinhauser.de> kmail-scm.kdebuild-1:
+  Only apply the kontact linkage patch when building with use flag kontact.
+
+  19 Apr 2008; <bernd@bernd-steinhauser.de>
+  +files/kmail-scm-linkage-p2.patch, kmail-scm.kdebuild-1:
+  Fix linkage problem.
+
+  19 Apr 2008; <bernd@bernd-steinhauser.de> kmail-scm.kdebuild-1:
+  Add dependency to libksieve.
+
+*kmail-scm (14 Apr 2008)
+
+  14 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  +files/kmail-scm-linkage.patch, +metadata.xml, +kmail-scm.kdebuild-1:
+  Add kmail-scm.
+
