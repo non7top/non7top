@@ -1,0 +1,9 @@
+# ChangeLog for kde-base/kscreensaver
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+
+*kscreensaver-scm (27 Mar 2008)
+
+  27 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org> +metadata.xml,
+  +kscreensaver-scm.kdebuild-1, +files/kdebase-scm-pam-optional.patch:
+  Add kscreensaver-scm.
+
