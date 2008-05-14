@@ -1,0 +1,19 @@
+# ChangeLog for kde-base/kdewebdev
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  12 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdewebdev-9999.4.ebuild:
+  Fixed slot dep.
+
+  12 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdewebdev-9999.4.ebuild:
+  Don't depend on IUSE being set in the eclass. Cleanup.
+
+  10 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdewebdev-9999.4.ebuild:
+  Fix inherit.
+
+  18 Jul 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it> +metadata.xml:
+  Added Changelog and metadata.xml.
+
