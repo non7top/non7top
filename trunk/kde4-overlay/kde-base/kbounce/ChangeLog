@@ -1,0 +1,10 @@
+# ChangeLog for kde-base/kbounce
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*kbounce-scm (14 Apr 2008)
+
+  14 Apr 2008; <bernd@bernd-steinhauser.de> +metadata.xml,
+  +kbounce-scm.kdebuild-1:
+  Initial.
+
