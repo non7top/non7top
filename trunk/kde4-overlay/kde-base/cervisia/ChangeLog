@@ -1,0 +1,10 @@
+# ChangeLog for kde-base/cervisia
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*cervisia-scm (21 Apr 2008)
+
+  21 Apr 2008; <bernd@bernd-steinhauser.de> +metadata.xml,
+  +cervisia-scm.kdebuild-1:
+  Add cervisia-scm.
+
