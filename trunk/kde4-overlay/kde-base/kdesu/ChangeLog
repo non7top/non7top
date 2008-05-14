@@ -1,0 +1,9 @@
+# ChangeLog for kde-base/kdesu
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+
+*kdesu-scm (27 Mar 2008)
+
+  27 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org> +metadata.xml,
+  +kdesu-scm.kdebuild-1:
+  Add kdesu-scm.
+
