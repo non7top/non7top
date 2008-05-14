@@ -1,0 +1,71 @@
+# ChangeLog for kde-base/kdeadmin
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  20 Mar 2008; Ingmar Vanhassel <ingmar@gentoo.org>
+  -files/lilo-config-4.0.0.patch, -kdeadmin-4.0.0.ebuild:
+  Old.
+
+  20 Mar 2008; Ingmar Vanhassel <ingmar@gentoo.org>
+  -files/lilo-config-4.0.0.patch, -kdeadmin-4.0.0.ebuild:
+  Old.
+
+  16 Jan 2008; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdeadmin-4.0.0.ebuild:
+  Make lilo-config optional.
+
+*kdeadmin-4.0.0 (14 Jan 2008)
+
+  14 Jan 2008; Wulf C. Krueger <philantrop@gentoo.org>
+  +files/lilo-config-4.0.0.patch, +kdeadmin-4.0.0.ebuild:
+  Version bump to 4.0.0.
+
+  12 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -kdeadmin-3.96.0.ebuild:
+  Removed monolithic RC1.
+
+  12 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdeadmin-9999.4.ebuild:
+  Don't depend on IUSE being set in the eclass. Cleanup.
+
+  10 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdeadmin-9999.4.ebuild:
+  Fix inherit.
+
+  05 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdeadmin-3.96.0.ebuild, kdeadmin-9999.4.ebuild:
+  Don't install kpackage anymore: the SMART Package Manager, one of it's
+  RDEPENDs isn't in portage.
+
+*kdeadmin-3.96.0 (22 Nov 2007)
+
+  22 Nov 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  -kdeadmin-3.95.0.ebuild, +kdeadmin-3.96.0.ebuild:
+  Added kdeadmin-3.96.0.ebuild.
+
+  28 Oct 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +kdeadmin-3.95.0.ebuild:
+  Added kdeadmin-3.95.0.ebuild.
+
+  19 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +kdeadmin-3.94.0.ebuild:
+  Added kdeadmin-3.94.0.ebuild.
+
+  07 Sep 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  -kdeadmin-3.91.0.ebuild, -kdeadmin-3.92.0.ebuild:
+  Removed kdeadmin 3.91.0 and 3.92.0.
+
+  07 Sep 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it> ChangeLog:
+  Removed kdeadmin 3.91.0 and 3.92.0.
+
+  06 Sep 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  +kdeadmin-3.93.0.ebuild:
+  Added kdeadmin 3.93.0 ebuild.
+
+  05 Aug 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +kdeadmin-3.92.0.ebuild:
+  Added Beta 1.
+
+  18 Jul 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it> +metadata.xml:
+  Added Changelog and metadata.xml.
+
