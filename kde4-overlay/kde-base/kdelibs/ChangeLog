@@ -1,0 +1,401 @@
+# ChangeLog for kde-base/kdelibs
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  10 May 2008; Bo Ørsted Andresen <zlin@gentoo.org> kdelibs-scm.kdebuild-1:
+  Soprano must be built with clucene support.
+
+  18 Apr 2008; <bernd@bernd-steinhauser.de> kdelibs-scm.kdebuild-1:
+  Fix API docs handling.
+
+  01 Apr 2008; Ingmar Vanhassel <ingmar@gentoo.org> -kdelibs-9999.4.ebuild:
+  Old.
+
+  26 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  +kdelibs-scm.kdebuild-1, -files/kdelibs-9999.4-X11-optional.patch,
+  +files/kdelibs-scm-X11-optional.patch,
+  -files/kdelibs-9999.4-alsa-optional.patch,
+  +files/kdelibs-scm-alsa-optional.patch, kdelibs-9999.4.ebuild:
+  Add kdelibs-scm.
+
+  11 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org> kdelibs-9999.4.ebuild:
+  Fix opengl qt and test dependencies.
+
+  07 Mar 2008; Ingmar Vanhassel <ingmar@gentoo.org> kdelibs-9999.4.ebuild:
+  s/ESVN_PATCHES/PATCHES/
+
+  03 Feb 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  -files/kdelibs-9999.4-respect-destdir.patch, kdelibs-9999.4.ebuild:
+  kdelibs-9999.4-respect-destdir.patch has been applied by upstream. Thus no
+  longer needed.
+
+  02 Feb 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  +files/kdelibs-9999.4-respect-destdir.patch,
+  -files/e-tempdir-9999.4.patch, kdelibs-9999.4.ebuild:
+  Make symlink creation respect DESTDIR rather than D (which is a Gentoo
+  variable). Remove USE=pcre (by making it mandatory).
+
+  20 Jan 2008; Ingmar Vanhassel <ingmar@gentoo.org>
+  -files/kdelibs-4.0.0-X11-optional.patch,
+  -files/kdelibs-4.0.0-alsa-optional.patch,
+  +files/kdelibs-9999.4-X11-optional.patch,
+  +files/kdelibs-9999.4-alsa-optional.patch, -files/e-tempdir.patch,
+  -kdelibs-4.0.0.ebuild, kdelibs-9999.4.ebuild:
+  Sync kdelibs-9999.4.ebuild with gentoo-x86.
+
+  17 Jan 2008; Ingmar Vanhassel <ingmar@gentoo.org> kdelibs-4.0.0.ebuild:
+  Unite the avahi & zeroconf USE flags. USE="zeroconf" now pulls in avahi or
+  mDNSResponder (in this order of preference), to avoid that users hit blocks
+  when both are set.
+  
+  You need to use net-dns/avahi with USE="mdnsresponder-compat" for this to
+  work. Thanks to Jakub.
+
+  16 Jan 2008; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  files/kdelibs-4.0.0-alsa-optional.patch:
+  Fix alsa patch.
+
+  16 Jan 2008; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  +files/kdelibs-4.0.0-alsa-optional.patch, kdelibs-4.0.0.ebuild:
+  Add patch that creates a cmake switch for alsa.
+
+  16 Jan 2008; Ingmar Vanhassel <ingmar@gentoo.org>
+  +files/kdelibs-4.0.0-X11-optional.patch, kdelibs-4.0.0.ebuild:
+  Added a patch to create CMake switches to make Xcomposite, Xinerama &
+  Xscreensaver optional. This fixes all X11 automagic dependencies.
+
+  14 Jan 2008; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdelibs-4.0.0.ebuild:
+  Kill some dependencies that are no longer needed. Make pcre optional. Kill
+  some old cruft.
+
+  13 Jan 2008; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdelibs-4.0.0.ebuild, kdelibs-9999.4.ebuild:
+  Move 46-kdepaths-${SLOT} to 44 for 4.0.0 and 43 for svn.
+
+  12 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-4.0.0.ebuild:
+  Added a semantic-desktop USE-flag to make soprano an optional dependency.
+  (On by default)
+
+  11 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-4.0.0.ebuild, kdelibs-9999.4.ebuild:
+  Restrict tests.
+
+  10 Jan 2008; Jorge Manuel B. S. Vicetto <jmbsvicetto@gentoo.org>
+  files/e-tempdir-9999.4.patch:
+  Properly fix the patch.
+
+  10 Jan 2008; Jorge Manuel B. S. Vicetto <jmbsvicetto@gentoo.org>
+  files/e-tempdir-9999.4.patch:
+  Replaced $DESTDIR with $D on e-tempdir-9999.4.patch.
+
+  10 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-4.0.0.ebuild, kdelibs-9999.4.ebuild:
+  Unbreak LDPATH in env.d files. The leading slash got accidentally stripped
+  form the first directory in LDPATH. Fix from Petteri Räty
+  <betelgeuse@gentoo.org>
+
+  10 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  files/e-tempdir-9999.4.patch:
+  Drop half of the e-tempdir-9999.4.patch.
+
+  09 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +files/e-tempdir-9999.4.patch, kdelibs-9999.4.ebuild:
+  Rebase e-tempdir.patch against latest changes in KDE trunk/.
+ 
+  08 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-4.0.0.ebuild, kdelibs-9999.4.ebuild:
+  Let the decision to enable {3dnow,altivec,mmx,sse,sse2} depend on USE flags,
+  not on whether the host has it.
+  Added IUSE="debug htmlhandbook test".
+  Added some FIXMEs.
+
+*kdelibs-4.0.0 (05 Jan 2008)
+
+  05 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -kdelibs-3.97.0.ebuild, +kdelibs-4.0.0.ebuild:
+  Added kdelibs-4.0.0.ebuild.
+
+  03 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-9999.4.ebuild:
+  Disable tests for kde-base/kdelibs-9999.4, they don't always compile.
+
+  02 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-9999.4.ebuild:
+  Introduce a temporary work-around for USE="-alsa" in combination with having
+  media-sound/alsa-lib[-midi] installed. Ideally this needs to be checked
+  depending on `use alsa`, but due to the automagic dependency on alsa-lib, we
+  do it on `has_version media-sound/alsa-lib` so that users don't hit a
+  compile error.
+
+  12 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdelibs-3.97.0.ebuild, kdelibs-9999.4.ebuild:
+  Use 46kdepaths-${SLOT} again. It only really matters for kdm and we want kdm
+  3.5 to be the default at least until kde 4.0 gets released.
+
+  12 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.97.0.ebuild, kdelibs-9999.4.ebuild:
+  Fix blocker for stable kde-base/kdebase-startkde:3.5,
+  there's no -r2, just -r1, which has the patch. Thanks to David Leverton.
+
+  12 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-9999.4.ebuild:
+  Don't depend on IUSE being set in the eclass. Cleanup.
+
+  11 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-9999.4.ebuild:
+  Needs >=dev-libs/soprano-1.99.
+
+  11 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-9999.4.ebuild:
+  Apply 'Make sure 'source /etc/profile' in a KDE session doesn't hose the
+  PATH.' to kdelibs-9999.4.ebuild.
+
+  10 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdelibs-9999.4.ebuild:
+  Fix inherit and use kde4svn_pkg_setup.
+
+  08 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.97.0.ebuild, kdelibs-9999.4.ebuild:
+  Removed 'disable alsa' hack, it breaks on FBSD.
+  Removed alsa from IUSE defaults.
+
+  08 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.97.0.ebuild:
+  Added "bindist" to IUSE.
+
+*kdelibs-3.97.0 (07 Dec 2007)
+
+  07 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -kdelibs-3.96.0-r1.ebuild, -kdelibs-3.96.2.ebuild, +kdelibs-3.97.0.ebuild:
+  Added kdelibs-3.97.0.ebuild.
+
+  06 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdelibs-3.96.2.ebuild:
+  Make sure 'source /etc/profile' in a KDE session doesn't hose the PATH.
+
+  06 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.96.2.ebuild, kdelibs-9999.4.ebuild:
+  Install /etc/env.d file again, now that startkde is patched.
+
+  06 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  files/e-tempdir.patch:
+  e-tempdir.patch still didn't fix all sandbox problems, in particular one
+  nasty case with symlinking. Kudos to Bo Ørsted Andresen &
+  Jorge Manuel B. S. Vicetto for spending hours to help me reproduce this
+  sucker.
+
+  05 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.96.2.ebuild, kdelibs-9999.4.ebuild:
+  Use PATCHES rather than epatch for non-live ebuilds. Document e-tempdir.patch.
+
+*kdelibs-3.96.2 (29 Nov 2007)
+
+  29 Nov 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdelibs-3.96.0-r1.ebuild, -kdelibs-3.96.1.ebuild, +kdelibs-3.96.2.ebuild,
+  kdelibs-9999.4.ebuild:
+  Bump to 3.96.2. Remove 3.96.1.
+
+  29 Nov 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdelibs-3.96.1.ebuild, kdelibs-9999.4.ebuild:
+  Nuke USE=cups in 9999.4. Use KDE4_BUILT_WITH_USE_CHECK in >= 3.96.1.
+
+*kdelibs-3.96.1 (29 Nov 2007)
+
+  29 Nov 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  +kdelibs-3.96.1.ebuild:
+  Bump to 3.96.1 (USE=-alsa is currently broken).
+
+  22 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.96.0-r1.ebuild:
+  Added kdelibs-3.96-fix-version.diff. Made USE="avahi zeroconf" non-exclusive.
+
+  22 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.96.0-r1.ebuild, kdelibs-9999.4.ebuild:
+  Upped strigi dependency.
+
+*kdelibs-3.96.0-r1 (21 Nov 2007)
+
+  21 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +kdelibs-3.96.0-r1.ebuild, -kdelibs-3.96.0.ebuild:
+  Nuke NEED_KDE from ebuild, revbumping to make sure everyong gets the fix.
+
+  20 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.96.0.ebuild, kdelibs-9999.4.ebuild:
+  Upped soprano dependencies.
+
+*kdelibs-3.96.0 (20 Nov 2007)
+
+  20 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -files/kdelibs-3.94.0-FindQCA2.cmake.patch, -kdelibs-3.95.0.ebuild,
+  -kdelibs-3.95.2.ebuild, +kdelibs-3.96.0.ebuild, kdelibs-9999.4.ebuild:
+  Added kdelibs-3.96.0.
+  Removed hard dependency on mDNSResponder.
+  Added USE="bindist", cfr #bug 198762.
+
+  19 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.95.0.ebuild, kdelibs-3.95.2.ebuild, kdelibs-9999.4.ebuild:
+  More /etc/env.d/4*kdepaths:${SLOT} tweaking.
+
+  16 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.95.0.ebuild, kdelibs-3.95.2.ebuild, kdelibs-9999.4.ebuild:
+  Be more idiot-friendly:
+  
+  Install /etc/end.d/44kdepaths-${SLOT} as /etc/end.d/46kdepaths-${SLOT} to
+  prevent hosing users' systems. Point to our README.
+
+  12 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.95.0.ebuild, +kdelibs-3.95.2.ebuild:
+  Added kdelibs-3.95.2.ebuild.
+
+  10 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.95.0.ebuild, kdelibs-9999.4.ebuild:
+  Drop redundant built_with_use checks.
+
+  10 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.95.0.ebuild, kdelibs-9999.4.ebuild:
+  Synced SVN ebuild with 3.95.0.
+
+  10 Nov 2007; Jorge Manuel B. S. Vicetto <jmbsvicetto@gentoo.org>
+  kdelibs-3.95.0.ebuild:
+  Added a few missing deps.
+
+  31 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.95.0.ebuild:
+  Unrestrict strigi dep.
+
+  27 Oct 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +kdelibs-3.95.0.ebuild:
+  Added kdelibs-3.95.0 because Ingmar is a slacker! ;-)
+
+  26 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.94.0-r1.ebuild:
+  kdelibs-3.94.0-r1.ebuild doesn't compile with current SVN of soprano.
+
+  25 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.94.0-r1.ebuild:
+  kde-base/kdelibs-3.94.0-r1 needs ~app-misc/strig-0.5.5.
+
+  23 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.94.0, kdelibs-9999.4:
+  For USE="opengl" check if x11-libs/qt:4 has USE="opengl".
+
+  19 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.94.0, kdelibs-9999.4:
+  Added check for the X USE-flag on sys-apps/dbus.
+
+  19 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +kdelibs-3.94.0-r1.ebuild, kdelibs-9999.4.ebuild, kdelibs-3.93.0.ebuild,
+  -kdelibs-3.94.0.ebuild, +e-tempdir.patch, -portagedestdir-9999.4.patch,
+  -portagedestdir.patch:
+  Slightly altered the PORTAGEDESTDIR patch. It now handles all sandbox issues
+  correctly as far as I can see. Dropped all previous patches, removed other
+  hacks from the kdelibs ebuilds, and kde4-base.eclass.
+
+  18 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.94.0.ebuild, +kdelibs-3.94.0-FindQCA2.cmake.patch:
+  Added patch so that kde-base/kdenetwork find QCA2.
+
+  17 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.94.0.ebuild:
+  Added kdelibs-3.94.0.ebuild.
+  -Depend on >=dev-libs/soprano-1.95.0_beta2.
+  -Only depend on qt:4 via the eclass.
+  -According to (solid) upstream the
+  SOLID_PREDICATE_PARSER_UPDATE only generates files that are already
+  available pregenerated in the tarballs, this options is mainly targetted at
+  developers. Hence I removed the FIXME.
+
+  17 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.93.0.ebuild:
+  Fix soprano dependency on kdelibs-3.93.0.
+
+  25 Sep 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-3.93.0.ebuild:
+  Dropped the soprano dependency for kdelibs-3.93.0 to ~dev-libs/soprano-0.9.0,
+  since it doesn't compile with anything higher anymore.
+
+  19 Sep 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  kdelibs-9999.4.ebuild:
+  Removed tiff dependency since it's not needed anymore. See comment in the
+  ebuild.
+
+  07 Sep 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  -kdelibs-3.92.0.ebuild:
+  Deleted kdelibs 3.91.0 and kdelibs 3.92.0.
+
+  07 Sep 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  kdelibs-9999.4.ebuild:
+  Updated kdelibs 9999.4 to reflect svn changes.
+
+  06 Sep 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com> kdelibs-3.93.0,
+  kdelibs-9999.4, kdelibs-3.92.0, kdelibs-3.93.0:
+  Added pkg_postinst warning back.
+
+  06 Sep 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  +files/portagedestdir.patch, +kdelibs-3.93.0.ebuild:
+  Added kdelibs 3.93.0 ebuild.
+
+  03 Sep 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  kdelibs-9999.4.ebuild:
+  Fixed pkg_setup for the kdelibs-9999.4 ebuild.
+
+  31 Aug 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  +files/portagedestdir-9999.4.patch, kdelibs-9999.4.ebuild:
+  Added a patch to fix a CMake script which ignores DESTDIR causing an access
+  violation error.
+
+  29 Aug 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-9999.4.ebuild, kdelibs-3.91.0.ebuild, kdelibs-3.92.0.ebuild:
+  Corrected postinst warning, add it to other ebuilds installing this file as
+  well.
+
+  29 Aug 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdelibs-9999.4.ebuild:
+  Added postinst message wrt /etc/env.d/44kde-paths-kde-svn.
+
+  18 Aug 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  kdelibs-9999.4.ebuild:
+  Added code to check if alsa-lib was built with the midi use flag enabled.
+
+  18 Aug 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  kdelibs-9999.4.ebuild:
+  Bumped strigi dependency to version 0.5.5 .
+
+  05 Aug 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +kdelibs-3.92.0.ebuild:
+  Added Beta 1.
+
+  28 Jul 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  -kdelibs-3.92.0.ebuild:
+  Removed wrong version of kdelibs-3.92.0.
+
+  28 Jul 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +kdelibs-3.92.0.ebuild:
+  Added kdelibs-3.92.0.
+
+  28 Jul 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  kdelibs-9999.4.ebuild:
+  Re-added XDG_DATA_DIRS to 44kdepaths-kde-svn because it seems that now it's
+  required to correctly generate the menus.
+
+  28 Jul 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  kdelibs-9999.4.ebuild:
+  Added opengl use flag to the svn ebuild.
+
+  21 Jul 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  kdelibs-3.91.0.ebuild, kdelibs-9999.4.ebuild:
+  Specified version for the OpenEXR dependency.
+
+  19 Jul 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  kdelibs-3.91.0.ebuild, kdelibs-9999.4.ebuild:
+  Changed strigi dependency from kde-misc/strigi to app-misc/strigi.
+  Updated strigi dependency for the 9999.4 ebuild to reflect svn changes. Now
+  >=strigi-0.5.3 is required - The overlay provide the svn ebuild since it
+  seems that no tarball is available at the moment.
+
+  18 Jul 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it> +metadata.xml,
+  kdelibs-9999.4.ebuild:
+  Added Changelog and metadata.xml
+
