@@ -1,0 +1,10 @@
+# ChangeLog for kde-base/kwordquiz
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*kwordquiz-scm (07 Apr 2008)
+
+  07 Apr 2008; <bernd@bernd-steinhauser.de> +metadata.xml,
+  +kwordquiz-scm.kdebuild-1:
+  Initial import.
+
