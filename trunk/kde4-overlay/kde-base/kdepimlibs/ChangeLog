@@ -1,0 +1,105 @@
+# ChangeLog for kde-base/kdepimlibs
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  01 Apr 2008; Ingmar Vanhassel <ingmar@gentoo.org>
+  -kdepimlibs-9999.4.ebuild:
+  Old.
+
+  26 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  +kdepimlibs-scm.kdebuild-1:
+  Add kdepimlibs-scm.
+
+  11 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  kdepimlibs-9999.4.ebuild:
+  Fix test dependencies.
+
+  24 Jan 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  kdepimlibs-9999.4.ebuild:
+  Depend on >=app-crypt/gpgme-1.1.6, fixes bug 206724.
+
+  20 Jan 2008; Ingmar Vanhassel <ingmar@gentoo.org>
+  -kdepimlibs-4.0.0.ebuild:
+  Nuke kdepimlibs-4.0.0.ebuild
+
+  11 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdepimlibs-4.0.0.ebuild, kdepimlibs-9999.4.ebuild:
+  Restrict tests. 575 tests failed out of 577. Phun...
+
+*kdepimlibs-4.0.0 (05 Jan 2008)
+
+  05 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -kdepimlibs-3.97.0.ebuild, +kdepimlibs-4.0.0.ebuild:
+  Added kdepimlibs-4.0.0.ebuild.
+
+  12 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdepimlibs-9999.4.ebuild:
+  Don't depend on IUSE being set in the eclass. Cleanup.
+
+  11 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdepimlibs-3.97.0.ebuild, kdepimlibs-9999.4.ebuild:
+  Sync live ebuild with :kde-4 ebuild.
+
+  10 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdepimlibs-9999.4.ebuild:
+  Fix inherit.
+
+*kdepimlibs-3.97.0 (07 Dec 2007)
+
+  07 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -kdepimlibs-3.96.0-r1.ebuild, -kdepimlibs-3.96.2.ebuild,
+  +kdepimlibs-3.97.0.ebuild:
+  Added kdepimlibs-3.97.0.ebuild.
+
+  30 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdepimlibs-3.96.0-r1.ebuild, kdepimlibs-3.96.2.ebuild:
+  Kill NEED_KDE here.
+
+*kdepimlibs-3.96.2 (29 Nov 2007)
+
+  29 Nov 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  -kdepimlibs-3.96.1.ebuild, +kdepimlibs-3.96.2.ebuild:
+  Bump to 3.96.2. Remove 3.96.1.
+
+*kdepimlibs-3.96.1 (29 Nov 2007)
+
+  29 Nov 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  +kdepimlibs-3.96.1.ebuild:
+  Bump to 3.96.1.
+
+*kdepimlibs-3.96.0-r1 (21 Nov 2007)
+
+  21 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +kdepimlibs-3.96.0-r1.ebuild, -kdepimlibs-3.96.0.ebuild:
+  Nuke NEED_KDE from ebuild, revbumping to make sure everyong gets the fix.
+
+*kdepimlibs-3.96.0 (20 Nov 2007)
+
+  20 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -kdepimlibs-3.95.0.ebuild, -kdepimlibs-3.95.2.ebuild,
+  +kdepimlibs-3.96.0.ebuild:
+  Added kdepimlibs-3.96.0.ebuild.
+
+  12 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +kdepimlibs-3.95.2.ebuild:
+  Added kdepimlibs-3.95.2.ebuild.
+
+  27 Oct 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +kdepimlibs-3.95.0.ebuild:
+  Added kdepimlibs-3.95.0. Ingmar is still slacking! ;-)
+
+  18 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +kdepimlibs-3.94.0.ebuild:
+  Added kdepimlibs-3.94.0.ebuild.
+
+  06 Sep 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  +kdepimlibs-3.93.0.ebuild:
+  Added kdepimlibs 3.93.0 ebuild.
+
+  05 Aug 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +kdepimlibs-3.92.0.ebuild:
+  Added Beta 1.
+
+  18 Jul 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it> +metadata.xml:
+  Added Changelog and metadata.xml
+
