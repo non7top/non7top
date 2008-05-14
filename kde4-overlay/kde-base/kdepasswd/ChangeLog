@@ -1,0 +1,13 @@
+# ChangeLog for kde-base/kdepasswd
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+
+  30 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  -files/kdepasswd-scm-linkage.patch, kdepasswd-scm.kdebuild-1:
+  Load libkonq library dependencies and drop linkage patch.
+
+*kdepasswd-scm (27 Mar 2008)
+
+  27 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org> +metadata.xml,
+  +kdepasswd-scm.kdebuild-1, +files/kdepasswd-scm-linkage.patch:
+  Add kdepasswd-scm.
+
