@@ -1,0 +1,16 @@
+# ChangeLog for kde-base/akonadi
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  02 May 2008; <bernd@bernd-steinhauser.de> akonadi-scm.kdebuild-1:
+  Tell Akonadi where it finds the dbus stuff.
+
+  30 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org> akonadi-scm.kdebuild-1:
+  Update dependencies.
+
+*akonadi-scm (13 Apr 2008)
+
+  13 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org> +metadata.xml,
+  +akonadi-scm.kdebuild-1:
+  Add akonadi-scm.
+
