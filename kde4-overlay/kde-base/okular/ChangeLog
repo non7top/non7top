@@ -1,0 +1,82 @@
+# ChangeLog for kde-base/okular
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  07 May 2008; <bernd@bernd-steinhauser.de> okular-scm.kdebuild-1:
+  Update dependencies.
+
+  28 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org> ChangeLog:
+  Add crypt and ps USE flags. The crypt USE flag enables support for encrypted
+  OpenDocument Text documents.
+
+*okular-scm (28 Mar 2008)
+
+  28 Mar 2008; Ingmar Vanhassel <ingmar@gentoo.org> +okular-scm.kdebuild-0,
+  -okular-9999.4.ebuild:
+  Added okular-scm.
+
+  08 Feb 2008; Ingmar Vanhassel <ingmar@gentoo.org> okular-9999.4.ebuild:
+  Use libspectre.
+
+*okular-9999.4 (23 Jan 2008)
+
+  23 Jan 2008; Ingmar Vanhassel <ingmar@gentoo.org> -okular-4.0.0.ebuild,
+  +okular-9999.4.ebuild:
+  Added okular-9999.4.ebuild.
+
+  14 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  okular-4.0.0.ebuild:
+  Use CMake switches correctly.
+
+*okular-3.97.0 (11 Dec 2007)
+
+  11 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -okular-3.96.0.ebuild, -okular-3.96.2.ebuild, +okular-3.97.0.ebuild:
+  Added okular-3.97.0.ebuild.
+
+*okular-3.96.2 (02 Dec 2007)
+
+  02 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +okular-3.96.2.ebuild:
+  Added okular-3.96.2.ebuild.
+
+*okular-3.96.0 (22 Nov 2007)
+
+  22 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -okular-3.95.0.ebuild, -okular-3.95.2.ebuild, +okular-3.96.0.ebuild:
+  Added okular-3.96.0.ebuild.
+
+*okular-3.95.2 (16 Nov 2007)
+
+  16 Nov 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +okular-3.95.2.ebuild:
+  Added okular-3.95.2.ebuild. DEPEND on virtual/ghostscript.
+
+  01 Nov 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +okular-3.95.0.ebuild:
+  Bump to 3.95.0. Thanks to mereandor for providing this ebuild!
+
+  26 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  okular-3.94.0-r1.ebuild:
+  built_with_use needs in a package atom.
+
+  25 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +okular-3.94.0-r1.ebuild, -okular-3.94.0.ebuild:
+  Revision-bumping to make sure everone gets app-text/poppler-bindings with
+  Qt4-bindings.
+
+  25 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  okular-3.94.0.ebuild:
+  USE=pdf needs app-text/poppler-bindings with USE=qt4.
+
+  24 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +okular-3.94.0.ebuild:
+  Added okular-3.94.0.ebuild.
+
+  24 Sep 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -okular-3.90.1.ebuild, +okular-3.93.0.ebuild:
+  Added okular-3.93.0.ebuild.
+
+  25 Jul 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it> +metadata.xml:
+  Added metadata.xml and Changelog.
+
