@@ -1,0 +1,10 @@
+# ChangeLog for kde-misc/playground-plasma
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*playground-plasma-scm (10 May 2008)
+
+  10 May 2008; <bernd@bernd-steinhauser.de>
+  +playground-plasma-scm.kdebuild-1:
+  Initial.
+

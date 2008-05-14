@@ -1,0 +1,19 @@
+# ChangeLog for kde-misc/yakuake
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  12 May 2008; <bernd@bernd-steinhauser.de> yakuake-scm.kdebuild-1:
+  Use kde4svn-meta.
+
+*yakuake-scm (11 Apr 2008)
+
+  11 Apr 2008; <bernd@bernd-steinhauser.de> -yakuake-9999.4.ebuild,
+  +yakuake-scm.kdebuild-1:
+  Bump yakuake to kdebuild-1.
+
+*yakuake-9999.4 (10 Jan 2008)
+
+  10 Jan 2008; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +yakuake-9999.4.ebuild:
+  Added yakuake-9999.4.ebuild.
+
