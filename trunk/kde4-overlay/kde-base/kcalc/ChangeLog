@@ -1,0 +1,10 @@
+# ChangeLog for kde-base/kcalc
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*kcalc-scm (13 Apr 2008)
+
+  13 Apr 2008; <bernd@bernd-steinhauser.de> +metadata.xml,
+  +kcalc-scm.kdebuild-1:
+  Initial.
+
