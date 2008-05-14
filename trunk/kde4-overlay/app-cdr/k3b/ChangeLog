@@ -1,0 +1,16 @@
+# ChangeLog for app-cdr/k3b
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  12 May 2008; <bernd@bernd-steinhauser.de> k3b-scm.kdebuild-1:
+  Use kde4svn-meta.
+
+  26 Apr 2008; <bernd@bernd-steinhauser.de> k3b-scm.kdebuild-1:
+  Slot properly, fixes bug 58.
+
+*k3b-scm (19 Apr 2008)
+
+  19 Apr 2008; <bernd@bernd-steinhauser.de> +metadata.xml,
+  +k3b-scm.kdebuild-1:
+  Add k3b live ebuild.
+
