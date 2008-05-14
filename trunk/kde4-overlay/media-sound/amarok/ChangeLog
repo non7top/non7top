@@ -1,0 +1,69 @@
+# ChangeLog for media-sound/amarok
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  12 May 2008; Bo Ørsted Andresen <zlin@gentoo.org> amarok-scm.kdebuild-1:
+  Use kde4svn-meta.
+
+  10 May 2008; <bernd@bernd-steinhauser.de> amarok-scm.kdebuild-1:
+  Add gstreamer use flag to IUSE.
+
+  21 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org> +MKh11n75.txt,
+  amarok-scm.kdebuild-1:
+  Properly depend upon the right SLOT of kdelibs.
+
+  17 Apr 2008; <bernd@bernd-steinhauser.de> amarok-scm.kdebuild-1:
+  Depend on >=taglib-1.5
+
+*amarok-scm (07 Apr 2008)
+
+  07 Apr 2008; <bernd@bernd-steinhauser.de> amarok-2.0_pre4.ebuild,
+  -amarok-9999.4.ebuild, +amarok-scm.kdebuild-1:
+  Add debug useflag and mv the live ebuild to kdebuild-1.
+
+  11 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org> amarok-2.0_pre4.ebuild,
+  amarok-9999.4.ebuild:
+  Fix opengl qt dependencies.
+
+  15 Jan 2008; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  amarok-2.0_pre4.ebuild, amarok-9999.4.ebuild:
+  kdebase-workspace has been merged into kdebase.
+
+  01 Jan 2008; Jorge Manuel B. S. Vicetto <jmbsvicetto@gentoo.org>
+  amarok-2.0_pre4.ebuild, amarok-9999.4.ebuild:
+  Added missing kde and real use flags and missing description for amazon.
+
+  15 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  amarok-2.0_pre4.ebuild, amarok-9999.4.ebuild:
+  Added a note about the pre alpha status of amarok.
+
+*amarok-9999.4 (12 Dec 2007)
+
+  12 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -amarok-2.0_pre9999.ebuild, +amarok-9999.4.ebuild:
+  Renamed live ebuild.
+
+  10 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  amarok-2.0_pre4.ebuild, amarok-2.0_pre9999.ebuild:
+  Fix built_with_use checks.
+
+  05 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  amarok-2.0_pre4.ebuild, amarok-2.0_pre9999.ebuild:
+  Move USE="moodbar" functionality under USE="gstreamer".
+
+  05 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  amarok-2.0_pre4.ebuild, amarok-2.0_pre9999.ebuild:
+  Use NEED_KDE_PRE in amarok.
+
+  04 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  amarok-2.0_pre4.ebuild, amarok-2.0_pre9999.ebuild:
+  Missed kde-base/kdebase-workspace in built_with_use checks.
+
+*amarok-2.0_pre9999 (04 Dec 2007)
+*amarok-2.0_pre4 (04 Dec 2007)
+
+  04 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +amarok-2.0_pre4.ebuild, +amarok-2.0_pre9999.ebuild:
+  Added 2 live (SVN) amarok ebuilds:
+  - amarok-2.0_pre4.ebuild builds against kde-base/*:kde-4
+  - amarok-2.0_pre9999.ebuild builds against kde-base/*:kde-svn

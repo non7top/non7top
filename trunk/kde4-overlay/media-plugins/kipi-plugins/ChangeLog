@@ -1,0 +1,16 @@
+# ChangeLog for media-plugins/kipi-plugins
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  11 May 2008; <bernd@bernd-steinhauser.de> kipi-plugins-scm.kdebuild-1:
+  Make use of kde4svn-meta and remove ugly hack.
+
+  27 Apr 2008; <bernd@bernd-steinhauser.de> kipi-plugins-scm.kdebuild-1:
+  Improve split build handling. Make libksane optional. Fixes obug 59.
+
+*kipi-plubings-scm (26 Apr 2008)
+
+  26 Apr 2008; <bernd@bernd-steinhauser.de> +metadata.xml,
+  +kipi-plugins-scm.kdebuild-1:
+  Add kipi-plugins live ebuild.
+
