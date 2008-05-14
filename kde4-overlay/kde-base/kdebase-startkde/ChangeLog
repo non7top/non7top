@@ -1,0 +1,14 @@
+# ChangeLog for kde-base/kdebase-startkde
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+
+  10 May 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  kdebase-startkde-scm.kdebuild-1:
+  Remove cruft.
+
+*kdebase-startkde-scm (27 Mar 2008)
+
+  27 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org> +metadata.xml,
+  +kdebase-startkde-scm.kdebuild-1, +files/agent-shutdown.sh,
+  +files/agent-startup.sh, +files/gentoo-startkde.patch:
+  Add kdebase-startkde-scm.
+
