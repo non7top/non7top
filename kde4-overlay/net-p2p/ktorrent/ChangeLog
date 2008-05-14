@@ -1,0 +1,77 @@
+# ChangeLog for net-p2p/ktorrent
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  12 May 2008; <bernd@bernd-steinhauser.de> ktorrent-scm.kdebuild-1:
+  Use kde4svn-meta.
+
+*ktorrent-scm (28 Apr 2008)
+
+  28 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  -ktorrent-9999.4.ebuild, +ktorrent-scm.kdebuild-1:
+  Convert to kdebuild-1. Add bitfinder and mediaplayer use flags. Thanks to
+  mikkoc.
+
+  20 Mar 2008; Ingmar Vanhassel <ingmar@gentoo.org>
+  -ktorrent-3.0_rc1.ebuild:
+  Old.
+
+*ktorrent-3.0_rc1 (29 Jan 2008)
+
+  29 Jan 2008; Timo Gurr <tgurr@gentoo.org>
+  -files/ktorrent-3.0_beta1-selectable-plugins.patch,
+  -ktorrent-3.0_beta1.ebuild, +ktorrent-3.0_rc1.ebuild:
+  Add ktorrent-3.0_rc1.ebuild, clean out older version.
+
+  20 Jan 2008; Ingmar Vanhassel <ingmar@gentoo.org>
+  -ktorrent-3.0_pre4.ebuild, -ktorrent-3.0_pre9999.ebuild:
+  Old
+
+*ktorrent-3.0_beta1 (11 Jan 2008)
+
+  11 Jan 2008; Timo Gurr <tgurr@gentoo.org>
+  +files/ktorrent-3.0_beta1-selectable-plugins.patch,
+  +ktorrent-3.0_beta1.ebuild:
+  Add KDE4 beta release of KTorrent.
+
+  09 Jan 2008; Timo Gurr <tgurr@gentoo.org> ktorrent-9999.4.ebuild:
+  Provide (in-)sane USE defaults for KTorrent plugins.
+
+  09 Jan 2008; Timo Gurr <tgurr@gentoo.org> ktorrent-9999.4.ebuild:
+  Made plugins selectable on compile time via USE flags, KDE bug #154906.
+
+  15 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  ktorrent-3.0_pre9999.ebuild:
+  Fix SLOT.
+
+  14 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  ktorrent-3.0_pre4.ebuild, ktorrent-3.0_pre9999.ebuild:
+  Revert: 'Add fam to dependencies.'.
+
+  13 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  ktorrent-3.0_pre4.ebuild, ktorrent-3.0_pre9999.ebuild:
+  Add fam to dependencies.
+
+  13 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  ktorrent-3.0_pre4.ebuild, +ktorrent-3.0_pre9999.ebuild:
+  Add ebuilds for ktorrent-3.97.0 (which is actually 3.0dev).
+
+*ktorrent-9999.4 (12 Dec 2007)
+
+  12 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -ktorrent-3.0_pre9999.ebuild, +ktorrent-9999.4.ebuild:
+  Renamed live ebuild.
+
+  10 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  ktorrent-3.0_pre4.ebuild, ktorrent-3.0_pre9999.ebuild:
+  Use NEED_KDE_PRE.
+
+*ktorrent-3.0_pre9999 (04 Dec 2007)
+*ktorrent-3.0_pre4 (04 Dec 2007)
+
+  04 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +ktorrent-3.0_pre4.ebuild, +ktorrent-3.0_pre9999.ebuild:
+  Added 2 live (SVN) ktorrent ebuilds:
+  - ktorrentk-3.0_pre4.ebuild builds against kde-base/*:kde-4
+  - ktorrent-3.0_pre9999.ebuild builds against kde-base/*:kde-svn
+
