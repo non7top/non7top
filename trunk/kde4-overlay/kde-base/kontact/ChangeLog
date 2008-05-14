@@ -1,0 +1,14 @@
+# ChangeLog for kde-base/kontact
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  30 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org> kontact-scm.kdebuild-1:
+  Load libkdepim library dependencies and drop linkage patch. Store library
+  dependencies of included libraries.
+
+*kontact-scm (14 Apr 2008)
+
+  14 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  +files/kontact-scm-linkage.patch, +metadata.xml, +kontact-scm.kdebuild-1:
+  Add kontact-scm.
+
