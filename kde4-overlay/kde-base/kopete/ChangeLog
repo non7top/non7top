@@ -1,0 +1,12 @@
+# ChangeLog for kde-base/kopete
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  01 Apr 2008; Ingmar Vanhassel <ingmar@gentoo.org> kopete-scm.kdebuild-1:
+  Whitespace.
+
+*kopete-scm (31 Mar 2008)
+
+  31 Mar 2008; <bernd@bernd-steinhauser.de> +metadata.xml, +kopete-scm.kdebuild-1:
+  Add kopete-scm.kdebuild-1.
+
