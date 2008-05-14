@@ -1,0 +1,10 @@
+# ChangeLog for kde-base/kcron
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*kcron-scm (06 May 2008)
+
+  06 May 2008; Tobias Heinlein <keytoaster@gentoo.org> +metadata.xml,
+  +kcron-scm.kdebuild-1:
+  Initial.
+
