@@ -1,0 +1,19 @@
+# ChangeLog for kde-base/kaddressbook
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  10 May 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  kaddressbook-scm.kdebuild-1:
+  Install generated header needed by kresources.
+
+  30 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  -files/kaddressbook-scm-linkage.patch, kaddressbook-scm.kdebuild-1:
+  Load libkdepim and libkleo library dependencies and drop linkage patch.
+
+*kaddressbook-scm (14 Apr 2008)
+
+  14 Apr 2008; Bo Ørsted Andresen <zlin@gentoo.org>
+  +files/kaddressbook-scm-linkage.patch, +metadata.xml,
+  +kaddressbook-scm.kdebuild-1:
+  Add kaddressbook-scm.
+
