@@ -1,0 +1,11 @@
+# ChangeLog for app-office/kivio
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*kivio-1.9.95.1 (20 Dec 2007)
+
+  20 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  +files/kivio-1.9.95.1-link_lib.patch, +metadata.xml,
+  +kivio-1.9.95.1.ebuild:
+  Added kivio-1.9.95.1.
+

@@ -1,0 +1,14 @@
+# ChangeLog for app-office/kplato
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  15 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org> kplato-1.9.95.1.ebuild:
+  Fix test dependencies.
+
+*kplato-1.9.95.1 (20 Dec 2007)
+
+  20 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  +files/kplato-1.9.95.1-link_lib.patch, +metadata.xml,
+  +kplato-1.9.95.1.ebuild:
+  Added kplato-1.9.95.1.
+
