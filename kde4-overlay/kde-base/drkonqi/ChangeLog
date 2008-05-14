@@ -1,0 +1,9 @@
+# ChangeLog for kde-base/drkonqi
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+
+*drkonqi-scm (27 Mar 2008)
+
+  27 Mar 2008; Bo Ørsted Andresen <zlin@gentoo.org> +metadata.xml,
+  +drkonqi-scm.kdebuild-1:
+  Add drkonqi-scm.
+
