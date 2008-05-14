@@ -1,0 +1,10 @@
+# ChangeLog for kde-base/kdepim-wizards
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*kdepim-wizards-scm (11 May 2008)
+
+  11 May 2008; <bernd@bernd-steinhauser.de> +metadata.xml,
+  +kdepim-wizards-scm.kdebuild-1:
+  Initial.
+
