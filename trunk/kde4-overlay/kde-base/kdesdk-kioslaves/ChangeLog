@@ -1,0 +1,10 @@
+# ChangeLog for kde-base/kdesdk-kioslaves
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*kdesdk-kioslaves-scm (21 Apr 2008)
+
+  21 Apr 2008; <bernd@bernd-steinhauser.de> +metadata.xml,
+  +kdesdk-kioslaves-scm.kdebuild-1:
+  Add kdesdk-kioslaves-scm.
+
