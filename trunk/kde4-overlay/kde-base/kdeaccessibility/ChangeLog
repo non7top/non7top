@@ -1,0 +1,71 @@
+# ChangeLog for kde-base/kdeaccessibility
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  20 Mar 2008; Ingmar Vanhassel <ingmar@gentoo.org>
+  -kdeaccessibility-4.0.0.ebuild:
+  Old.
+
+  16 Jan 2008; Ingmar Vanhassel <ingmar@gentoo.org>
+  kdeaccessibility-4.0.0.ebuild, kdeaccessibility-9999.4.ebuild:
+  Depend on at least >=media-libs/alsa-lib-1.0.14a.
+
+*kdeaccessibility-4.0.0 (14 Jan 2008)
+
+  14 Jan 2008; Wulf C. Krueger <philantrop@gentoo.org>
+  +kdeaccessibility-4.0.0.ebuild:
+  Version bump to 4.0.0.
+
+  17 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdeaccessibility-9999.4.ebuild:
+  Cleanup.
+
+  12 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  -kdeaccessibility-3.96.0.ebuild:
+  Removed monolithic RC1.
+
+  12 Dec 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdeaccessibility-9999.4.ebuild:
+  Don't depend on IUSE being set in the eclass. Cleanup.
+
+  10 Dec 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdeaccessibility-9999.4.ebuild:
+  Fix inherit.
+
+  28 Nov 2007; Bo Ørsted Andresen <bo.andresen@zlin.dk>
+  kdeaccessibility-3.96.0.ebuild, kdeaccessibility-9999.4.ebuild:
+  This doesn't use akode. Hopefully the deps are now correct...
+
+*kdeaccessibility-3.96.0 (22 Nov 2007)
+
+  22 Nov 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  -kdeaccessibility-3.95.0.ebuild, +kdeaccessibility-3.96.0.ebuild:
+  Added kdeaccessibility-3.96.0.ebuild.
+
+  28 Oct 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +kdeaccessibility-3.95.0.ebuild:
+  Added kdeaccessibility-3.95.0.ebuild.
+
+  19 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  kdeaccessibility-3.94.0.ebuild:
+  Added a better slot dependency.
+
+  19 Oct 2007; Ingmar Vanhassel <ingmar.vanhassel@gmail.com>
+  +kdeaccessibility-3.94.0.ebuild:
+  Added kdeaccessibility-3.94.0.ebuild.
+
+  07 Sep 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  -kdeaccessibility-3.91.0.ebuild, -kdeaccessibility-3.92.0.ebuild:
+  Removed kdeaccessibility 3.91.0 and 3.92.0.
+
+  06 Sep 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it>
+  +kdeaccessibility-3.93.0.ebuild:
+  Added kdeaccessibility 3.93.0 ebuild.
+
+  05 Aug 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +kdeaccessibility-3.92.0.ebuild:
+  Added Beta 1.
+
+  18 Jul 2007; Emanuele A. Bagnaschi <zephyrus@mirach.it> ChangeLog:
+  Added Changelog and metadata
+
