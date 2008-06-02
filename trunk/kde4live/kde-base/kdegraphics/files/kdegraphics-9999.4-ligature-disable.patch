@@ -1,0 +1,13 @@
+--- work/kdegraphics-9999.4/CMakeLists.txt.old	2007-05-05 23:08:18.000000000 +0000
++++ work/kdegraphics-9999.4/CMakeLists.txt	2007-05-06 01:50:56.000000000 +0000
+@@ -49,7 +49,9 @@
+ macro_optional_add_subdirectory(kiconedit)
+ macro_optional_add_subdirectory(kruler)
+ macro_optional_add_subdirectory(kolourpaint)
+-macro_optional_add_subdirectory(ligature)
++# According to tsgdeos in #kde4-devel, ligature is currently unmantained and
++# the pdfRenderer plugin does't work with poppler-qt4.h or poppler-qt.h
++# macro_optional_add_subdirectory(ligature)
+ message(STATUS "disable kmrml")
+ #macro_optional_add_subdirectory(kmrml)
+ 
