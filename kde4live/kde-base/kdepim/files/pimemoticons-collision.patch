@@ -1,0 +1,11 @@
+--- kdepim-3.90.1/libkdepim/CMakeLists.txt.old	2007-05-06 17:08:21.000000000 +0200
++++ kdepim-3.90.1/libkdepim/CMakeLists.txt	2007-05-06 17:08:58.000000000 +0200
+@@ -117,7 +117,7 @@
+ 
+ ########### install files ###############
+ 
+-install(FILES pimemoticons.kcfg  DESTINATION ${KCFG_INSTALL_DIR})
++#DONOTINSTALL install(FILES pimemoticons.kcfg  DESTINATION ${KCFG_INSTALL_DIR})
+ install(FILES kdepimprotocols.h  DESTINATION ${INCLUDE_INSTALL_DIR})
+ 
+ install(FILES interfaces/org.kde.addressbook.service.xml interfaces/org.kde.mailtransport.service.xml DESTINATION ${DBUS_INTERFACES_DIR}) 
