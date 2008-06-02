@@ -234,7 +234,7 @@ kde4-meta_create_extractlists() {
 			kleopatra/ConfigureChecks.cmake"
 		if has kontact ${IUSE//+} && use kontact; then
 			KMEXTRA="${KMEXTRA} kontact/plugins/${PLUGINNAME:-${PN}}"
-			KMEXTRACTONLY="${KMEXTRACTONLY} kontact/interfaces/"
+			KMEXTRACTONLY="${KMEXTRACTONLY} kontactinterfaces/"
 		fi
 		;;
 		koffice)
@@ -457,12 +457,34 @@ kde4-meta_change_cmakelists() {
 			esac
 		fi
 		;;
+		kdebase-runtime)
+		# COLLISION PROTECT section
+		# Only install the kde4 script as part of kde-base/kdebase-data
+		if [[ ${PN} != "kdebase-data" && -f "${S}"/CMakeLists.txt ]]; then
+			sed -i -e '/^install(PROGRAMS[[:space:]]*[^[:space:]]*\/kde4[[:space:]]/s/^/#DONOTINSTALL /' \
+				"${S}"/CMakeLists.txt || die "Sed to exclude bin/kde4 failed"
+		fi
+		;;
 		kdepim)
 		case ${PN} in
 			kaddressbook|kalarm|kmailcvt|kontact|korganizer|korn)
 			sed -i -n -e '/qt4_generate_dbus_interface(.*org\.kde\.kmail\.\(kmail\|mailcomposer\)\.xml/p' \
 				-e '/add_custom_target(kmail_xml /,/)/p' "${S}"/kmail/CMakeLists.txt || die "uncommenting xml failed"
 			_change_cmakelists_parent_dirs kmail
+			;;
+		esac
+		case ${PN} in
+			kontact)
+			sed -i -n -e '/set(kjots_SRCS/,/kjotslinkdialog.cpp/p' \
+				-e '/kjotslinkdialog.cpp/ a \ )' \
+				-e '/qt4_generate_dbus_interface(.*org\.kde\.KJotsComponent.xml/p' \
+				-e '/qt4_add_dbus_interfaces(kjots_SRCS/,/)/p' \
+				-e '/kde4_add_ui_files(kjots_SRCS/p' \
+				-e '/kde4_add_kcfg_files(kjots_SRCS/p' \
+				-e '/kde4_add_executable(kjots /p' \
+				-e '/target_link_libraries(kjots /p' \
+				"${S}"/kjots/CMakeLists.txt || die "uncommenting xml failed"
+			_change_cmakelists_parent_dirs kjots
 			;;
 		esac
 		;;

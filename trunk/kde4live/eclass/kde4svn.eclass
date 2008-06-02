@@ -103,8 +103,8 @@ kde4svn_pkg_setup() {
 	if [[ -z ${I_KNOW_WHAT_I_AM_DOING} ]]; then
 		echo
 		ewarn "WARNING! This is an experimental ebuild of the ${KMNAME:-${PN}} KDE4 SVN tree."
-		ewarn "Use at your own risk. Do _NOT_ file bugs at bugs.gentoo.org because"
-		ewarn "of this ebuild!"
+		ewarn "Use at your own risk. File a bug at https://www2.mailstation.de/bugzilla if you"
+		ewarn "run into problems. Or join #genkdesvn on the great Freenode IRC network."
 		echo
 	fi
 }
