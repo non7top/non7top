@@ -1,0 +1,7 @@
+# Ingmar Vanhassel <ingmar.stdin@gmail.com> (10 Jan 2008)
+# SQlite support fails to compile.
+app-misc/strigi sqlite
+
+# Ingmar Vanhassel <ingmar.stdin@gmail.com> (10 Jan 2008
+# Sesame needs to be packaged first, bug 97892.
+dev-libs/soprano java

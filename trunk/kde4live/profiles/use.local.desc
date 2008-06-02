@@ -1,0 +1,109 @@
+# Copyright 1999-2007 Gentoo Foundation.
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+# This file contains descriptions of local USE flags, and the ebuilds which
+# contain them.
+
+# Keep it sorted.
+
+app-editors/yzis:ncurses - Compile NYzis, the ncurses gui.
+app-editors/yzis:qt4 - Compile QYzis, the Qt4 gui.
+app-editors/yzis:X - Access X copy/paste buffers from the ncurses GUI.
+app-misc/strigi:clucene - Enable clucene backend support (recommended)
+app-misc/strigi:exiv2 - Enable support for exif/iptc metadata (recommended)
+app-misc/strigi:hyperestraier - Enable hyperestraier backend support (experimental)
+app-misc/strigi:java - Enable compilation of the xsd parser
+app-misc/strigi:inotify - Enable support for inotify (experimental)
+app-misc/strigi:log - Enable logging support
+app-misc/strigi:qt4 - Enable compilation of the qt4 gui
+app-misc/strigi:sqlite - Enable sqlite3 backend support
+#app-misc/strigi:xattr - Enable extended attribute support
+app-office/koffice:boost - Enable the usage of boost
+dev-libs/soprano:clucene - Enable clucene backend support (recommended)
+kde-base/akonadi:nepomuk - Build Nepomuk feeder
+kde-base/kalzium:cviewer - Enable Kalzium compound viewer
+kde-base/kdeaccessibility:ktts - Enable KDE Text To Speech modules
+kde-base/ark:archive - Enable support for a variety of archive formats through libarchive
+kde-base/ark:zip - Enable zip support through LibZip
+kde-base/dolphin:semantic-desktop - Semantic desktop allows for storage of digital information and its metadata to allow the user to express his personal mental models, making all information become intuitively accessible.
+kde-base/juk:tunepimp - Provide MusicBrainz tagging in Juk.
+kde-base/kdeadmin:lilo - Install lilo-config, a frontend for the lilo boot loader
+kde-base/kdeadmin-meta:lilo - Install lilo-config, a frontend for the lilo boot loader
+kde-base/kdebase:accessibility - Compile the battery plasmoid
+kde-base/kdebase:captury - Enable the 'Capture'-plugin in kwin.
+kde-base/kdebase:usb - Configure USB and logitech mice
+kde-base/kdebase:networkmanager - Add support for net-misc/networkmanager
+kde-base/kdebase:newxkb - Enable compilation of the new XKB code, which requires libxklavier, in KXKB
+kde-base/kdebase:xcb - Support the X C-language Binding, a replacement for Xlib
+kde-base/kdeedu:cviewer - Enable Kalzium compound viewer
+kde-base/kdeedu:designer-plugin - Enable designer plugin
+kde-base/kdeedu:fits - Enable support for the FITS image format through cfitsio
+kde-base/kdeedu:solver - Enable Kalzium ocaml equation solver
+kde-base/kdegames:ggz - Add support for the GGZ gaming zone
+kde-base/kdegraphics:chm - Enable Okular support for Microsoft Compiled HTML Help files
+kde-base/kdegraphics:djvu - Enable Okular support for DjVu files
+kde-base/kdegraphics:exiv2 - Enable support for images metadata trough the exiv2 package
+kde-base/kdelibs:semantic-desktop - Semantic desktop allows for storage of digital information and its metadata to allow the user to express his personal mental models, making all information become intuitively accessible.
+kde-base/kdemultimedia:taglib - Enable tagging support with Taglib
+kde-base/kdemultimedia:tunepimp - Provide MusicBrainz tagging in Juk.
+kde-base/kdemultimedia:xcb - Support the X C-language Binding, a replacement for Xlib
+kde-base/kdenetwork:addbookmarks - Builds Add Bookmarks plugin
+kde-base/kdenetwork:alias - Builds Alias plugin
+kde-base/kdenetwork:autoreplace - Builds Auto-Replace plugin
+kde-base/kdenetwork:bittorrent - Build the BitTorrent plugin for kget
+kde-base/kdenetwork:contactnotes - Builds Contact Notes plugin
+kde-base/kdenetwork:decibel - Enable the Telepathy protocol plugin in Kopete
+kde-base/kdenetwork:gadu - Builds GaduGadu protocol handler
+kde-base/kdenetwork:groupwise - Enable the groupwise protocol plugin in Kopete
+kde-base/kdenetwork:highlight - Builds Highlight plugin
+kde-base/kdenetwork:history - Builds history plugin
+kde-base/kdenetwork:nowlistening - Builds Now Listening... plugin
+kde-base/kdenetwork:ppp - Builds kppp, a dialer and front-end to pppd
+kde-base/kdenetwork:privacy - plugin to selectively filter messages
+kde-base/kdenetwork:qq - enable support for the chinese network protocol
+kde-base/kdenetwork:sms - Enable the sms protocol plugin in Kopete
+kde-base/kdenetwork:statistics - Builds statistics plugin
+kde-base/kdenetwork:testbed - Enable the testbed protocol plugin
+kde-base/kdenetwork:texteffect - Builds Text Effect plugin
+kde-base/kdenetwork:translator - Builds Translator plugin
+kde-base/kdenetwork:urlpicpreview - plugin to allow users to send photos through URLs
+kde-base/kdenetwork:vnc - Enable vnc support
+kde-base/kdenetwork:webpresence - Builds Web Presence plugin
+kde-base/kdenetwork:winpopup - Builds WinPopUp protocol handler
+kde-base/kdeutils:archive - Enable support for a variety of archive formats through libarchive
+kde-base/kdeutils:tpctl - Enable sypport for Thinkpad system control
+kde-base/kdeutils:zip - Enable zip support through LibZip
+kde-base/kmail:nepomuk - Desktop-wide tagging support
+kde-base/kopete:decibel - Enable the Telepathy protocol plugin
+kde-base/kopete:groupwise - Enable the groupwise protocol plugin
+kde-base/kopete:jabber - Enable the Jabber protocol plugin
+kde-base/kopete:messenger - Enable the Windows LIVE!-Messenger protocol plugin
+kde-base/kopete:privacy - plugin to selectively filter messages
+kde-base/kopete:qca - Enable the Qt Cryptographic Architecture
+kde-base/kopete:qq - enable support for the chinese network protocol
+kde-base/kopete:sms - Enable the sms protocol plugin
+kde-base/kopete:testbed - Enable the testbed protocol plugin
+kde-base/kopete:urlpicpreview - plugin to allow users to send photos through URLs
+kde-base/kopete:xslt - Enable xslt support
+kde-base/krdc:vnc - Enable vnc support
+kde-base/kstars:fits - Enable support for the FITS image format through cfitsio
+kde-base/kttsd:ktts - Enable KDE Text To Speech modules
+kde-base/kwin:captury - Enable the 'Capture'-plugin in kwin.
+kde-base/marble:designer-plugin - Enable designer plugin
+kde-base/okular:chm - Enable support for Microsoft Compiled HTML Help files
+kde-base/okular:djvu - Enable support for DjVu files
+kde-base/plasma:accessibility - Compile the battery plasmoid
+kde-base/solid:networkmanager - Add support for net-misc/networkmanager
+kde-base/systemsettings:usb - Configure USB and logitech mice
+net-p2p/ktorrent:bwscheduler - Enable the bwscheduler plugin
+net-p2p/ktorrent:infowidget - Enable the infowidget plugin
+net-p2p/ktorrent:ipfilter - Enable the ipfilter plugin
+net-p2p/ktorrent:logviewer - Enable the logviewer plugin
+net-p2p/ktorrent:search - Enable the search plugin
+net-p2p/ktorrent:scanfolder - Enable the scanfolder plugin
+net-p2p/ktorrent:stats - Enable the statistics plugin
+net-p2p/ktorrent:upnp - Enable the uphp plugin
+net-p2p/ktorrent:webinterface - Enable the webinterface plugin
+sci-libs/indilib:v4l2 - Enable video4linux2 support
+x11-libs/qt:qt-copy - Applies qt-copy patches from the KDE svn.
