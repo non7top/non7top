@@ -46,6 +46,7 @@ kde-base/kdeaccessibility kde-base/kttsd
 kde-base/kdeadmin kde-base/kcron
 kde-base/kdeadmin kde-base/kdat
 kde-base/kdeadmin kde-base/knetworkconf
+kde-base/kdeadmin kde-base/ksystemlog
 kde-base/kdeadmin kde-base/ksysv
 kde-base/kdeadmin kde-base/kuser
 kde-base/kdeadmin kde-base/lilo-config
@@ -98,6 +99,7 @@ kde-base/kdebase kde-base/kuiserver
 kde-base/kdebase kde-base/kurifilter-plugins
 kde-base/kdebase kde-base/nepomuk
 kde-base/kdebase kde-base/phonon
+kde-base/kdebase kde-base/phonon-xine
 kde-base/kdebase kde-base/solid-hardware
 kde-base/kdebase kde-base/soliduiserver
 kde-base/kdebase kde-base/kcheckpass
@@ -197,7 +199,9 @@ kde-base/kdegraphics kde-base/kgamma
 kde-base/kdegraphics kde-base/kghostview
 kde-base/kdegraphics kde-base/kolourpaint
 kde-base/kdegraphics kde-base/kruler
+kde-base/kdegraphics kde-base/ksaneplugin
 kde-base/kdegraphics kde-base/ksnapshot
+kde-base/kdegraphics kde-base/libksane
 kde-base/kdegraphics kde-base/libkscan
 kde-base/kdegraphics kde-base/okular
 kde-base/kdegraphics kde-base/svgpart
@@ -229,6 +233,7 @@ kde-base/kdepim kde-base/kdepim-kresources
 kde-base/kdepim kde-base/kdepim-wizards
 kde-base/kdepim kde-base/kfeed
 kde-base/kdepim kde-base/kitchensync
+kde-base/kdepim kde-base/kjots
 kde-base/kdepim kde-base/kleopatra
 kde-base/kdepim kde-base/kmail
 kde-base/kdepim kde-base/kmailcvt
@@ -238,6 +243,7 @@ kde-base/kdepim kde-base/knotes
 kde-base/kdepim kde-base/kode
 kde-base/kdepim kde-base/konsolekalendar
 kde-base/kdepim kde-base/kontact
+kde-base/kdepim kde-base/kontactinterfaces
 kde-base/kdepim kde-base/kontact-specialdates
 kde-base/kdepim kde-base/korganizer
 kde-base/kdepim kde-base/korn
@@ -266,6 +272,7 @@ kde-base/kdesdk kde-base/kmtrace
 kde-base/kdesdk kde-base/kompare
 kde-base/kdesdk kde-base/kspy
 kde-base/kdesdk kde-base/kstartperf
+kde-base/kdesdk kde-base/lokalize
 kde-base/kdesdk kde-base/strigi-analyzer
 kde-base/kdesdk kde-base/kuiviewer
 kde-base/kdesdk kde-base/poxml
@@ -507,7 +514,7 @@ _kde4-functions_built_with_use() {
 kde4-functions_check_use() {
 	# I like to keep flags sorted
 	QT4_BUILT_WITH_USE_CHECK=$(echo "${QT4_BUILT_WITH_USE_CHECK}" | \
-		tr '[:space:]' '\n' | sort | xargs)
+		tr '[:space:]' '\n' | sort | uniq | xargs)
 
 	local line missing
 	if [[ -n ${KDE4_BUILT_WITH_USE_CHECK[@]} && $(declare -p KDE4_BUILT_WITH_USE_CHECK) = 'declare -a '* ]]; then

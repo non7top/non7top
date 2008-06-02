@@ -53,11 +53,6 @@ kde4svn-meta_src_extract() {
 			|| die "${ESVN}: can't export subdirectory '${subdir}' to '${S}/${targetdir}'."
 	done
 	[[ "${KMNAME}" == kdebase* ]] && kdebase_toplevel_cmakelist
-
-	if [[ ${KMNAME} == kdebase-runtime && ${PN} != kdebase-data ]]; then
-		sed -i -e '/^install(PROGRAMS[[:space:]]*[^[:space:]]*\/kde4[[:space:]]/s/^/#DONOTINSTALL /' \
-			"${S}"/CMakeLists.txt || die "Sed to exclude bin/kde4 failed"
-	fi
 }
 
 kde4svn-meta_src_unpack() {

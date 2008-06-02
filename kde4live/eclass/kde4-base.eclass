@@ -299,7 +299,7 @@ kde4-base_pkg_setup() {
 				[[ -z ${line} ]] && continue
 				kde4_built_with_use_check+=("${line}")
 			done <<< "${KDE4_BUILT_WITH_USE_CHECK}"
-			KDE4_BUILT_WITH_USE_CHECK="${kde4_built_with_use_check[@]}"
+			KDE4_BUILT_WITH_USE_CHECK=("${kde4_built_with_use_check[@]}")
 		fi
 
 		# KDE4 applications require qt4 compiled with USE="accessibility dbus gif jpeg png qt3support ssl zlib".
