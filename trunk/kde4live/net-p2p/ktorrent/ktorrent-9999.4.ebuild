@@ -20,7 +20,7 @@ IUSE="+bitfinder +bwscheduler +infowidget +ipfilter +logviewer +mediaplayer
 DEPEND="dev-libs/gmp
 	app-crypt/qca:2"
 RDEPEND="${DEPEND}
-	ipfilter? ( kde-base/kdebase-kioslaves:${SLOT} )"
+	ipfilter? ( kde-base/kdebase:${SLOT} )"
 
 src_compile() {
 	sed -e '/SSH2/ s:^:#DONOTWANT:' \
