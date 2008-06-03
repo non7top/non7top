@@ -18,8 +18,8 @@ LICENSE="GPL-2 LGPL-2"
 #		exchange? ( net-libs/libmapi )
 #		pda? ( >=app-pda/libopensync-0.19 >=app-pda/pilot-link-0.12 >=dev-libs/libmal-0.40 )
 COMMONDEPEND="
-	app-office/akonadi
-	>=app-misc/strigi-0.5.7
+	app-office/akonadi-server
+	>=app-misc/strigi-0.5.9
 	dev-libs/libxslt
 	dev-libs/boost
 	kde-base/kdebase:${SLOT}
