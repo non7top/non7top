@@ -134,25 +134,26 @@ class saver:
 def main():
 	print "Starting"
 
-	ddd=saver()
-	ddd.load_settings()
-	ddd.dwsize=2000000
 	cook=webget()
 	cook.init_cookie('prizident',  'yytonj')
+
+	stop=0
+	ddd=saver()
+	ddd.load_settings()
+	ddd.dwsize=10000000
+	page=0
+	ddd.recheck =0
+	do_recheck = 0
+
 	ddd.cookie_value=cook.cookie_value
 
-	
-	p=0
-	while p < 100:
-		p = p + 1
-		ddd.get_page(p)
+	while stop != 1:
+		page += 1
+		ddd.get_page(page)
 		ddd.parse_files()
-		# TODO: сделать наконец перепроверку
-		if ddd.recheck == 1:
-			#p = p - 1
-			#print "Doing recheck of page " + str(p+1)
-			pass
-		ddd.recheck = 0
+		if ddd.recheck == 1 and do_recheck == 1:
+			page -= 1
+			ddd.recheck = 0
 	
 	print 'exit'
 	
