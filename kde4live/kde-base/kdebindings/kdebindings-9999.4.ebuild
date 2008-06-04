@@ -31,6 +31,7 @@ src_compile() {
 	mycmakeargs="${mycmakeargs}
 		-DENABLE_SMOKEKDE=off
 		-DENABLE_SMOKE=off
+		-DENABLE_KORUNDUM=off
 		$(cmake-utils_use_enable ruby QTRUBY)
 		$(cmake-utils_use_enable ruby KROSSRUBY)
 		$(cmake-utils_use_enable mono QYOTO)"
