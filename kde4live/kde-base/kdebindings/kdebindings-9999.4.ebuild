@@ -29,6 +29,7 @@ src_compile() {
 # Disable compiling of PyKDE
 #cmake -DENABLE_PYKDE4=off .
 	mycmakeargs="${mycmakeargs}
+		-DENABLE_SMOKEKDE=off
 		$(cmake-utils_use_enable ruby QTRUBY)
 		$(cmake-utils_use_enable ruby KROSSRUBY)
 		$(cmake-utils_use_enable mono QYOTO)"
