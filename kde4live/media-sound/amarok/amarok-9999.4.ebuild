@@ -25,12 +25,10 @@ DEPEND="
 	>=dev-lang/ruby-1.8
 	>=media-libs/taglib-1.5
 	kde-base/kdelibs:${SLOT}
-	kde-base/libplasma:${SLOT}
 	x11-libs/qt-webkit:4
 	gstreamer? ( media-libs/gstreamer >=media-sound/moodbar-0.1.1 )
 	ifp? ( media-libs/libifp )
 	ipod? ( >=media-libs/libgpod-0.4.2 )
-	kde? ( kde-base/kdebase:${SLOT} )
 	mp4? ( media-libs/libmp4v2 )
 	mtp? ( >=media-libs/libmtp-0.1.1 )
 	mysql? ( >=virtual/mysql-4.0 )
