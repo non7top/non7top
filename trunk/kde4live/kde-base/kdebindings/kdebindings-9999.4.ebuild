@@ -7,11 +7,11 @@ EAPI="1"
 NEED_KDE="svn"
 inherit kde4svn
 
-DESCRIPTION="KDE graphics-related apps."
+DESCRIPTION="KDE bindings for different languages."
 HOMEPAGE="http://www.kde.org/"
 
 KEYWORDS=""
-IUSE=""
+IUSE="python ruby mono"
 LICENSE="GPL-2 LGPL-2"
 
 DEPEND=""
@@ -19,15 +19,18 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_compile() {
+#cmake -DENABLE_SMOKE=on -DENABLE_SMOKEKDE=off .
+# Disable compiling of Qyoto
+#cmake -DENABLE_QYOTO=off .
+# Disable compiling of QtRuby and Korundum
+#cmake -DENABLE_QTRUBY=off -DENABLE_KORUNDUM=off .
+# Disable compiling of the Kross ruby and python backends
+#cmake -DENABLE_KROSSRUBY=off -DENABLE_KROSSPYTHON=off .
+# Disable compiling of PyKDE
+#cmake -DENABLE_PYKDE4=off .
 	mycmakeargs="${mycmakeargs}
-		-DWITH_BLITZ=ON
-		-DWITH_Exiv2=ON
-		$(cmake-utils_use_with chm CHM)
-		$(cmake-utils_use_with djvu DjVuLibre)
-		$(cmake-utils_use_with gphoto2 Gphoto2)
-		$(cmake-utils_use_with jpeg JPEG)
-		$(cmake-utils_use_with pdf Poppler)
-		$(cmake-utils_use_with scanner Sane)
-		$(cmake-utils_use_with tiff TIFF)"
+		$(cmake-utils_use_with ruby QTRUBY)
+		$(cmake-utils_use_with ruby KROSSRUBY)
+		$(cmake-utils_use_with mono QYOTO)"
 	kde4-base_src_compile
 }
