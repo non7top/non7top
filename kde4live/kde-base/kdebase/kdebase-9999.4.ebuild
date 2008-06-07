@@ -20,6 +20,7 @@ LICENSE="GPL-2 LGPL-2"
 RESTRICT="test"
 
 COMMONDEPEND="
+	media-sound/phonon
 	>=app-misc/strigi-0.5.7
 	dev-cpp/clucene
 	>=dev-libs/cyrus-sasl-2
