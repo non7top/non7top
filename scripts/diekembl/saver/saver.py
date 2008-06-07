@@ -48,8 +48,9 @@ class saver:
 		#my_files = []
 		
 		try:
-			r = tree.xpath('/html/body/table/tr[3]/td/center[3]/span/table/tr')
+			r = tree.xpath('/html/body/table/tr[3]/td/span/center/table/tr')
 #			                /html/body/table/tr[3]/td/center[3]/span/table/dy/tr[3]
+#			                /html/body/table/tr[3]/td/span/center/table/tr
 		except:
 			print "except"
 			return
@@ -65,7 +66,6 @@ class saver:
 			#print etree.tostring(kk[0])
 			tr1=kk.xpath('td[2]/a')
 			category=int(tr1[0].get("href").lstrip('/?searchcategory='))
-			
 			tr1=kk.xpath('td[3]/font/i')
 			try:
 				description=tr1[0].text
@@ -135,15 +135,15 @@ def main():
 	print "Starting"
 
 	cook=webget()
-	cook.init_cookie('',  '')
+	cook.init_cookie('prizident',  'yytonj')
 
 	stop=0
 	ddd=saver()
 	ddd.load_settings()
-	ddd.dwsize=10000000
+	ddd.dwsize=500000
 	page=0
 	ddd.recheck =0
-	do_recheck = 0
+	do_recheck = 1
 
 	ddd.cookie_value=cook.cookie_value
 
