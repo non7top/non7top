@@ -126,6 +126,9 @@ class saver:
 		except urllib2.HTTPError, error:
 			#sys.stderr.write( "A HTTP error occurred: " + str(error.code) + ": " + str(error.msg) + ", when trying to access " + str(error.geturl()) + "\n" )
 			print "Wrong file link"
+		except KeyboardInterrupt:
+			print "terminate by user brake"
+			sys.exit(1)
 		except:
 			print "Unknown error"
 		#print contents
@@ -135,7 +138,7 @@ def main():
 	print "Starting"
 
 	cook=webget()
-	cook.init_cookie('prizident',  'yytonj')
+	cook.init_cookie('',  '')
 
 	stop=0
 	ddd=saver()
