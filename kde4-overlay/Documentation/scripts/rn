@@ -1,7 +1,0 @@
-#!/bin/bash
-
-NAME=`basename $1 .kdebuild-1`
-DIR=`dirname $1`
-NEWNAME=$DIR/${NAME/scm/9999.4}.ebuild
-mv $1 $NEWNAME
-ebuild $NEWNAME manifest
