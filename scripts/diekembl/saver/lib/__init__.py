@@ -1,2 +1,0 @@
-from fo import webget
-
