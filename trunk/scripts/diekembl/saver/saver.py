@@ -135,7 +135,7 @@ def main():
 	print "Starting"
 
 	cook=webget()
-	cook.init_cookie('prizident',  'yytonj')
+	cook.init_cookie('',  '')
 
 	stop=0
 	ddd=saver()
