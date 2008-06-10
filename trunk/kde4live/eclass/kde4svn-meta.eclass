@@ -21,7 +21,7 @@ kde4svn-meta_src_extract() {
 
 	# Export working copy to ${S}
 	einfo "Exporting parts of working copy to ${S}"
-	kde4-meta_create_extractlists
+	kde4overlay-meta_create_extractlists
 
 	case ${KMNAME} in
 		kdebase) kmnamedir="" ;;
@@ -53,6 +53,11 @@ kde4svn-meta_src_extract() {
 			|| die "${ESVN}: can't export subdirectory '${subdir}' to '${S}/${targetdir}'."
 	done
 	[[ "${KMNAME}" == kdebase* ]] && kdebase_toplevel_cmakelist
+
+	if [[ ${KMNAME} == kdebase-runtime && ${PN} != kdebase-data ]]; then
+		sed -i -e '/^install(PROGRAMS[[:space:]]*[^[:space:]]*\/kde4[[:space:]]/s/^/#DONOTINSTALL /' \
+			"${S}"/CMakeLists.txt || die "Sed to exclude bin/kde4 failed"
+	fi
 }
 
 kde4svn-meta_src_unpack() {
@@ -69,11 +74,11 @@ kde4svn-meta_src_unpack() {
 	kde4svn-meta_src_extract
 
 	# Make sure PATCHES as well as ESVN_PATCHES get applied
-	kde4-base_apply_patches
+	kde4overlay-base_apply_patches
 	subversion_bootstrap
 
 	# CMakeLists.txt magic
-	kde4-meta_change_cmakelists
+	kde4overlay-meta_change_cmakelists
 }
 
 # We need to copy 4 /macro_optional_find_package/ statements from the

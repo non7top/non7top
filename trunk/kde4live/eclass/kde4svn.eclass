@@ -47,9 +47,13 @@ fi
 # Specify exactly one subdirectory of $KMNAME here. Defaults to $PN.
 # You shouldn't set this for monolithic ebuilds.
 
-inherit subversion kde4-base ${KMNAME:+kde4-meta}
-
-EXPORT_FUNCTIONS pkg_setup src_unpack
+# Split SVN ebuilds
+if [[ -n ${KMNAME} ]]; then
+	case ${CATEGORY} in
+		kde-base|app-office)
+			inherit kde4overlay-meta ;;
+	esac
+fi
 
 ESVN_MIRROR="svn://anonsvn.kde.org/home/kde"
 
@@ -93,18 +97,27 @@ else
 	ESVN_PROJECT="KDE/${PN}"
 fi
 
+
+inherit subversion kde4overlay-base
+
+if [[ -n ${KMNAME} ]]; then
+	inherit kde4overlay-meta
+fi
+
+EXPORT_FUNCTIONS pkg_setup src_unpack
+
 # @FUNCTION: kde4svn_pkg_setup
 # @DESCRIPTION:
 # This function calls kde4-base_pkg_setup, then issues a warning about the
 # experimental nature of live ebuilds.
 kde4svn_pkg_setup() {
-	kde4-base_pkg_setup
+	kde4overlay-base_pkg_setup
 
 	if [[ -z ${I_KNOW_WHAT_I_AM_DOING} ]]; then
 		echo
 		ewarn "WARNING! This is an experimental ebuild of the ${KMNAME:-${PN}} KDE4 SVN tree."
-		ewarn "Use at your own risk. File a bug at https://www2.mailstation.de/bugzilla if you"
-		ewarn "run into problems. Or join #genkdesvn on the great Freenode IRC network."
+		ewarn "Use at your own risk. Do _NOT_ file bugs at bugs.gentoo.org because"
+		ewarn "of this ebuild!"
 		echo
 	fi
 }
@@ -123,5 +136,5 @@ kde4svn_src_unpack() {
 	fi
 
 	subversion_src_unpack
-	kde4-base_apply_patches
+	kde4overlay-base_apply_patches
 }
