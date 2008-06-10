@@ -48,7 +48,7 @@ pkg_setup() {
 		QT4_BUILT_WITH_USE_CHECK="${QT4_BUILT_WITH_USE_CHECK} opengl"
 	fi
 
-	kde4-base_pkg_setup
+	kde4overlay-base_pkg_setup
 }
 
 src_compile() {
@@ -82,11 +82,11 @@ src_compile() {
 			marble/Findlibgps.cmake || die "sed failed."
 	fi
 
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }
 
 src_test() {
 	mycmakeargs="${mycmakeargs} -DENABLE_TESTS=TRUE"
 
-	kde4-meta_src_test
+	kde4overlay-meta_src_test
 }
