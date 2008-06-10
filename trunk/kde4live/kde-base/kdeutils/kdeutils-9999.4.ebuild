@@ -39,5 +39,5 @@ src_compile() {
 		$(cmake-utils_use_with python PythonLibs)
 		$(cmake-utils_use_with zip LibZip)"
 
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }
