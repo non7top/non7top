@@ -53,5 +53,5 @@ src_compile() {
 	#  store them like normal contacts; useful for Kolab
 	# WITH_INDEXLIB ->  Enable full-text indexing in KMail
 
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }
