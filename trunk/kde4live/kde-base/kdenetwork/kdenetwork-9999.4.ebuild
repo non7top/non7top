@@ -59,7 +59,7 @@ pkg_setup() {
 		KDE4_BUILT_WITH_USE_CHECK="${KDE4_BUILT_WITH_USE_CHECK}
 			net-dns/avahi mdnsresponder-compat"
 	fi
-	kde4-base_pkg_setup
+	kde4overlay-base_pkg_setup
 }
 
 src_compile() {
@@ -127,7 +127,7 @@ src_compile() {
 		$(cmake-utils_use_with yahoo)
 	"
 
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }
 
 pkg_postinst() {
