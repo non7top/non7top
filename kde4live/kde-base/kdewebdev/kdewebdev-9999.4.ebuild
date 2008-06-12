@@ -21,5 +21,5 @@ DEPEND="
 src_compile() {
 	mycmakeargs="${mycmakeargs}
 				$(cmake-utils_use_with tidy LibTidy)"
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }

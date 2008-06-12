@@ -38,5 +38,5 @@ src_compile() {
 		$(cmake-utils_use_with ktts Kttsmodule)
 		$(cmake-utils_use_with kde Plasma)"
 
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }

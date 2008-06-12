@@ -189,7 +189,7 @@ src_compile() {
 	# OFF
 	# WITH_XKB -> Enable/Disable building of Konsole with support for XKB
 
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }
 
 src_test() {
@@ -206,13 +206,13 @@ src_test() {
 	sed -e "s/packagestructuretest//" \
 		-i "${S}"/workspace/libs/plasma/tests/CMakeLists.txt
 
-	kde4-base_src_test
+	kde4overlay-base_src_test
 }
 
 src_install() {
 	export GENKDMCONF_FLAGS="--no-old --no-backup"
 
-	kde4-base_src_install
+	kde4overlay-base_src_install
 
 	# Customize the kdmrc configuration
 	sed -i -e "s:^.*SessionsDirs=.*$:#&\nSessionsDirs=/usr/share/xsessions:" \
@@ -250,7 +250,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	kde4-base_pkg_postinst
+	kde4overlay-base_pkg_postinst
 
 	# set the default kdm face icon if it's not already set by the system admin
 	if [[ ! -e "${ROOT}${KDEDIR}/share/apps/kdm/faces/.default.face.icon" ]]; then

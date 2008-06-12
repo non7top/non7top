@@ -44,11 +44,11 @@ src_compile() {
 	# FIXME Unhandled CMake arguments
 	# KDE4_SOUND_SUPPORT -> Build with sound support (?)
 
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }
 
 src_install() {
-	kde4-base_src_install
+	kde4overlay-base_src_install
 	# Fix collision protect issues with icons of the crystalsvg theme
 	for i in $(< "${FILESDIR}"/icons-collision-list) ; do
 		if [[ -f "${D}"/usr/kde/svn/$i ]]; then

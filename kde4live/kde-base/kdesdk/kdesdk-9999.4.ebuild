@@ -53,5 +53,5 @@ src_compile() {
 		fi
 	fi
 
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }
