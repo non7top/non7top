@@ -62,5 +62,5 @@ src_compile() {
 		$(cmake-utils_use_with pdf Poppler)
 		$(cmake-utils_use_with scanner Sane)
 		$(cmake-utils_use_with tiff TIFF)"
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }
