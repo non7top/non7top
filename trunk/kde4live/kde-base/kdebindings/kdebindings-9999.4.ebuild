@@ -35,5 +35,5 @@ src_compile() {
 		$(cmake-utils_use_enable ruby QTRUBY)
 		$(cmake-utils_use_enable ruby KROSSRUBY)
 		$(cmake-utils_use_enable mono QYOTO)"
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }

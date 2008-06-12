@@ -40,11 +40,11 @@ src_compile() {
 		$(cmake-utils_use_with musicbrainz TunePimp)
 		$(cmake-utils_use_with theora Theora)
 		$(cmake-utils_use_with vorbis OggVorbis)"
-	kde4-base_src_compile
+	kde4overlay-base_src_compile
 }
 
 src_install() {
-	kde4-base_src_install
+	kde4overlay-base_src_install
 	# Fix collision protect issues with icons of the crystalsvg theme
 	for i in $(< "${FILESDIR}"/icons-collision-list) ; do
 		[[ -f "${D}"/usr/kde/svn/$i ]] && \
