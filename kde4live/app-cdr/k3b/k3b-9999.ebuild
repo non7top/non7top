@@ -5,10 +5,10 @@ EAPI=1
 KMNAME="extragear/multimedia"
 NEED_KDE="svn"
 
+inherit kde4svn-meta
+
 # Set prefix to KDEDIR to slot the package.
 PREFIX="${KDEDIR}"
-
-inherit kde4svn-meta
 
 DESCRIPTION="K3b, KDE CD Writing Software"
 HOMEPAGE="http://www.k3b.org/"
@@ -27,13 +27,14 @@ IUSE="css debug dvdr dvdread encode ffmpeg flac hal htmlhandbook mp3 musepack
 #if(DOXYGEN_EXECUTABLE)
 
 DEPEND="
-	kde-base/kdemultimedia:${SLOT}
+	|| ( ( kde-base/libkcddb:${SLOT} kde-base/libkcompactdisc:${SLOT} )
+		kde-base/kdegraphics:${SLOT} )
 	media-libs/libsamplerate
 	media-libs/taglib
 	dvdread? ( media-libs/libdvdread )
 	encode? ( media-sound/lame )
 	ffmpeg? ( media-video/ffmpeg )
-	flac? ( media-libs/flac )
+	flac? ( >=media-libs/flac-1.2.1-r2 )
 	mp3? ( media-libs/libmad )
 	musepack? ( media-libs/libmpcdec )
 	musicbrainz? ( media-libs/musicbrainz )
