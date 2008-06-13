@@ -28,7 +28,7 @@ IUSE="css debug dvdr dvdread encode ffmpeg flac hal htmlhandbook mp3 musepack
 
 DEPEND="
 	|| ( ( kde-base/libkcddb:${SLOT} kde-base/libkcompactdisc:${SLOT} )
-		kde-base/kdegraphics:${SLOT} )
+		kde-base/kdemultimedia:${SLOT} )
 	media-libs/libsamplerate
 	media-libs/taglib
 	dvdread? ( media-libs/libdvdread )
