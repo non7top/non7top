@@ -15,7 +15,8 @@ IUSE="chm debug djvu gphoto2 htmlhandbook jpeg pdf scanner tetex tiff"
 LICENSE="GPL-2 LGPL-2"
 
 DEPEND="
-	>=app-misc/strigi-0.5.7
+	media-libs/lcms
+	>=app-misc/strigi-0.5.9
 	kde-base/qimageblitz
 	>=media-gfx/exiv2-0.12
 	>=media-libs/freetype-2
