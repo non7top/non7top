@@ -51,6 +51,7 @@ kde-base/kdeadmin kde-base/kuser
 kde-base/kdeadmin kde-base/lilo-config
 kde-base/kdeadmin kde-base/secpolicy
 kde-base/kdeadmin kde-base/ksystemlog
+kde-base/kdeadmin kde-base/kdeadmin-strigi-analyzer
 kde-base/kdeartwork kde-base/kdeartwork-colorschemes
 kde-base/kdeartwork kde-base/kdeartwork-emoticons
 kde-base/kdeartwork kde-base/kdeartwork-icewm-themes
@@ -60,6 +61,7 @@ kde-base/kdeartwork kde-base/kdeartwork-kworldclock
 kde-base/kdeartwork kde-base/kdeartwork-sounds
 kde-base/kdeartwork kde-base/kdeartwork-styles
 kde-base/kdeartwork kde-base/kdeartwork-wallpapers
+kde-base/kdeartwork kde-base/kdeartwork-kwin-styles
 kde-base/kdebase kde-base/dolphin
 kde-base/kdebase kde-base/kappfinder
 kde-base/kdebase kde-base/kdepasswd
@@ -124,8 +126,11 @@ kde-base/kdebase kde-base/libkworkspace
 kde-base/kdebase kde-base/libplasma
 kde-base/kdebase kde-base/libtaskmanager
 kde-base/kdebase kde-base/plasma
+kde-base/kdebase kde-base/plasma-apps
+kde-base/kdebase kde-base/plasma-workspace
 kde-base/kdebase kde-base/solid
 kde-base/kdebase kde-base/systemsettings
+kde-base/kdebase kde-base/renamedlg-plugins
 kde-base/kdebindings kde-base/kalyptus
 kde-base/kdebindings kde-base/kdejava
 kde-base/kdebindings kde-base/kimono
@@ -275,7 +280,7 @@ kde-base/kdesdk kde-base/kmtrace
 kde-base/kdesdk kde-base/kompare
 kde-base/kdesdk kde-base/kspy
 kde-base/kdesdk kde-base/kstartperf
-kde-base/kdesdk kde-base/strigi-analyzer
+kde-base/kdesdk kde-base/kdesdk-strigi-analyzer
 kde-base/kdesdk kde-base/kuiviewer
 kde-base/kdesdk kde-base/poxml
 kde-base/kdesdk kde-base/umbrello
