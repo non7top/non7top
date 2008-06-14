@@ -30,7 +30,7 @@ DEPEND="
 	|| ( kde-base/libplasma:${SLOT}
 		kde-base/kdebase:${SLOT} )
 	x11-libs/qt-webkit:4
-	cdaudio? || ( ( kde-base/libkcddb:${SLOT} kde-base/libkcompactdisc:${SLOT} )
+	cdaudio? ( ( kde-base/libkcddb:${SLOT} kde-base/libkcompactdisc:${SLOT} ) ||
 			kde-base/kdemultimedia:${SLOT} )
 	ifp? ( media-libs/libifp )
 	ipod? ( >=media-libs/libgpod-0.4.2 )
