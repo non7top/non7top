@@ -5,11 +5,8 @@
 EAPI="1"
 
 KMNAME="extragear/utils"
-KMMODULE="plasma"
 
-NEED_KDE="svn"
-
-inherit kde4svn
+inherit kde4svn-meta
 
 MY_PV="${PV%_pre*}"
 PREFIX="${KDEDIR}"
