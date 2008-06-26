@@ -36,10 +36,10 @@ from lxml import etree
 def getnum(txt):
     n = re.findall(r"\d+",txt)[0]
     return n
-	
+
 def dw_wapage(wa_addr):
     parser = etree.HTMLParser()
-    
+
     req = urllib2.Request(wa_addr)
 
     try:
