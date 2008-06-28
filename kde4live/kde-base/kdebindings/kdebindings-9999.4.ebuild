@@ -18,6 +18,8 @@ DEPEND=""
 
 RDEPEND="${DEPEND}"
 
+PATCHES="${FILESDIR}/pykde-9999-rem-soprano-akonadi.patch"
+
 src_compile() {
 #cmake -DENABLE_SMOKE=on -DENABLE_SMOKEKDE=off .
 # Disable compiling of Qyoto
