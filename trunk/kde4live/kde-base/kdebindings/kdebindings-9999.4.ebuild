@@ -14,7 +14,7 @@ KEYWORDS=""
 IUSE="python ruby mono java php"
 LICENSE="GPL-2 LGPL-2"
 
-DEPEND=""
+DEPEND="python? ( >=dev-python/PyQt4-4.4.2 )"
 
 RDEPEND="${DEPEND}"
 
