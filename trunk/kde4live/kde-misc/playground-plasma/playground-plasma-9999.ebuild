@@ -9,19 +9,20 @@ NEED_KDE="svn"
 SLOT="kde-svn"
 
 OPENGL_REQUIRED="optional"
-inherit kde4svn 
+inherit kde4svn
 
 DESCRIPTION="Extra Plasma applets and engines."
 HOMEPAGE="http://www.kde.org/"
 
 KEYWORDS=""
-IUSE=""
+IUSE="python"
 LICENSE="GPL-2 LGPL-2"
 
 DEPEND="kde-base/kdebase:${SLOT}
 	kde-base/kdepimlibs:${SLOT}
 	x11-libs/qt-webkit
-	kde-base/qimageblitz"
+	kde-base/qimageblitz
+	python? ( dev-lang/python:2.5 )"
 RDEPEND="${DEPEND}"
 
 src_compile() {
@@ -31,7 +32,8 @@ src_compile() {
 		-DWITH_Sensors=Off
 		-DWITH_Blitz=On
 		-DWITH_KdepimLibs=On
-		$(cmake-utils_use_with opengl OpenGL)"
+		$(cmake-utils_use_with opengl OpenGL)
+		$(cmake-utils_use_with python PythonLibs)"
 
 	# Fix:
 #		$(cmake-utils_use_with sensors Sensors)
