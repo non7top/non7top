@@ -18,7 +18,7 @@ IUSE=""
 
 DEPEND="!kde-misc/extragear-plasma:${SLOT}
 	>=kde-base/qimageblitz-0.0.4
-	>=kde-base/kbase-${PV}:${SLOT}
+	>=kde-base/kdebase-${PV}:${SLOT}
 	opengl? ( virtual/opengl )"
 RDEPEND="${DEPEND}"
 
