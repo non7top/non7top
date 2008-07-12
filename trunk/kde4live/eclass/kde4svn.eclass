@@ -77,10 +77,11 @@ if [[ -n ${KMNAME} ]]; then
 		;;
 		extragear*|playground*)
 			case ${PN} in
-				*-plasma)
+				*-plasma|*-powerdevil)
 					ESVN_REPO_URI="${ESVN_MIRROR}/trunk/${KMNAME}/${KMMODULE}"
 					ESVN_PROJECT="KDE/${KMNAME}/${KMMODULE}"
 				;;
+				*
 				*)
 					ESVN_REPO_URI="${ESVN_MIRROR}/trunk/${KMNAME}"
 				;;
