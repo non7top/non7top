@@ -7,7 +7,7 @@ EAPI="1"
 KMNAME="playground/utils"
 KMMODULE="powerdevil"
 
-inherit kde4svn-meta
+inherit kde4svn
 
 MY_PV="${PV%_pre*}"
 PREFIX="${KDEDIR}"
