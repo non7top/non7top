@@ -30,14 +30,16 @@ kde4overlay-base_set_qt_dependencies() {
 		x11-libs/qt-test:4${qttest}"
 	qtopengldepend="x11-libs/qt-opengl:4${qtopengl}"
 
+	# as all ebuilds we have depend on qt-4.4 and we want 
+	# split this code should be removed
 	# allow monolithic qt for PV < 4.1
-	case "${PV}" in
-		9999|9999.4|4.1*|4.0.80) : ;;
-		*)
-		qtdepend="|| ( ( ${qtdepend} ) >=x11-libs/qt-4.3.3:4${qt} )"
-		qtopengldepend="|| ( ${qtopengldepend} >=x11-libs/qt-4.3.3:4 )"
-		;;
-	esac
+	#case "${PV}" in
+	#	9999|9999.4|4.1*|4.0.80) : ;;
+	#	*)
+	#	qtdepend="|| ( ( ${qtdepend} ) >=x11-libs/qt-4.3.3:4${qt} )"
+	#	qtopengldepend="|| ( ${qtopengldepend} >=x11-libs/qt-4.3.3:4 )"
+	#	;;
+	#esac
 
 	# opengl dependencies
 	case "${OPENGL_REQUIRED}" in
@@ -59,8 +61,9 @@ kde4overlay-base_set_qt_dependencies() {
 }
 kde4overlay-base_set_qt_dependencies
 
+# things seem to fail with cmake-2.4.8, 2.6 should be safe
 DEPEND="${DEPEND} ${COMMONDEPEND}
-	>=dev-util/cmake-2.4.7-r1
+	>=dev-util/cmake-2.6.0
 	dev-util/pkgconfig
 	x11-libs/libXt
 	x11-proto/xf86vidmodeproto"
@@ -217,12 +220,12 @@ if [[ ${NEED_KDE} != none ]]; then
 		${_operator}kde-base/kdelibs${_pv}"
 		RDEPEND="${RDEPEND}
 		${_operator}kde-base/kdelibs${_pv}"
-		if [[ ${PN} != "kdepimlibs" ]]; then
-			DEPEND="${DEPEND}
-			${_operator}kde-base/kdepimlibs${_pv}"
-			RDEPEND="${RDEPEND}
-			${_operator}kde-base/kdepimlibs${_pv}"
-		fi
+		#if [[ ${PN} != "kdepimlibs" ]]; then
+		#	DEPEND="${DEPEND}
+		#	${_operator}kde-base/kdepimlibs${_pv}"
+		#	RDEPEND="${RDEPEND}
+		#	${_operator}kde-base/kdepimlibs${_pv}"
+		#fi
 	fi
 
 	unset _operator _pv _kdedir

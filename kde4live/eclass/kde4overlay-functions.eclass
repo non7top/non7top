@@ -79,6 +79,7 @@ kde-base/kdebase kde-base/drkonqi
 kde-base/kdebase kde-base/kcmshell
 kde-base/kdebase kde-base/kcontrol
 kde-base/kdebase kde-base/kdebase-data
+kde-base/kdebase kde-base/kdebase-cursors
 kde-base/kdebase kde-base/kdebase-kioslaves
 kde-base/kdebase kde-base/kdebugdialog
 kde-base/kdebase kde-base/kde-menu
@@ -271,6 +272,8 @@ kde-base/kdepim kde-base/mailtransport
 kde-base/kdepim kde-base/mimelib
 kde-base/kdepim kde-base/networkstatus
 kde-base/kdepim kde-base/kdepim-strigi-analyzer
+kde-base/kdeplasmoids kde-base/kde-plasmoids
+kde-base/kdeplasmoids kde-base/kdeplasma-addons
 kde-base/kdesdk kde-base/cervisia
 kde-base/kdesdk kde-base/kdeaccounts-plugin
 kde-base/kdesdk kde-base/kapptemplate
