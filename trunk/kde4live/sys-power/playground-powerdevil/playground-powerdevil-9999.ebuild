@@ -7,14 +7,15 @@ EAPI="1"
 KMNAME="playground/utils"
 KMMODULE="powerdevil"
 
-inherit kde4svn
+inherit kde4svn-meta
 
-NEED_KDE="svn"
+MY_PV="${PV%_pre*}"
+PREFIX="${KDEDIR}"
 SLOT="kde-svn"
 
-DESCRIPTION="PowerDevil is an utility for KDE4 for Laptop Powermanagement."
-HOMEPAGE="http://www.kde-apps.org/content/show.php/PowerDevil?content=85078"
-LICENSE="GPL"
+DESCRIPTION="A quake-style terminal emulator based on KDE konsole technology"
+HOMEPAGE="http://yakuake.kde.org/"
+LICENSE="GPL-2 LGPL-2"
 
 KEYWORDS=""
 IUSE=""
