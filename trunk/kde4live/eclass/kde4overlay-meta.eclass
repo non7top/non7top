@@ -243,7 +243,8 @@ kde4overlay-meta_create_extractlists() {
 				filters/config-filters.h.cmake
 				config-openexr.h.cmake
 				config-opengl.h.cmake
-				config-prefix.h.cmake"
+				config-prefix.h.cmake
+				config-openctl.h.cmake"
 		;;
 	esac
 	# Don't install cmake modules for split ebuilds to avoid collisions.
