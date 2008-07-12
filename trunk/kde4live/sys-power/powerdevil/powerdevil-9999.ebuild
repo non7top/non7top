@@ -9,8 +9,7 @@ KMMODULE="powerdevil"
 
 inherit kde4svn
 
-MY_PV="${PV%_pre*}"
-PREFIX="${KDEDIR}"
+NEED_KDE="svn"
 SLOT="kde-svn"
 
 DESCRIPTION="PowerDevil is an utility for KDE4 for Laptop Powermanagement."
