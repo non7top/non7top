@@ -81,7 +81,6 @@ if [[ -n ${KMNAME} ]]; then
 					ESVN_REPO_URI="${ESVN_MIRROR}/trunk/${KMNAME}/${KMMODULE}"
 					ESVN_PROJECT="KDE/${KMNAME}/${KMMODULE}"
 				;;
-				*
 				*)
 					ESVN_REPO_URI="${ESVN_MIRROR}/trunk/${KMNAME}"
 				;;
