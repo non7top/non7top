@@ -13,7 +13,7 @@ KEYWORDS="~amd64 ~ppc ~x86"
 IUSE=""
 RESTRICT="mirror"
 
-S=${WORKDIR}/${PN}
+S=${WORKDIR}/weather
 
 PREFIX="${KDEDIR}"
 
