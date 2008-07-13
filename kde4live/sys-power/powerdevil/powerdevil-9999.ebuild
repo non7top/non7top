@@ -20,6 +20,6 @@ LICENSE="GPL-2"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="kde-base/solid:${SLOT}"
-	#	kde-base/kdebase:${SLOT} ) #wtf ;)
+DEPEND="|| ( kde-base/solid:${SLOT}
+		kde-base/kdebase:${SLOT} )"
 RDEPEND="${DEPEND}"
