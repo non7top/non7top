@@ -25,6 +25,9 @@ from lxml import etree
 from StringIO import StringIO
 from lib import webget
 import sys
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 class saver:
 	def __init__(self):
@@ -35,7 +38,7 @@ class saver:
 	def get_page(self,  pagenum):
 		self.pagenum=pagenum
 		self.pagelink='http://file.aaanet.ru/?purge_files_list=1&show_page_selector=1&results=100&page=' + str(self.pagenum)
-		print 'Downloading page ' + str(self.pagenum)
+		logging.info ('Downloading page %s' % str(self.pagenum))
 		
 		req = urllib2.Request(url=self.pagelink)
 		req.add_header("Cookie",self.cookie_value)
@@ -52,7 +55,7 @@ class saver:
 #			                /html/body/table/tr[3]/td/center[3]/span/table/dy/tr[3]
 #			                /html/body/table/tr[3]/td/span/center/table/tr
 		except:
-			print "except"
+			logging.critical ("Need to check XPath")
 			return
 		
 		k=0
@@ -66,11 +69,12 @@ class saver:
 			#print etree.tostring(kk[0])
 			tr1=kk.xpath('td[2]/a')
 			category=int(tr1[0].get("href").lstrip('/?searchcategory='))
-			tr1=kk.xpath('td[3]/font/i')
+			tr1=kk.xpath('td[3]/span[2]')
 			try:
 				description=tr1[0].text
 				if description.find('anime') != -1 or description.find('Anime') != -1 or description.find('non7top') != -1:
 					self.reason = "comment"
+                                        logging.debug ("File number is %s" % (k-2))
 					self.save_file()
 					continue
 
@@ -82,6 +86,7 @@ class saver:
 					
 					#unicode(kk.xpath('td[3]/font/i')[0].text.encode('latin1'), 'cp1251')
 					self.reason="category"
+                                        logging.debug ("File number is %s" % (k-2))
 					self.save_file()
 		
 	def load_settings(self):
@@ -91,21 +96,21 @@ class saver:
 				cat2=cat.strip()
 				self.cats.append(cat2)
 				file_cat.close()
-		except:
-			print 'no cat.txt file'
+		except IOError:
+		    logging.error ('No cat.txt file')
 	
 	def save_file(self):
-		tr1=self.kk.xpath('td[3]/a[2]')
+		tr1=self.kk.xpath('td[3]/div/div/a[2]')
 		try:
 		    link=tr1[0].get("href").encode('latin1')
 		except IndexError:
-		    print "Found hidden file"
+		    logging.info( "Found hidden file")
 		    return
 		except UnicodeEncodeError:
-		    print "some stupid crap with unicode"
+		    logging.info( "some stupid crap with unicode")
 		    return
 		
-		print 'Saving by',  self.reason,  link
+		logging.warning( 'Saving by %s %s' % ( self.reason,  link))
 		req = urllib2.Request(url=urllib.quote(link,'/:%'))
 		"""add headers. donno if it's requred"""
 		req.add_header("Cookie",self.cookie_value)
@@ -117,25 +122,23 @@ class saver:
 		req.add_header("Cache-Control", 'no-cache, must-revalidate')
 		req.add_header("Pragma",  'no-cache')
 		req.add_header("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT")
-		#req.add_header("Range", 'bytes=15000000-30000000')
-		#print req.headers
 		try:
 			f = urllib2.urlopen(req)
 			contents=f.read(self.dwsize)
 			self.recheck = 1
 		except urllib2.HTTPError, error:
 			#sys.stderr.write( "A HTTP error occurred: " + str(error.code) + ": " + str(error.msg) + ", when trying to access " + str(error.geturl()) + "\n" )
-			print "Wrong file link"
+			 logging.warning ("Wrong file link")
 		except KeyboardInterrupt:
-			print "terminate by user brake"
+			logging.warning ("terminate by user brake")
 			sys.exit(1)
-		except:
-			print "Unknown error"
+		except ValueError:
+			logging.warning( "Wrong link?? %s" % link)
 		#print contents
 	
 
 def main():
-	print "Starting"
+	logging.warning( "Starting")
 
 	cook=webget()
 	cook.init_cookie('',  '')
