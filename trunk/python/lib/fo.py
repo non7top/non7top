@@ -23,7 +23,7 @@ import urllib
 import urllib2
 import re
 import md5
-from PyQt4 import QtCore, QtGui
+#from PyQt4 import QtCore, QtGui
 from lxml import etree
 from StringIO import StringIO
 
@@ -64,75 +64,3 @@ class webget:
             req.add_header("Cookie", cookie_value)
             f = urllib2.urlopen(req)
 
-class get_myfiles(QtCore.QThread):
-    def __init__(self,  parent=None): 
-        QtCore.QThread.__init__(self, parent)
-        self.my_files=[]
- 
-    def run(self):
-        req = urllib2.Request(url='http://file.aaanet.ru/?mode=2')
-        req.add_header("Cookie",self.cookie_value)
-        f = urllib2.urlopen(req)
-        html2=f.read()
-        print "got_page"
-        k=0
-        
-        parser = etree.HTMLParser()
-        tree  = etree.parse(StringIO(html2), parser)
-        my_files = []
-        
-        r = tree.xpath('/html/body/table/tr[3]/td/center/table/tr')
-        k=0
-        self.tbl.setRowCount(len(r)-3)
-        for kk in r:
-            k=k+1
-            
-            if k < 3:
-                continue
-            elif k==len(r):
-                continue
-            
-            tr3 = kk.xpath('td[3]/nobr/a')
-            if kk.xpath('td[4]/nobr/b')[0].text != None:
-                size=kk.xpath('td[4]/nobr/b')[0].text
-            elif len(kk.xpath('td[4]/nobr/b/b')) != 0:
-                size=kk.xpath('td[4]/nobr/b/b')[0].text
-            elif len(kk.xpath('td[4]/nobr/b/font')) != 0:
-                size=unicode(kk.xpath('td[4]/nobr/b/font')[0].text.encode('latin1'), 'cp1251')
-            name=unicode(kk.xpath('td[3]/nobr/a/b')[0].text+kk.xpath('td[3]/nobr/a/b')[0].tail.encode('latin1'), 'cp1251')
-            
-            if len(kk.xpath('td[3]/font')) != 0:
-                comment=unicode(kk.xpath('td[3]/font/i')[0].text.encode('latin1'), 'cp1251')
-            else:
-                comment=''
-
-            my_files.append({'link_view':tr3[0].get("href"),'link_edit': tr3[1].get("href"), 'size':size})
-            tblw=QtGui.QTableWidgetItem(size)
-            self.tbl.setItem(k-3, 2,  tblw)
-            self.tbl.setItem(k-3, 0,  QtGui.QTableWidgetItem(name))
-            self.tbl.setItem(k-3, 1,  QtGui.QTableWidgetItem(comment))
-        
-        self.my_total=tree.xpath('/html/body/table/tr[3]/td/center/table/tr['+str(len(r))+']/td[4]/nobr/b')[0].text
-        self.myfiles=my_files
-        fo_free_str=str(tree.xpath('/html/body/table/tr[2]/td/table/tbody/tr/td/a/img')[0].get('alt'))
-        fo_free1 = re.search ( '\d{1,4}', fo_free_str )
-        self.fo_free = fo_free1.group(0)
-        #print etree.tostring(self.fo_free[0])
-        print self.fo_free
-        self.emit(QtCore.SIGNAL("ready()"))
-
-    def __del__(self):
-        self.wait()
-
-
-class fo_add_thread(QtCore.QThread):
-    def __init__(self,  parent=None): 
-        QtCore.QThread.__init__(self, parent)
-    
-    def __del__(self):
-        self.wait()
-    
-    def run(self):
-        cok = webget()
-        cok.fo_add_item (self.cookie_value,  self.link, self.description, self.searchc)
-        print 12
