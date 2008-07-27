@@ -18,7 +18,7 @@ DEPEND="python? ( >=dev-python/PyQt4-4.4.2 )"
 
 RDEPEND="${DEPEND}"
 
-PATCHES="${FILESDIR}/pykde-9999-rem-soprano-akonadi.patch"
+#PATCHES="${FILESDIR}/pykde-9999-rem-soprano-akonadi.patch"
 
 src_compile() {
 #cmake -DENABLE_SMOKE=on -DENABLE_SMOKEKDE=off .
