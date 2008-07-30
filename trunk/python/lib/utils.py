@@ -52,3 +52,27 @@ def dw_wapage(wa_addr):
     handle.close()
     return thepage, tree
 
+def get_urls(data):
+    # Pattern for fully-qualified URLs:
+    url_pattern = re.compile('''["']http://[^+]*?['"]''')
+
+    # build list of all URLs found in standard input
+    #s = sys.stdin.read()
+    all = url_pattern.findall(data)
+
+    return all
+    # output all the URLs
+    #for i in all:
+    #        print i.strip('"').strip("'")
+
+def get_urls_meta(data):
+    # Pattern for fully-qualified URLs:
+    url_pattern = re.compile('''=http://[^+]*?[']''')
+
+    # build list of all URLs found in standard input
+    #s = sys.stdin.read()
+    all = url_pattern.findall(data)
+    
+    # output all the URLs
+    k = all[0].strip('=').strip("'")
+    return k
