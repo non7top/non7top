@@ -119,8 +119,8 @@ class webget:
         return content_type, body
 
     def get_content_type(self,filename):
-        #return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
-        return 'application/octet-stream'
+        return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
+        #return 'application/octet-stream'
 
     def upload_file(self, fname, fields=1):
         if fields == 1:
@@ -132,7 +132,7 @@ class webget:
     def uf_fields(self):
         fields=[]
         fields.append(('login',self.login))
-        fields.append(('sesion_id',self.user_sid))
+        fields.append(('sesion_id',str(self.user_sid)))
         fields.append(('hcategory', '1'))
         fields.append(('hissearch', '1'))
         fields.append(('hdescription', ''))
