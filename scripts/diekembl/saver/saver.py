@@ -67,15 +67,17 @@ class saver:
 				continue
 			self.kk=kk
 			#print etree.tostring(kk[0])
-			tr1=kk.xpath('td[2]/a')
-			category=int(tr1[0].get("href").lstrip('/?searchcategory='))
-			tr1=kk.xpath('td[3]/span[2]')
+                        try:
+                                tr1=kk.xpath('td[2]/a')
+                                category=int(tr1[0].get("href").lstrip('/?searchcategory='))
+                                tr1=kk.xpath('td[3]/span[2]')
+                        except:
+                                logging.critical ("Need to check XPath for category and link")
 			try:
 				description=tr1[0].text
 				if description.find('anime') != -1 or description.find('Anime') != -1 or description.find('non7top') != -1:
 					self.reason = "comment"
-                                        logging.debug ("File number is %s" % (k-2))
-					self.save_file()
+					self.save_file(k-2)
 					continue
 
 			except:
@@ -86,8 +88,7 @@ class saver:
 					
 					#unicode(kk.xpath('td[3]/font/i')[0].text.encode('latin1'), 'cp1251')
 					self.reason="category"
-                                        logging.debug ("File number is %s" % (k-2))
-					self.save_file()
+					self.save_file(k-2)
 		
 	def load_settings(self):
 		try:
@@ -99,10 +100,11 @@ class saver:
 		except IOError:
 		    logging.error ('No cat.txt file')
 	
-	def save_file(self):
-		tr1=self.kk.xpath('td[3]/div/div/a[2]')
+	def save_file(self, fnum):
+		tr1=self.kk.xpath('td[3]/div/div[1]/nobr/a')
+#				   td[3]/div/div/nobr/a[2]
 		try:
-		    link=tr1[0].get("href").encode('latin1')
+		    link=tr1[1].get("href").encode('latin1')
 		except IndexError:
 		    logging.info( "Found hidden file")
 		    return
@@ -110,7 +112,7 @@ class saver:
 		    logging.info( "some stupid crap with unicode")
 		    return
 		
-		logging.warning( 'Saving by %s %s' % ( self.reason,  link))
+		logging.warning( 'Saving file %s by %s %s' % (fnum,  self.reason,  link))
 		req = urllib2.Request(url=urllib.quote(link,'/:%'))
 		"""add headers. donno if it's requred"""
 		req.add_header("Cookie",self.cookie_value)
