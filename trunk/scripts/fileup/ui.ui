@@ -1,0 +1,637 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>748</width>
+    <height>741</height>
+   </rect>
+  </property>
+  <property name="acceptDrops" >
+   <bool>true</bool>
+  </property>
+  <property name="windowTitle" >
+   <string>Image Uploader</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="res.qrc" >
+    <normaloff>:/new/prefix1/img/icon.png</normaloff>:/new/prefix1/img/icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QVBoxLayout" >
+    <item>
+     <widget class="QTabWidget" name="tabWidget_2" >
+      <property name="minimumSize" >
+       <size>
+        <width>0</width>
+        <height>150</height>
+       </size>
+      </property>
+      <property name="tabShape" >
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex" >
+       <number>2</number>
+      </property>
+      <property name="elideMode" >
+       <enum>Qt::ElideNone</enum>
+      </property>
+      <widget class="QWidget" name="tabImages" >
+       <attribute name="title" >
+        <string>Images</string>
+       </attribute>
+       <layout class="QGridLayout" >
+        <item row="0" column="0" >
+         <widget class="QFrame" name="frame" >
+          <property name="frameShape" >
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow" >
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="QListWidget" name="imgList" >
+             <property name="iconSize" >
+              <size>
+               <width>150</width>
+               <height>150</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" >
+             <item>
+              <widget class="QPushButton" name="btnAdd" >
+               <property name="text" >
+                <string>Add</string>
+               </property>
+               <property name="icon" >
+                <iconset resource="res.qrc" >
+                 <normaloff>:/new/prefix1/img/add.png</normaloff>:/new/prefix1/img/add.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnAddFolder" >
+               <property name="text" >
+                <string>Add Folder</string>
+               </property>
+               <property name="icon" >
+                <iconset resource="res.qrc" >
+                 <normaloff>:/new/prefix1/img/add-folder.png</normaloff>:/new/prefix1/img/add-folder.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnRemove" >
+               <property name="text" >
+                <string>Remove</string>
+               </property>
+               <property name="icon" >
+                <iconset resource="res.qrc" >
+                 <normaloff>:/new/prefix1/img/delete.png</normaloff>:/new/prefix1/img/delete.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnDelete" >
+               <property name="text" >
+                <string>Delete Images</string>
+               </property>
+               <property name="icon" >
+                <iconset resource="res.qrc" >
+                 <normaloff>:/new/prefix1/img/trash.png</normaloff>:/new/prefix1/img/trash.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnCoverFlow" >
+               <property name="text" >
+                <string>CoverFlow</string>
+               </property>
+               <property name="icon" >
+                <iconset resource="res.qrc" >
+                 <normaloff>:/new/prefix1/img/coverflow.png</normaloff>:/new/prefix1/img/coverflow.png</iconset>
+               </property>
+               <property name="checkable" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer>
+               <property name="orientation" >
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0" >
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabWatermark" >
+       <attribute name="title" >
+        <string>Watermark</string>
+       </attribute>
+       <layout class="QHBoxLayout" >
+        <item>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QGroupBox" name="frame_5" >
+            <property name="title" >
+             <string>Position</string>
+            </property>
+            <property name="checkable" >
+             <bool>false</bool>
+            </property>
+            <layout class="QGridLayout" >
+             <item row="0" column="0" >
+              <widget class="QRadioButton" name="rbUpperLeft" >
+               <property name="text" >
+                <string>UpperLeft</string>
+               </property>
+               <property name="checked" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2" >
+              <widget class="QRadioButton" name="rbUpperRight" >
+               <property name="layoutDirection" >
+                <enum>Qt::RightToLeft</enum>
+               </property>
+               <property name="text" >
+                <string>UpperRight</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" >
+              <widget class="QRadioButton" name="rbBottomLeft" >
+               <property name="text" >
+                <string>BottomLeft</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2" >
+              <widget class="QRadioButton" name="rbBottomRight" >
+               <property name="layoutDirection" >
+                <enum>Qt::RightToLeft</enum>
+               </property>
+               <property name="text" >
+                <string>BottomRight</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0" >
+              <spacer>
+               <property name="orientation" >
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0" >
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="1" >
+              <spacer>
+               <property name="orientation" >
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0" >
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="4" column="0" >
+              <widget class="QRadioButton" name="rbScaled" >
+               <property name="text" >
+                <string>Scaled</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="2" >
+              <widget class="QRadioButton" name="rbTiled" >
+               <property name="layoutDirection" >
+                <enum>Qt::RightToLeft</enum>
+               </property>
+               <property name="text" >
+                <string>Tiled</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0" >
+              <spacer>
+               <property name="orientation" >
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0" >
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="6" column="0" >
+              <widget class="QRadioButton" name="rbCustom" >
+               <property name="text" >
+                <string>Custom</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1" colspan="2" >
+              <spacer>
+               <property name="orientation" >
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0" >
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="5" column="1" >
+              <spacer>
+               <property name="orientation" >
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0" >
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="7" column="0" colspan="3" >
+              <layout class="QHBoxLayout" >
+               <item>
+                <widget class="QLabel" name="labelX" >
+                 <property name="enabled" >
+                  <bool>false</bool>
+                 </property>
+                 <property name="text" >
+                  <string>X</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="watermarkX" >
+                 <property name="enabled" >
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="labelY" >
+                 <property name="enabled" >
+                  <bool>false</bool>
+                 </property>
+                 <property name="text" >
+                  <string>Y</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="watermarkY" >
+                 <property name="enabled" >
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" >
+            <item>
+             <widget class="QLabel" name="label" >
+              <property name="text" >
+               <string>Watermark opacity</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDoubleSpinBox" name="spinOpacity" >
+              <property name="buttonSymbols" >
+               <enum>QAbstractSpinBox::PlusMinus</enum>
+              </property>
+              <property name="maximum" >
+               <double>1.000000000000000</double>
+              </property>
+              <property name="singleStep" >
+               <double>0.100000000000000</double>
+              </property>
+              <property name="value" >
+               <double>1.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QPushButton" name="pbAddWatermark" >
+            <property name="text" >
+             <string>Add Watermark</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="res.qrc" >
+              <normaloff>:/new/prefix1/img/add.png</normaloff>:/new/prefix1/img/add.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbRemoveWatermark" >
+            <property name="text" >
+             <string>Remove Watermark</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="res.qrc" >
+              <normaloff>:/new/prefix1/img/delete.png</normaloff>:/new/prefix1/img/delete.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox" >
+            <property name="title" >
+             <string>Preview</string>
+            </property>
+            <layout class="QHBoxLayout" >
+             <item>
+              <widget class="QLabel" name="displayWatermark" >
+               <property name="sizePolicy" >
+                <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text" >
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2" >
+       <attribute name="title" >
+        <string>FileEx Settings</string>
+       </attribute>
+       <widget class="QWidget" name="gridLayoutWidget" >
+        <property name="geometry" >
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>391</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout" >
+         <item row="1" column="1" >
+          <widget class="QLabel" name="label_5" >
+           <property name="text" >
+            <string>FileEx password</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" >
+          <widget class="QLabel" name="label_6" >
+           <property name="text" >
+            <string>FileEx username</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2" >
+          <widget class="QLineEdit" name="le_p" >
+           <property name="frame" >
+            <bool>true</bool>
+           </property>
+           <property name="echoMode" >
+            <enum>QLineEdit::Password</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2" >
+          <widget class="QLineEdit" name="le_u" />
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="pb_saveset" >
+        <property name="geometry" >
+         <rect>
+          <x>240</x>
+          <y>100</y>
+          <width>75</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text" >
+         <string>Save settings</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget" >
+      <property name="currentIndex" >
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab" >
+       <attribute name="title" >
+        <string>BBCode</string>
+       </attribute>
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QTextEdit" name="textBBCode" />
+        </item>
+       </layout>
+       <zorder>textBBCode</zorder>
+       <zorder>tabWidget_2</zorder>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" >
+      <item>
+       <widget class="QLabel" name="label_2" >
+        <property name="text" >
+         <string>Images per line</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spinImg" >
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+        <property name="value" >
+         <number>4</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3" >
+        <property name="text" >
+         <string>Image format</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboFormat" >
+        <item>
+         <property name="text" >
+          <string>Default</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>PNG</string>
+         </property>
+        </item>
+        <item>
+         <property name="text" >
+          <string>JPEG</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4" >
+        <property name="text" >
+         <string>Quality</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spinQuality" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <property name="maximum" >
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" >
+      <item>
+       <widget class="QComboBox" name="comboSite" />
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnUpload" >
+        <property name="text" >
+         <string>Upload</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="res.qrc" >
+          <normaloff>:/new/prefix1/img/upload.png</normaloff>:/new/prefix1/img/upload.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnCancel" >
+        <property name="text" >
+         <string>Cancel</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="res.qrc" >
+          <normaloff>:/new/prefix1/img/cancel.png</normaloff>:/new/prefix1/img/cancel.png</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="lblTotal" >
+      <property name="text" >
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="pbTotal" >
+      <property name="value" >
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="lblPartial" >
+      <property name="text" >
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="pbPartial" >
+      <property name="value" >
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>748</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+ </widget>
+ <resources>
+  <include location="res.qrc" />
+ </resources>
+ <connections/>
+</ui>
