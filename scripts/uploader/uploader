@@ -11,37 +11,43 @@ from optparse import OptionParser
 cfg_file = datadir.user_data_dir("necroposter/uploader.cfg")
 config = ConfigObj(cfg_file)
 
-def check_config():
-        try:
-            u = config['fo_user']
-            p = config['fo_pass']
-            if u == '' or p == '':
-                print "empty cfg"
-                u, p = setup_cfg()
-        except KeyError:
-            u, p = setup_cfg()
-        return u, p
+class uploader():
+	def __init__(self):
+		self.check_config()
 
-def setup_cfg():
-        print "Starting configuration"
-        u = raw_input('Please enter FilEx username-> ')
-        p = raw_input('Please enter FilEx password-> ')
-        config['fo_user'] = u
-        config['fo_pass'] = p
-        config.write()
-        return u, p
+	def check_config(self):
+		try:
+		    u = config['fo_user']
+		    p = config['fo_pass']
+		    if u == '' or p == '':
+			print "empty cfg"
+			u, p = setup_cfg()
+		except KeyError:
+		    u, p = setup_cfg()
+		self.u = u
+		self.p = p
+		return u, p
 
-def upl_file(n, u, p):
-        wg = webget()
-        wg.init_cookie(u, p)
-        print n[0]
-        k = wg.upload_file(n[0])
-        #print utils.getnum(utils.get_urls_meta(k[2]))
-        print k
+	def setup_cfg(self):
+		print "Starting configuration"
+		u = raw_input('Please enter FilEx username-> ')
+		p = raw_input('Please enter FilEx password-> ')
+		config['fo_user'] = u
+		config['fo_pass'] = p
+		config.write()
+		return u, p
+
+	def upl_file(self, n):
+		wg = webget()
+		wg.init_cookie(self.u, self.p)
+		print n[0]
+		k = wg.upload_file(n[0])
+		#print utils.getnum(utils.get_urls_meta(k[2]))
+		print k
 
 
 def opts():
-    	usage = "usage: %prog [options] file1 file2 file3"
+	usage = "usage: %prog [options] file1 file2 file3"
 	parser = OptionParser(usage=usage)
 	parser.add_option("-c", "--category", dest="category", default=1,type="int",
 				help="Category of uploaded file", metavar="CATEGORY")
@@ -49,17 +55,16 @@ def opts():
 				help="Description of uploaded file", metavar="DESCRIPTION")
 
 	(options, args) = parser.parse_args()
+	if not args:
+			parser.error( "no files specified")
+	return options, args
 
-def main(n):
-    	opts()
-        if len(n) == 0:
-                print "Pass filename as argument"
-                sys.exit(1)
-        else:
-                u, p = check_config()
-                upl_file(n, u, p)
+def main():
+	options, args = opts()
+	upl=uploader()
+	upl.upl_file(args)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()
 
