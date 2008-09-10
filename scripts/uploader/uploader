@@ -6,6 +6,7 @@ from necrolib import utils
 import sys
 from necrolib import ConfigObj
 from necrolib import datadir
+from optparse import OptionParser
 
 cfg_file = datadir.user_data_dir("necroposter/uploader.cfg")
 config = ConfigObj(cfg_file)
@@ -39,8 +40,18 @@ def upl_file(n, u, p):
         print k
 
 
+def opts():
+    	usage = "usage: %prog [options] file1 file2 file3"
+	parser = OptionParser(usage=usage)
+	parser.add_option("-c", "--category", dest="category", default=1,type="int",
+				help="Category of uploaded file", metavar="CATEGORY")
+	parser.add_option("-d", "--description", dest="description", default="Automatic upload",
+				help="Description of uploaded file", metavar="DESCRIPTION")
+
+	(options, args) = parser.parse_args()
 
 def main(n):
+    	opts()
         if len(n) == 0:
                 print "Pass filename as argument"
                 sys.exit(1)
