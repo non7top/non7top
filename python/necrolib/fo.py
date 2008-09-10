@@ -137,9 +137,15 @@ class webget:
         fields.append(('hissearch', '1'))
         fields.append(('hdescription', ''))
         fields.append(('htags2add', ''))
-        fields.append(('searchc', '0'))
+        try:
+                fields.append(('searchc',self.c))
+        except:
+                fields.append(('searchc', '0'))
         fields.append(('srch', '1'))
         fields.append(('tags2add', ''))
-        fields.append(('description', 'Test of automatic upload of files'))
+        try:
+                fields.append(('description', self.d)
+        except:
+                fields.append(('description', 'Test of automatic upload of files'))
         return fields
 
