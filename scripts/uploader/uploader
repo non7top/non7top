@@ -48,7 +48,7 @@ class uploader():
 
 def opts():
 	usage = "usage: %prog [options] file1 file2 file3"
-	parser = OptionParser(usage=usage)
+	parser = OptionParser(usage=usage, description="Upload files to FileEx easily", version="0.2")
 	parser.add_option("-c", "--category", dest="category", default=1,type="int",
 				help="Category of uploaded file", metavar="CATEGORY")
 	parser.add_option("-d", "--description", dest="description", default="Automatic upload",
