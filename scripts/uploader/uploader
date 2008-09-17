@@ -7,9 +7,11 @@ import sys
 from necrolib import ConfigObj
 from necrolib import datadir
 from optparse import OptionParser
+import logging
 
 cfg_file = datadir.user_data_dir("necroposter/uploader.cfg")
 config = ConfigObj(cfg_file)
+logging.basicConfig(level=logging.DEBUG)
 
 class uploader():
 	def __init__(self):
@@ -20,7 +22,7 @@ class uploader():
 		    u = config['fo_user']
 		    p = config['fo_pass']
 		    if u == '' or p == '':
-			print "empty cfg"
+			logging.info ( "empty cfg")
 			u, p = setup_cfg()
 		except KeyError:
 		    u, p = setup_cfg()
@@ -29,7 +31,7 @@ class uploader():
 		return u, p
 
 	def setup_cfg(self):
-		print "Starting configuration"
+		logging.debug( "Starting configuration")
 		u = raw_input('Please enter FilEx username-> ')
 		p = raw_input('Please enter FilEx password-> ')
 		config['fo_user'] = u
@@ -37,14 +39,15 @@ class uploader():
 		config.write()
 		return u, p
 
-	def upl_file(self, n):
+	def upl_file(self, n, c, d):
+		print n
 		wg = webget()
+		wg.c=c
+		wg.d=d
 		wg.init_cookie(self.u, self.p)
-		print n[0]
-		k = wg.upload_file(n[0])
-		#print utils.getnum(utils.get_urls_meta(k[2]))
-		print k
-
+		k = wg.upload_file(n)
+		filenum=utils.getnum(utils.get_urls_meta(k[2]))
+		print filenum
 
 def opts():
 	usage = "usage: %prog [options] file1 file2 file3"
@@ -62,7 +65,8 @@ def opts():
 def main():
 	options, args = opts()
 	upl=uploader()
-	upl.upl_file(args)
+	for a in args:
+		upl.upl_file(a, c=options.category, d=options.description)
 
 
 if __name__ == "__main__":
