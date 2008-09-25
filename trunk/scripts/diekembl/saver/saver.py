@@ -52,6 +52,7 @@ class saver:
 		
 		try:
 			r = tree.xpath('/html/body/table/tr[3]/td/span/center/table/tr')
+                        r = tree.xpath('/html/body/div[5]/div[3]/div/div[3]/center/table/tr')
 #			                /html/body/table/tr[3]/td/center[3]/span/table/dy/tr[3]
 #			                /html/body/table/tr[3]/td/span/center/table/tr
 		except:
@@ -69,7 +70,7 @@ class saver:
 			#print etree.tostring(kk[0])
                         try:
                                 tr1=kk.xpath('td[2]/a')
-                                category=int(tr1[0].get("href").lstrip('/?searchcategory='))
+                                category=int(tr1[0].get("href").lstrip('/?category='))
                                 tr1=kk.xpath('td[3]/span[2]')
                         except:
                                 logging.critical ("Need to check XPath for category and link")
