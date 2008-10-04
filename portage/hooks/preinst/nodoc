@@ -1,0 +1,8 @@
+
+if isfeature nodoc; then
+	ebegin Performing additional cleanup of doc files
+	einfo " Cleaning ${D}/usr/share/gtk-doc/"
+	rm ${D}/usr/share/gtk-doc/ -r 2> /dev/null
+	einfo " Cleaning ${D}/usr/kde/*/share/doc/HTML"
+	rm ${D}/usr/kde/*/share/doc/HTML -r 2> /dev/null
+fi

@@ -1,0 +1,3 @@
+ebegin "Sync disk cache"
+sync
+eend $?
