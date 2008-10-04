@@ -1,0 +1,22 @@
+function isfeature () {
+        # return 0 if a feature is enabled, 1 otherwise
+        local retval=1
+        for a in ${FEATURES}; do
+                if [[ "$a" == "$1" ]]; then
+                        retval=0
+                elif [[ "$a" == "-${1}" ]]; then
+                        retval=1
+        fi
+        done
+        return ${retval}
+}
+
+#source /usr/lib/portage/hooks/$EBUILD_PHASE/*
+for h in $(ls /usr/lib/portage/hooks/$EBUILD_PHASE/ -1)
+do
+        if [ -x /usr/lib/portage/hooks/$EBUILD_PHASE/${h} ]
+                then
+                        source /usr/lib/portage/hooks/$EBUILD_PHASE/${h}
+        fi
+done
+
