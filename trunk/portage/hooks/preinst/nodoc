@@ -5,4 +5,6 @@ if isfeature nodoc; then
 	rm ${D}/usr/share/gtk-doc/ -r 2> /dev/null
 	einfo " Cleaning ${D}/usr/kde/*/share/doc/HTML"
 	rm ${D}/usr/kde/*/share/doc/HTML -r 2> /dev/null
+	einfo " Cleaning ${D}/usr/share/xfce4/doc/"
+	${D}/usr/share/xfce4/doc/
 fi
