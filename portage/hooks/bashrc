@@ -1,3 +1,5 @@
+HOOKDIR="/usr/lib/portage/hooks/"
+
 function isfeature () {
         # return 0 if a feature is enabled, 1 otherwise
         local retval=1
@@ -11,12 +13,17 @@ function isfeature () {
         return ${retval}
 }
 
-#source /usr/lib/portage/hooks/$EBUILD_PHASE/*
-for h in $(ls /usr/lib/portage/hooks/$EBUILD_PHASE/ -1)
-do
-        if [ -x /usr/lib/portage/hooks/$EBUILD_PHASE/${h} ]
-                then
-                        source /usr/lib/portage/hooks/$EBUILD_PHASE/${h}
-        fi
-done
+if [ ! -z ${EBUILD_PHASE} ]
+then
+        hooks=$(ls "${HOOKDIR}/${EBUILD_PHASE}/" -1)
+        for h in ${hooks}
+        do
+                hook="${HOOKDIR}/${EBUILD_PHASE}/${h}"
+                #einfo "Executing hook:" ${hook}
+                if [ -x ${hook} ]
+                        then
+                                source ${hook}
+                fi
+        done
+fi
 
