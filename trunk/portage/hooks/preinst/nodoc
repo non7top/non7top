@@ -6,5 +6,5 @@ if isfeature nodoc; then
 	einfo " Cleaning ${D}/usr/kde/*/share/doc/HTML"
 	rm ${D}/usr/kde/*/share/doc/HTML -r 2> /dev/null
 	einfo " Cleaning ${D}/usr/share/xfce4/doc/"
-	${D}/usr/share/xfce4/doc/
+	rm ${D}/usr/share/xfce4/doc/ -r 2> /dev/null
 fi
