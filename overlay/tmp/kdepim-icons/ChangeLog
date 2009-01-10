@@ -1,0 +1,19 @@
+# ChangeLog for kde-base/kdepim-icons
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/kde-base/kdepim-icons/ChangeLog,v 1.3 2008/11/16 05:08:34 vapier Exp $
+
+  15 Nov 2008; Mike Frysinger <vapier@gentoo.org> kdepim-icons-4.1.3.ebuild:
+  Add ppc/ppc64 love #244306.
+
+*kdepim-icons-4.1.3 (09 Nov 2008)
+
+  09 Nov 2008; Tomas Chvatal <scarabeus@gentoo.org>
+  +kdepim-icons-4.1.3.ebuild:
+  Version bump.
+
+*kdepim-icons-4.1.2 (02 Oct 2008)
+
+  02 Oct 2008; Jorge Manuel B. S. Vicetto <jmbsvicetto@gentoo.org>
+  +metadata.xml, +kdepim-icons-4.1.2.ebuild:
+  Add kde-4.1.2 into the tree from the kde-testing overlay.
+
