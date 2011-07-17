@@ -1,0 +1,40 @@
+#!/bin/bash
+
+
+intervals=`cat ~/rsnapshot.conf|awk '/^interval/{printf("%s:%s\n", $2, $3)}'`
+r=`cat ~/rsnapshot.conf | awk '/^snapshot_root/{print $2}'`
+
+read_settings() {
+if [ -f "$1" ];then
+  COUNT=`cat $1|awk '{print $1}'`
+fi
+}
+
+save_settings() {
+	echo $COUNT > $1
+}
+
+# Indicates if first interval has been run or not
+
+rsnapshot -c /home/non7top/rsnapshot.conf sync || exit $?
+for i in $intervals
+do
+	COUNT=0
+	iname=${i%%:*}
+	imax=${i##*:}
+	f=${r}/${iname}.count
+	read_settings $f
+	if [ $COUNT -le $imax ]; then
+		rsnapshot -c /home/non7top/rsnapshot.conf $iname
+		let 'COUNT++'
+		save_settings $f
+		break
+	else
+		COUNT=0
+		save_settings $f
+		echo skip to next level
+		continue
+	fi
+done
+
+exit 0
