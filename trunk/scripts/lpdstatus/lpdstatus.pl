@@ -12,21 +12,20 @@ my $sock = new IO::Socket::INET (
 	PeerAddr => $server,
 	PeerPort => '515',
 	Proto => 'tcp',
+	Timeout => 15,
 ); 
-die "Error: Could not create socket: $!\n" unless $sock; 
+die "lpdstatus> Error: Could not create socket: $!\n" unless $sock; 
 
 sub print_answer
 {
-    use bytes;
-    printf("Recieved answer: %s bytes. \n%s\n", length(join("",@_)));
-    print("================\n");
-    printf("%s\n", join("",@_));
+    printf("lpdstatus> Recieved answer: %s bytes.", length(join("",@_)));
+    print("================");
+    printf("%s", join("",@_));
     print("================\n");
 }
 
 
 $command = sprintf ("%c%s\n", 4, $queue);
-#printf $command;
 printf $sock $command; 
         # Read response from server and format
         eval {
@@ -44,12 +43,12 @@ printf $sock $command;
     {
 
 	print_answer @qstatus;
-	printf("Error: timed out reading from %s\n", $server)
+	printf("lpdstatus> Error: timed out reading from %s\n", $server)
             if( $@ =~ /timeout/ );
 
     }else{
 	print_answer @qstatus;
-	printf("Exiting sucessfully.\n");
+	printf("lpdstatus> Exiting sucessfully.\n");
     }
 
 
