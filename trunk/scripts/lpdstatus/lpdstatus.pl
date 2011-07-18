@@ -10,7 +10,7 @@ $server = $ARGV[0];
 $queue = $ARGV[1];
 my $sock = new IO::Socket::INET ( 
 	PeerAddr => $server,
-	PeerPort => '1234',
+	PeerPort => '515',
 	Proto => 'tcp',
 ); 
 die "Error: Could not create socket: $!\n" unless $sock; 
@@ -19,11 +19,13 @@ sub print_answer
 {
     use bytes;
     printf("Recieved answer: %s bytes. \n%s\n", length(join("",@_)));
+    print("================\n");
     printf("%s\n", join("",@_));
+    print("================\n");
 }
 
 
-$command = sprintf ("%c%s", 4, $queue);
+$command = sprintf ("%c%s\n", 4, $queue);
 #printf $command;
 printf $sock $command; 
         # Read response from server and format
