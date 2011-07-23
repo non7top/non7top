@@ -1,0 +1,40 @@
+#!/bin/bash
+
+dummy_s=
+mail_list="non7top@gmail.com"
+
+a=$@
+
+#Get interval
+int=`echo $a | awk '{ print $NF }'`
+
+#Remove interval from arguments
+aa=`echo $a | sed '$s/ *\([^ ]* *\)$//'`
+#Get config name with fake interval
+config=`rsnapshot  -v $aa kjszdghm34w 2>&1 | awk '/ERROR/ {print $6}'`
+
+#Get snapshot root
+sroot=`cat $config | awk '$1 ~ /snapshot_root/ {print $2}'`
+co=$sroot/control
+#touch "$co"
+
+cleanup_old() {
+	$dummy_s mv "$sroot"/"$int".0 "$sroot"/"$int".0.failed
+	$dummy_s rm "$co"
+}
+
+send_notification() {
+(echo ERROR: Control file exists. Previous backup has not completed; \
+ls -l $co) \
+| mailx -s "Rsnapshot has failed on `hostname`" $mail_list
+}
+
+if [ -f "$co" ]; then
+echo ERROR: Control file exists. Previous backup has not completed
+send_notification
+cleanup_old
+fi
+
+$dummy_s touch "$co"
+$dummy_s rsnapshot  $@
+$dummy_s rm "$co"; logger backup completed $config
