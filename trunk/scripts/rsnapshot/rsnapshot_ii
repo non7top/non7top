@@ -1,39 +1,61 @@
 #!/bin/bash
+# Copyright 2011 Vladimir Berezhnoy <non7top@gmail.com>
+# Distributed under the terms of the GNU General Public License v3
+# 
+# rsnapshot_ii - rsnapshot wrapper for irregular intervals
+# script accepts one argument - full path to a rsnapshot.conf file
+# The script will automagically run next level of intervals once
+# current level has been run for a number of times specified in 
+# rsnapshot config
 
+RSTC=$1
 
-intervals=`cat ~/rsnapshot.conf|awk '/^interval/{printf("%s:%s\n", $2, $3)}'`
-r=`cat ~/rsnapshot.conf | awk '/^snapshot_root/{print $2}'`
+if [ $# -eq 0 ]; then
+    echo "Usage: `basename $0` rsnapshot.conf"
+    exit 2
+fi
+
+if [ ! -s "${RSTC}" ];then
+    echo "Error: file ${RSTC} is invalid or does not exist"
+    exit 2
+fi 
+
+intervals=`cat "${RSTC}" | awk '/^interval|^retain/{printf("%s:%s\n", $2, $3)}'`
+r=`cat "${RSTC}" | awk '/^snapshot_root/{print $2}'`
+
 
 read_settings() {
-if [ -f "$1" ];then
-  COUNT=`cat $1|awk '{print $1}'`
+if [ -f "${1}" ];then
+  COUNT=`cat "${1}"|awk '{print $1}'`
 fi
 }
 
 save_settings() {
-	echo $COUNT > $1
+	echo $COUNT > $1 || exit $?
 }
 
-# Indicates if first interval has been run or not
 
-rsnapshot -c /home/non7top/rsnapshot.conf sync || exit $?
-for i in $intervals
+rsnapshot -c "${RSTC}" sync || exit $?
+
+for i in ${intervals}
 do
 	COUNT=0
 	iname=${i%%:*}
 	imax=${i##*:}
 	f=${r}/${iname}.count
-	read_settings $f
-	if [ $COUNT -le $imax ]; then
-		rsnapshot -c /home/non7top/rsnapshot.conf $iname
-		let 'COUNT++'
-		save_settings $f
-		break
-	else
+	read_settings "${f}"
+	rsnapshot -c "${RSTC}" ${iname}
+	#echo Doing ${iname} ${COUNT}
+	let 'COUNT++'
+	save_settings "${f}"
+	if [ ${COUNT} -eq ${imax} ]; then
 		COUNT=0
-		save_settings $f
-		echo skip to next level
+		save_settings "${f}"
+		#echo Moving to next level
 		continue
+	else
+	    	break
+	
 	fi
 done
 
