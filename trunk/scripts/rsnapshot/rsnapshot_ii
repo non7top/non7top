@@ -17,15 +17,22 @@ fi
 
 if [ ! -s "${RSTC}" ]; then
     echo "Error: file ${RSTC} is invalid or does not exist"
-    exit 2
+    exit 1
 fi 
 
 intervals=`cat "${RSTC}" | awk '/^interval|^retain/{printf("%s:%s\n", $2, $3)}'`
-r=`cat "${RSTC}" | awk '/^snapshot_root/{print $2}'`
+snapshot_root=`cat "${RSTC}" | awk '/^snapshot_root/{print $2}'`
 
+if [ -z "$intervals" ]; then
+    echo "No interval specified in config file"
+    exit 3
+elif [ -z "$snapshot_root" ]; then
+    echo "No snapshot_root specified in config file"
+    exit 3
+fi
 
 read_settings() {
-if [ -f "${1}" ];then
+if [ -f "${1}" ]; then
     COUNT=`cat "${1}"|awk '{print $1}'`
 fi
 }
@@ -40,22 +47,24 @@ rsnapshot -c "${RSTC}" sync || exit $?
 for i in ${intervals}
 do
     COUNT=0
-    iname=${i%%:*}
-    imax=${i##*:}
-    f=${r}/.${iname}.count
-    read_settings "${f}"
-    rsnapshot -c "${RSTC}" ${iname}
+    iname=${i%%:*} # Interval name
+    imax=${i##*:}  # Interval max runs
+    f=${snapshot_root}/${iname}.count
+    read_settings "${f}" # Read settings from file if it is present
+    rsnapshot -c "${RSTC}" ${iname} # FIXME: check rsnapshot exit code
     #echo Doing ${iname} ${COUNT}
     let 'COUNT++'
     save_settings "${f}"
+    # If last iteration is reached, continue to next interval
+    # Else end script
     if [ ${COUNT} -eq ${imax} ]; then
+        # Reset current run count and switch to next level
         COUNT=0
         save_settings "${f}"
-        #echo Moving to next level
+        echo "Moving to next level"
         continue
     else
         break
-        
     fi
 done
 
