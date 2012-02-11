@@ -49,7 +49,7 @@ do
     COUNT=0
     iname=${i%%:*} # Interval name
     imax=${i##*:}  # Interval max runs
-    f=${snapshot_root}/${iname}.count
+    f=${snapshot_root}/.${iname}.count
     read_settings "${f}" # Read settings from file if it is present
     rsnapshot -c "${RSTC}" ${iname} # FIXME: check rsnapshot exit code
     #echo Doing ${iname} ${COUNT}
