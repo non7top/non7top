@@ -1,0 +1,22 @@
+diff --git a/ipkg-ar71xx/luci-proto-core/usr/lib/lua/luci/model/cbi/admin_network/proto_dhcp.lua b/ipkg-ar71xx/luci-proto-core/usr/lib/lua/luci/model/cbi/admin_network/proto_dhcp.lua
+index aaac14e..bee398d 100644
+--- a/ipkg-ar71xx/luci-proto-core/usr/lib/lua/luci/model/cbi/admin_network/proto_dhcp.lua
++++ b/ipkg-ar71xx/luci-proto-core/usr/lib/lua/luci/model/cbi/admin_network/proto_dhcp.lua
+@@ -14,7 +14,7 @@ local map, section, net = ...
+ local ifc = net:get_interface()
+ 
+ local hostname, accept_ra, send_rs
+-local bcast, no_gw, no_dns, dns, metric, clientid, vendorclass
++local bcast, no_gw, no_dns, dns, metric, clientid, vendorclass, syslog
+ 
+ 
+ hostname = section:taboption("general", Value, "hostname",
+@@ -106,6 +106,8 @@ clientid = section:taboption("advanced", Value, "clientid",
+ vendorclass = section:taboption("advanced", Value, "vendorid",
+ 	translate("Vendor Class to send when requesting DHCP"))
+ 
++syslog = section:taboption("advanced", Flag, "syslog",
++	translate("Log to syslog too"))
+ 
+ macaddr = section:taboption("advanced", Value, "macaddr", translate("Override MAC address"))
+ macaddr.placeholder = ifc and ifc:mac() or "00:00:00:00:00:00"
