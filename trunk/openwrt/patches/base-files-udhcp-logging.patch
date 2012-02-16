@@ -1,0 +1,20 @@
+diff --git a/lib/network/config.sh b/lib/network/config.sh
+index b73c92e..8f0761f 100755
+--- a/lib/network/config.sh
++++ b/lib/network/config.sh
+@@ -377,6 +377,7 @@ setup_interface() {
+ 			config_get clientid "$config" clientid
+ 			config_get vendorid "$config" vendorid
+ 			config_get_bool broadcast "$config" broadcast 0
++			config_get_bool syslog "$config" syslog
+ 
+ 			[ -z "$ipaddr" ] || \
+ 				$DEBUG ifconfig "$iface" "$ipaddr" ${netmask:+netmask "$netmask"}
+@@ -391,6 +392,7 @@ setup_interface() {
+ 				${hostname:+-H $hostname} \
+ 				${clientid:+-c $clientid} \
+ 				${vendorid:+-V $vendorid} \
++				${syslog:+-S} \
+ 				-b -p "$pidfile" $broadcast \
+ 				${dhcpopts:- -O rootpath -R &}
+ 		;;
