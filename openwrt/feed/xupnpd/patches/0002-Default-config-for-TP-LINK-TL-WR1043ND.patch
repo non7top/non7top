@@ -1,0 +1,34 @@
+From 9eb1396f6b3cfd372f623ec7713b6984266ee2c2 Mon Sep 17 00:00:00 2001
+From: Vladimir Berezhnoy <non7top@gmail.com>
+Date: Mon, 27 Feb 2012 23:54:23 +0400
+Subject: [PATCH 2/2] Default config for TP-LINK TL-WR1043ND
+
+---
+ xupnpd.lua |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/xupnpd.lua b/xupnpd.lua
+index ce40e42..ffca170 100644
+--- a/xupnpd.lua
++++ b/xupnpd.lua
+@@ -13,7 +13,7 @@ cfg.http_port=4044
+ cfg.log_facility='local0'
+ 
+ -- 'cfg.daemon' detach server from terminal
+-cfg.daemon=false
++cfg.daemon=true
+ 
+ -- silent mode - no logs, no pid file
+ cfg.embedded=false
+@@ -26,7 +26,7 @@ cfg.debug=1
+ --cfg.udpxy_url='http://192.168.1.1:4022'
+ 
+ -- downstream interface for builtin multicast proxy (comment 'cfg.udpxy_url' for processing 'udp://@...' playlists)
+-cfg.mcast_interface='eth1'
++cfg.mcast_interface='eth0.2'
+ 
+ -- 'cfg.proxy' enables proxy for injection DLNA headers to stream
+ -- 0-off, 1-radio, 2-radio/TV
+-- 
+1.7.3.4
+

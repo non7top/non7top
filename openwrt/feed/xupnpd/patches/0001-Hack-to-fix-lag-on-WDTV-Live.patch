@@ -1,0 +1,43 @@
+From 1c2da2b6ca9650ff47153b21c7bc6ef5fbcc9397 Mon Sep 17 00:00:00 2001
+From: Vladimir Berezhnoy <non7top@gmail.com>
+Date: Mon, 27 Feb 2012 23:46:22 +0400
+Subject: [PATCH 1/2] Hack to fix lag on WDTV Live
+
+---
+ xupnpd.lua      |    3 +++
+ xupnpd_http.lua |    4 ++++
+ 2 files changed, 7 insertions(+), 0 deletions(-)
+
+diff --git a/xupnpd.lua b/xupnpd.lua
+index 8363828..ce40e42 100644
+--- a/xupnpd.lua
++++ b/xupnpd.lua
+@@ -44,6 +44,9 @@ cfg.dlna_extras=true
+ -- XBox360 compatible mode
+ cfg.xbox360=false
+ 
++-- WDTV Live compatible mode
++cfg.wdtv=false
++
+ -- enables UPnP/DLNA notify when reload playlist
+ cfg.dlna_notify=true
+ 
+diff --git a/xupnpd_http.lua b/xupnpd_http.lua
+index 5bcac4d..af11628 100644
+--- a/xupnpd_http.lua
++++ b/xupnpd_http.lua
+@@ -316,6 +316,11 @@ function http_handler(what,from,port,msg)
+ 
+             http.send('ContentFeatures.DLNA.ORG: '..pls.dlna_extras..'\r\n')
+ 
++            if cfg.wdtv==true then
++                http.send('Content-Size: 65535\r\n')
++                http.send('Content-Length: 65535\r\n')
++            end
++
+             if head==true then
+                 http.send('\r\n')
+                 http.flush()
+-- 
+1.7.3.4
+
