@@ -11,7 +11,7 @@
 RSTC=$1
 
 if [ $# -eq 0 ]; then
-    echo "Usage: `basename $0` rsnapshot.conf"
+    echo "Usage: $( basename $0 ) /etc/rsnapshot.conf"
     exit 2
 fi
 
@@ -20,8 +20,8 @@ if [ ! -s "${RSTC}" ]; then
     exit 1
 fi 
 
-intervals=`cat "${RSTC}" | awk '/^interval|^retain/{printf("%s:%s\n", $2, $3)}'`
-snapshot_root=`cat "${RSTC}" | awk '/^snapshot_root/{print $2}'`
+intervals=$( cat "${RSTC}" | awk '/^interval|^retain/{printf("%s:%s\n", $2, $3)}' )
+snapshot_root=$( cat "${RSTC}" | awk '/^snapshot_root/{print $2}' )
 
 if [ -z "$intervals" ]; then
     echo "No interval specified in config file"
@@ -33,7 +33,7 @@ fi
 
 read_settings() {
 if [ -f "${1}" ]; then
-    COUNT=`cat "${1}"|awk '{print $1}'`
+    COUNT=$( cat "${1}" | awk '{print $1}' )
 fi
 }
 
